@@ -2,6 +2,8 @@ import { useState } from "react"
 
 function IndexPopup() {
   const [data, setData] = useState("")
+  // get extension id
+  const extensionId = chrome.runtime.getURL("").split("/")[2]
 
   return (
     <div
@@ -20,6 +22,11 @@ function IndexPopup() {
       <input onChange={(e) => setData(e.target.value)} value={data} />
       <a href="https://docs.plasmo.com" target="_blank">
         View Docs
+      </a>
+      <a
+        href={"chrome-extension://" + extensionId + "/tabs/alist.html"}
+        target="_blank">
+        {extensionId}
       </a>
     </div>
   )
