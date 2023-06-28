@@ -1,13 +1,36 @@
 {
-  "extends": "plasmo/templates/tsconfig.base",
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "display": "Plasmo Extension",
   "exclude": ["node_modules"],
   "include": [
     ".plasmo/index.d.ts",
     "./**/*.ts",
     "./**/*.tsx",
-    "tailwind.config.js"
-, "postcss.config.js"  ],
+    "tailwind.config.js",
+    "postcss.config.js"
+  ],
   "compilerOptions": {
+    "strict": false,
+    "skipLibCheck": true,
+
+    "target": "esnext",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
+    "incremental": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "declaration": false,
+    "declarationMap": false,
+    "inlineSources": false,
+    "moduleResolution": "node",
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "preserveWatchOutput": true,
+    "jsx": "preserve",
     "paths": {
       "~*": ["./*"]
     },
