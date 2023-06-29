@@ -70,7 +70,7 @@ model Lot {
     name         String
     description  String?
     image        String?
-    hammer       Int
+    hammer       Int?
     status       String
     lowEstimate  Int
     highEstimate Int
