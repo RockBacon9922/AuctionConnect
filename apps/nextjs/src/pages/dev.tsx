@@ -111,6 +111,7 @@ const LotTable = () => {
           <th>image</th>
           <th>lowEstimate</th>
           <th>highEstimate</th>
+          <th>increment</th>
           <th>status</th>
           <th>delete</th>
         </tr>
@@ -123,6 +124,7 @@ const LotTable = () => {
             <td>{lot.image}</td>
             <td>{lot.lowEstimate}</td>
             <td>{lot.highEstimate}</td>
+            <td>{lot.increment}</td>
             <td>{lot.status}</td>
             <td>
               <button

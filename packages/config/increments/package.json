@@ -1,7 +1,7 @@
 {
-  "name": "@acme/interval",
+  "name": "@acme/increments",
   "version": "0.1.0",
-  "main": "index.ts",
+  "main": "src/index.ts",
   "license": "MIT",
   "dependencies": {},
   "devDependencies": {}

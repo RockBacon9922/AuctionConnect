@@ -70,10 +70,10 @@ model Lot {
     name         String
     description  String?
     image        String?
-    hammer       Int?
     status       String
     lowEstimate  Int
     highEstimate Int
+    increment    Int     @default(5)
     Bid          Bid[]
 }
 

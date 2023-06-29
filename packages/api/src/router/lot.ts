@@ -1,5 +1,7 @@
 import { z } from "zod";
 
+import { getIncrementForPrice } from "@acme/increments";
+
 import { createTRPCRouter, publicProcedure } from "../trpc";
 
 export const lotRouter = createTRPCRouter({
@@ -41,6 +43,7 @@ export const lotRouter = createTRPCRouter({
           image: input.image,
           lowEstimate: input.lowEstimate,
           highEstimate: input.highEstimate,
+          increment: getIncrementForPrice(input.lowEstimate),
           status: "upcoming",
         },
       });
@@ -50,4 +53,10 @@ export const lotRouter = createTRPCRouter({
     .mutation(({ ctx, input }) => {
       return ctx.prisma.lot.delete({ where: { id: input.id } });
     }),
+  current: publicProcedure.query(({ ctx }) => {
+    return ctx.prisma.lot.findFirst({
+      where: { status: "live" },
+      include: { Bid: true },
+    });
+  }),
 });
