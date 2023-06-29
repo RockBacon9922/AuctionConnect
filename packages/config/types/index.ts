@@ -3,7 +3,6 @@ type Lot = {
   name: string;
   description: string;
   image: string;
-  hammer: number;
   status: "upcoming" | "live" | "sold" | "unsold";
   lowEstimate: number;
   highEstimate: number;
