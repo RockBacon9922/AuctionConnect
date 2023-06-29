@@ -73,7 +73,7 @@ model Lot {
     status       String
     lowEstimate  Int
     highEstimate Int
-    increment    Int     @default(5)
+    asking       Int     @default(5)
     Bid          Bid[]
 }
 

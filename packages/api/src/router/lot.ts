@@ -1,7 +1,5 @@
 import { z } from "zod";
 
-import { getIncrementForPrice } from "@acme/increments";
-
 import { createTRPCRouter, publicProcedure } from "../trpc";
 
 export const lotRouter = createTRPCRouter({
@@ -43,7 +41,7 @@ export const lotRouter = createTRPCRouter({
           image: input.image,
           lowEstimate: input.lowEstimate,
           highEstimate: input.highEstimate,
-          increment: getIncrementForPrice(input.lowEstimate),
+          asking: input.lowEstimate,
           status: "upcoming",
         },
       });
