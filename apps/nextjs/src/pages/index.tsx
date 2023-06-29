@@ -6,6 +6,7 @@ const Index = () => {
       <Link href="/bidder">go to the bidder page</Link>
       <Link href="/thesaleroom">go to thesaleroom view</Link>
       <Link href="/easyLiveAuction">go to easyLiveAuction view</Link>
+      <Link href="/dev">go to dev page</Link>
     </div>
   );
 };

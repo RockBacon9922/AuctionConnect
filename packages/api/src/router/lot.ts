@@ -4,7 +4,7 @@ import { createTRPCRouter, publicProcedure } from "../trpc";
 
 export const lotRouter = createTRPCRouter({
   all: publicProcedure.query(({ ctx }) => {
-    return ctx.prisma.lot.findMany({ orderBy: { id: "desc" } });
+    return ctx.prisma.lot.findMany({ orderBy: { id: "asc" } });
   }),
   byId: publicProcedure
     .input(z.object({ id: z.number() }))
@@ -15,5 +15,39 @@ export const lotRouter = createTRPCRouter({
     .input(z.object({ status: z.string() }))
     .query(({ ctx, input }) => {
       return ctx.prisma.lot.findMany({ where: { status: input.status } });
+    }),
+  setStatusAll: publicProcedure
+    .input(z.object({ id: z.number(), status: z.string() }))
+    .mutation(({ ctx, input }) => {
+      return ctx.prisma.lot.updateMany({
+        data: { status: input.status },
+      });
+    }),
+  create: publicProcedure
+    .input(
+      z.object({
+        name: z.string(),
+        description: z.string(),
+        image: z.string(),
+        lowEstimate: z.number(),
+        highEstimate: z.number(),
+      }),
+    )
+    .mutation(({ ctx, input }) => {
+      return ctx.prisma.lot.create({
+        data: {
+          name: input.name,
+          description: input.description,
+          image: input.image,
+          lowEstimate: input.lowEstimate,
+          highEstimate: input.highEstimate,
+          status: "upcoming",
+        },
+      });
+    }),
+  delete: publicProcedure
+    .input(z.object({ id: z.number() }))
+    .mutation(({ ctx, input }) => {
+      return ctx.prisma.lot.delete({ where: { id: input.id } });
     }),
 });
