@@ -1,6 +1,8 @@
 import "../styles/globals.css";
 
 import type { AppType } from "next/app";
+// import react query devtools
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import type { Session } from "next-auth";
 import { SessionProvider } from "next-auth/react";
 
@@ -13,6 +15,9 @@ const MyApp: AppType<{ session: Session | null }> = ({
   return (
     <SessionProvider session={session}>
       <Component {...pageProps} />
+      {process.env.NODE_ENV === "development" && (
+        <ReactQueryDevtools initialIsOpen={false} />
+      )}
     </SessionProvider>
   );
 };
