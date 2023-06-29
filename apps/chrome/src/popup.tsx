@@ -1,45 +1,49 @@
-import { TRPCProvider, api } from "./utils/api";
-import { AuthProvider, signIn, signOut, useSession } from "./utils/auth";
+import { useState } from "react"
 
-function App() {
-  const session = useSession();
-  const { data: posts } = api.post.all.useQuery();
+function IndexPopup() {
+  // get extension id
+  const extensionId = chrome.runtime.getURL("").split("/")[2]
+  // get extension version
+  const manifest = chrome.runtime.getManifest()
+  const version = manifest.version
 
   return (
     <div
       style={{
-        width: 400,
         display: "flex",
         flexDirection: "column",
-        padding: 16,
-      }}
-    >
-      <div>
-        <h1>Next.js + Chrome Extension</h1>
-        {session?.token ? (
-          <div>
-            <p>Welcome {session.token}</p>
-            <button onClick={signOut}>Sign out</button>
-          </div>
-        ) : (
-          <button onClick={signIn}>Sign in</button>
-        )}
-      </div>
+        width: 200,
+        padding: 10
+      }}>
+      <h1
+        style={{
+          paddingBottom: 0,
+          margin: 0,
+          marginTop: 10
+        }}>
+        Auction Connect
+      </h1>
+      <h2
+        style={{
+          marginBottom: 10
+        }}>
+        <a
+          href={"chrome-extension://" + extensionId + "/tabs/console.html"}
+          target="_blank">
+          Console
+        </a>
+      </h2>
       <ul>
-        {posts?.map((post) => (
-          <li key={post.id}>{post.title}</li>
-        ))}
+        <li>
+          <h3>SaleRoom: ✔</h3>
+        </li>
+        <li>
+          <h3>Easy Live: ✔</h3>
+        </li>
       </ul>
+      <p>Version: {version}</p>
     </div>
-  );
+  )
 }
 
-export default function AppWrapper() {
-  return (
-    <AuthProvider>
-      <TRPCProvider>
-        <App />
-      </TRPCProvider>
-    </AuthProvider>
-  );
-}
+export default IndexPopup
