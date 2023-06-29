@@ -64,3 +64,22 @@ model VerificationToken {
 
     @@unique([identifier, token])
 }
+
+model Lot {
+    id           Int     @id @unique @default(autoincrement())
+    name         String
+    description  String?
+    image        String?
+    hammer       Int
+    sold         Boolean
+    lowEstimate  Int
+    highEstimate Int
+    Bid          Bid[]
+}
+
+model Bid {
+    id    String @id @default(cuid())
+    lotId Int
+    lot   Lot    @relation(fields: [lotId], references: [id], onDelete: Cascade)
+    price Int
+}
