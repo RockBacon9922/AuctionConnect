@@ -43,7 +43,7 @@ const PlaceBid = () => {
   const [isDisabled, setIsDisabled] = useState(true);
 
   useMemo(() => {
-    if (asking > bid) {
+    if (asking != bid) {
       setIsDisabled(false);
     } else {
       setIsDisabled(true);
@@ -62,6 +62,7 @@ const PlaceBid = () => {
           bidMutation.mutate({
             amount: asking,
             lotId: lotId,
+            online: true,
           })
         }
         disabled={isDisabled}

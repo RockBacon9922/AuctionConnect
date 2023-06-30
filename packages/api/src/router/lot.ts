@@ -56,7 +56,7 @@ export const lotRouter = createTRPCRouter({
       where: { status: "live" },
       include: {
         Bid: {
-          orderBy: { amount: "desc" },
+          orderBy: { time: "desc" },
         },
       },
       orderBy: { id: "asc" },

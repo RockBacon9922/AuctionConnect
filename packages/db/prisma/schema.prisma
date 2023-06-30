@@ -82,4 +82,6 @@ model Bid {
     lotId  Int
     lot    Lot      @relation(fields: [lotId], references: [id], onDelete: Cascade)
     amount Int
+    time   DateTime
+    online Boolean
 }
