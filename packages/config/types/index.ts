@@ -11,6 +11,9 @@ type Lot = {
 type Bid = {
   id: string;
   lotId: number;
+  amount: number;
+  time: Date;
+  online: boolean;
 };
 
 export type { Lot, Bid };

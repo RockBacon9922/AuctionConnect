@@ -62,4 +62,12 @@ export const lotRouter = createTRPCRouter({
       orderBy: { id: "asc" },
     });
   }),
+  updateAsk: publicProcedure
+    .input(z.object({ id: z.number(), asking: z.number() }))
+    .mutation(({ ctx, input }) => {
+      return ctx.prisma.lot.update({
+        where: { id: input.id },
+        data: { asking: input.asking },
+      });
+    }),
 });
