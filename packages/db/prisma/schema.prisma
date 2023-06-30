@@ -78,8 +78,8 @@ model Lot {
 }
 
 model Bid {
-    id    String @id @default(cuid())
-    lotId Int
-    lot   Lot    @relation(fields: [lotId], references: [id], onDelete: Cascade)
-    price Int
+    id     String   @id @default(cuid())
+    lotId  Int
+    lot    Lot      @relation(fields: [lotId], references: [id], onDelete: Cascade)
+    amount Int
 }
