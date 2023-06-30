@@ -54,7 +54,12 @@ export const lotRouter = createTRPCRouter({
   current: publicProcedure.query(({ ctx }) => {
     return ctx.prisma.lot.findFirst({
       where: { status: "live" },
-      include: { Bid: true },
+      include: {
+        Bid: {
+          orderBy: { amount: "desc" },
+        },
+      },
+      orderBy: { id: "asc" },
     });
   }),
 });

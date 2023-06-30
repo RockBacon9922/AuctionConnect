@@ -15,7 +15,7 @@ export const bidRouter = createTRPCRouter({
     .input(
       z.object({
         lotId: z.number(),
-        price: z.number(),
+        amount: z.number(),
       }),
     )
     .mutation(({ ctx, input }) => {
