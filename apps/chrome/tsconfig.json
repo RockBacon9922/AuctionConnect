@@ -4,10 +4,11 @@
   "exclude": ["node_modules"],
   "include": [
     ".plasmo/index.d.ts",
-    "./**/*.ts",
-    "./**/*.tsx",
+    "./src/**/*.ts",
+    "./src/**/*.tsx",
     "tailwind.config.js",
     "postcss.config.js"
+
   ],
   "compilerOptions": {
     "strict": false,
@@ -30,6 +31,7 @@
     "noUnusedLocals": false,
     "noUnusedParameters": false,
     "preserveWatchOutput": true,
+    "noImplicitAny": false,
     "jsx": "preserve",
     "paths": {
       "~*": ["./src/*"]
