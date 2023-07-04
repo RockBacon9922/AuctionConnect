@@ -22,11 +22,11 @@ const incrementPairs = {
   100000000: 20000000,
 };
 
-// const increments = [
-//   1, 5, 10, 20, 50, 100, 200, 500, 1000, 2000, 5000, 10000, 20000, 50000,
-//   100000, 200000, 500000, 1000000, 2000000, 5000000, 10000000, 20000000,
-//   50000000, 100000000,
-// ];
+const increments = [
+  1, 5, 10, 20, 50, 100, 200, 500, 1000, 2000, 5000, 10000, 20000, 50000,
+  100000, 200000, 500000, 1000000, 2000000, 5000000, 10000000, 20000000,
+  50000000, 100000000,
+];
 
 const getIncrementForPrice = (price: number) => {
   // find the highest id which is less than or equal to the price
@@ -42,4 +42,4 @@ const getIncrementForPrice = (price: number) => {
 
 export default getIncrementForPrice;
 
-export { getIncrementForPrice, incrementPairs };
+export { getIncrementForPrice, incrementPairs, increments };
