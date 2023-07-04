@@ -4,82 +4,14 @@ import "../style.css";
 
 import { incrementPairs, increments } from "./Assets/increments";
 
+const sendMsg = (msg) => {
+  console.log("sending message");
+  const res = chrome.runtime.sendMessage("hi", (res) => {
+    console.log(res);
+  });
+};
+
 const Console = () => {
-  const [platform, setPlatform] = useState("SaleRoom");
-  const [colour, setColour] = useState("#ff2200");
-  const [bid, setBid] = useState(10);
-  const [asking, setAsking] = useState(20);
-  const [interval, setInterval] = useState(10);
-  const platforms = {
-    SaleRoom: ["#a62639", "#DB324D", "#511C29", "#ff2200"],
-    "Easy Live": ["#90F1EF", "#FFD6E0", "#FFEF9F", "#C1FBA4", "#7BF1A8"],
-    Room: ["#F9A620", "#FFD449", "#548C2F", "#104911"],
-  };
-
-  const askingHandler = (e) => {
-    setAsking(parseInt(e.target.value));
-  };
-  // write a function which randomly selects a platform and a colour from the platform every 5 seconds
-  // and updates the state
-
-  const roomBid = () => {
-    const platformKeys = Object.keys(platforms);
-    // set randomPlatform to room
-    let randomPlatform = "Room";
-    let randomColour = colour;
-    // while (randomPlatform === platform) {
-    //   randomPlatform =
-    //     platformKeys[Math.floor(Math.random() * (platformKeys.length - 1))];
-    // }
-    while (randomColour === colour) {
-      randomColour =
-        platforms[randomPlatform][
-          Math.floor(Math.random() * platforms[randomPlatform].length)
-        ];
-    }
-    setPlatform(randomPlatform);
-    setColour(randomColour);
-  };
-
-  const onlineBid = () => {
-    const platformKeys = Object.keys(platforms);
-    let randomPlatform = platform;
-    let randomColour = colour;
-    while (randomPlatform === platform) {
-      randomPlatform =
-        platformKeys[Math.floor(Math.random() * (platformKeys.length - 1))];
-    }
-    while (randomColour === colour) {
-      randomColour =
-        platforms[randomPlatform][
-          Math.floor(Math.random() * platforms[randomPlatform].length)
-        ];
-    }
-    setPlatform(randomPlatform);
-    setColour(randomColour);
-  };
-
-  const handleOnlineBid = () => {
-    setBid(asking);
-    setAsking(asking + interval);
-    onlineBid();
-  };
-
-  useEffect(() => {
-    const interval = setTimeout(() => {
-      handleOnlineBid();
-    }, 5000);
-    return () => clearInterval(interval);
-  }, [bid]);
-
-  const handleBid = () => {
-    setBid(asking);
-    setAsking(asking + interval);
-    roomBid();
-    // setTimeout(updatePlatform, 2000);
-  };
-
-  // create an automatic bid function which will bid every 5 seconds
   return (
     <div className="grid h-screen w-screen grid-cols-6 grid-rows-6 items-center gap-2 bg-gradient-to-br from-slate-300 to-slate-400 p-2">
       <h1 className="row-span-2 text-xl font-extrabold">Lot 701</h1>
@@ -92,7 +24,7 @@ const Console = () => {
         <i className="text-[0.35rem]">A/V Fault</i>
         <i className="text-[0.35rem]">Tab Not Open</i>
       </Box>
-      <Button>Pass</Button>
+      <Button onClick={sendMsg}>Pass</Button>
       <Button>Sell</Button>
       <Button>Next Lot</Button>
       <div className="col-span-3 row-span-5 overflow-x-auto ">
@@ -128,68 +60,17 @@ const Console = () => {
           </tbody>
         </table>
       </div>
-      <BidLabel className="col-span-2 h-10" bgcolour={colour}>
-        {platform} : {bid}
-      </BidLabel>
-      <Button
-        onClick={() => {
-          setAsking(asking - interval);
-          setBid(bid - interval);
-          roomBid();
-        }}
-      >
-        Undo
-      </Button>
-      <Asking
-        className="col-span-2 bg-blue-500"
-        asking={asking}
-        handler={askingHandler}
-        submit={handleBid}
-      >
-        Asking :
-      </Asking>
+      <BidLabel className="col-span-2 h-10">s</BidLabel>
+      <Button>Undo</Button>
+      <Asking>Asking :</Asking>
       <Box className="row-span-3 h-full w-full flex-col gap-2 bg-blue-500 p-2">
         <Label className="w-[90%]">Quick Ask</Label>
-        <Button
-          className="w-[90%] bg-sky-300 hover:bg-sky-400"
-          onClick={(e) => {
-            setAsking(parseInt(e.target.innerHTML));
-            setInterval(increments[increments.indexOf(interval) - 1]);
-          }}
-        >
-          {increments[increments.indexOf(interval) - 1] + bid}
-        </Button>
-        <Button
-          className="w-[90%] bg-sky-300 hover:bg-sky-400"
-          onClick={(e) => {
-            setAsking(parseInt(e.target.innerHTML));
-            setInterval(increments[increments.indexOf(interval) + 1]);
-          }}
-        >
-          {increments[increments.indexOf(interval) + 1] + bid}
-        </Button>
-        <Button
-          className="w-[90%] bg-sky-300 hover:bg-sky-400"
-          onClick={(e) => {
-            setAsking(parseInt(e.target.innerHTML));
-            setInterval(increments[increments.indexOf(interval) + 2]);
-          }}
-        >
-          {increments[increments.indexOf(interval) + 2] + bid}
-        </Button>
+        <Button className="w-[90%] bg-sky-300 hover:bg-sky-400">s</Button>
+        <Button className="w-[90%] bg-sky-300 hover:bg-sky-400">s</Button>
+        <Button className="w-[90%] bg-sky-300 hover:bg-sky-400">s</Button>
       </Box>
-      <Button className="row-span-2" onClick={handleBid}>
-        Bid
-      </Button>
-      <Button
-        className="row-span-2"
-        onClick={() => {
-          setAsking(parseInt((asking - interval / 2).toString()));
-          setInterval(parseInt((interval / 2).toString()));
-        }}
-      >
-        Split Bid
-      </Button>
+      <Button className="row-span-2">Bid</Button>
+      <Button className="row-span-2">Split Bid</Button>
     </div>
   );
 };
