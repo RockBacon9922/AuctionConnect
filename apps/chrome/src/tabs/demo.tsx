@@ -13,7 +13,7 @@ const Console = () => {
   const platforms = {
     SaleRoom: ["#a62639", "#DB324D", "#511C29", "#ff2200"],
     "Easy Live": ["#90F1EF", "#FFD6E0", "#FFEF9F", "#C1FBA4", "#7BF1A8"],
-    Room: ["#F9A620", "#FFD449", "#548C2F", "#104911"],
+    Room: ["#e48d80", "#e48d81"],
   };
 
   const askingHandler = (e) => {
