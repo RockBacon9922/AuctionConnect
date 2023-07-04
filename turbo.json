@@ -42,6 +42,9 @@
     "NODE_ENV",
     "SKIP_ENV_VALIDATION",
     "VERCEL",
-    "VERCEL_URL"
+    "VERCEL_URL",
+    "DATABASE_URL",
+    "DIRECT_URL",
+    "ENV_PASSWORD"
   ]
 }
