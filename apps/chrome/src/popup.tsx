@@ -1,11 +1,11 @@
-import { useState } from "react"
+import { useState } from "react";
 
 function IndexPopup() {
   // get extension id
-  const extensionId = chrome.runtime.getURL("").split("/")[2]
+  const extensionId = chrome.runtime.getURL("").split("/")[2];
   // get extension version
-  const manifest = chrome.runtime.getManifest()
-  const version = manifest.version
+  const manifest = chrome.runtime.getManifest();
+  const version = manifest.version;
 
   return (
     <div
@@ -13,23 +13,27 @@ function IndexPopup() {
         display: "flex",
         flexDirection: "column",
         width: 200,
-        padding: 10
-      }}>
+        padding: 10,
+      }}
+    >
       <h1
         style={{
           paddingBottom: 0,
           margin: 0,
-          marginTop: 10
-        }}>
+          marginTop: 10,
+        }}
+      >
         Auction Connect
       </h1>
       <h2
         style={{
-          marginBottom: 10
-        }}>
+          marginBottom: 10,
+        }}
+      >
         <a
           href={"chrome-extension://" + extensionId + "/tabs/console.html"}
-          target="_blank">
+          target="_blank"
+        >
           Console
         </a>
       </h2>
@@ -43,7 +47,7 @@ function IndexPopup() {
       </ul>
       <p>Version: {version}</p>
     </div>
-  )
+  );
 }
 
-export default IndexPopup
+export default IndexPopup;
