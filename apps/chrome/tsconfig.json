@@ -8,7 +8,6 @@
     "./src/**/*.tsx",
     "tailwind.config.js",
     "postcss.config.js"
-
   ],
   "compilerOptions": {
     "strict": false,

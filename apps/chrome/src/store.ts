@@ -10,11 +10,14 @@ import {
   RESYNC,
 } from "@plasmohq/redux-persist";
 import { Storage } from "@plasmohq/storage";
-import { configureStore } from "@reduxjs/toolkit";
-import bidSlice from "~slices/bid-slice";
-import { localStorage } from "redux-persist-webextension-storage";
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
+import auctionSlice from "~slices/auction-slice";
+import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
+import { localStorage, syncStorage } from "redux-persist-webextension-storage";
 
-const rootReducer = bidSlice;
+const rootReducer = combineReducers({
+  auction: auctionSlice,
+});
 
 const persistConfig = {
   key: "root",
@@ -50,3 +53,11 @@ new Storage().watch({
     persistor.resync();
   },
 });
+
+// Get the types from the mock store
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;
+
+// Export the hooks with the types from the mock store
+export const useAppDispatch: () => AppDispatch = useDispatch;
+export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
