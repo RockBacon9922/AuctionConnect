@@ -1,15 +1,13 @@
-import { useEffect, useState } from "react";
+import { PersistGate } from "@plasmohq/redux-persist/integration/react";
+import { persistor, store, useAppDispatch, useAppSelector } from "~store";
+import { Provider } from "react-redux";
 
 import "../style.css";
 
-import { incrementPairs, increments } from "./Assets/increments";
+import { useState } from "react";
+import { createBid, createLot, setLotNumber } from "~slices/auction-slice";
 
-const sendMsg = (msg) => {
-  console.log("sending message");
-  const res = chrome.runtime.sendMessage("hi", (res) => {
-    console.log(res);
-  });
-};
+import { incrementPairs, increments } from "./Assets/increments";
 
 const Console = () => {
   return (
@@ -24,7 +22,7 @@ const Console = () => {
         <i className="text-[0.35rem]">A/V Fault</i>
         <i className="text-[0.35rem]">Tab Not Open</i>
       </Box>
-      <Button onClick={sendMsg}>Pass</Button>
+      <Button>Pass</Button>
       <Button>Sell</Button>
       <Button>Next Lot</Button>
       <div className="col-span-3 row-span-5 overflow-x-auto ">
@@ -75,8 +73,6 @@ const Console = () => {
   );
 };
 
-export default Console;
-
 const Button = ({ children, ...props }) => {
   // if props include b- in the class name, then use that colour
   // else use the default colour
@@ -120,8 +116,9 @@ const Box = ({ children, ...props }) => {
 };
 
 const Asking = ({ children, ...props }) => {
+  const [asking, setAsking] = useState();
   props.className +=
-    " h-full text-center rounded text-white flex items-center justify-center bg-blue-500";
+    " h-full text-center rounded text-white flex items-center justify-center bg-blue-500 col-span-2";
   const keyDownHandler = (e) => {
     if (e.key === "Enter") {
       props.submit();
@@ -148,3 +145,15 @@ const Asking = ({ children, ...props }) => {
 const Empty = () => {
   return <div className="bg-slate-950">a</div>;
 };
+
+const Wrapper = () => {
+  return (
+    <Provider store={store}>
+      <PersistGate persistor={persistor}>
+        <Console />
+      </PersistGate>
+    </Provider>
+  );
+};
+
+export default Wrapper;
