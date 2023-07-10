@@ -23,6 +23,7 @@
     "zod": "^3.21.4"
   },
   "devDependencies": {
+    "@acme/tailwind-config": "^0.1.0",
     "@types/chrome": "0.0.210",
     "@types/node": "18.11.18",
     "@types/react": "18.0.27",

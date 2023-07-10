@@ -6,7 +6,7 @@
     ".plasmo/index.d.ts",
     "./src/**/*.ts",
     "./src/**/*.tsx",
-    "tailwind.config.js",
+    "tailwind.config.ts",
     "postcss.config.js"
   ],
   "compilerOptions": {
