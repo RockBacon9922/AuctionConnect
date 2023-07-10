@@ -63,10 +63,11 @@ const auctionSlice = createSlice({
     setLotNumber: (state, action) => {
       state.currentLotNumber = action.payload;
     },
-    resetState: () => {
+    resetState: (state, action) => {
+      // get current name of auction
       return {
         date: currentDate,
-        name: "",
+        name: state.name,
         currentLotNumber: 0,
         lots: [],
       };
