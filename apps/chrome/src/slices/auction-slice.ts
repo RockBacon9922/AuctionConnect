@@ -20,6 +20,7 @@ const lot = z.object({
 });
 
 export const auction = z.object({
+  setup: z.boolean(),
   date: z.string(),
   currentLotNumber: z.number(),
   name: z.string(),
@@ -34,12 +35,16 @@ const currentDate = new Date().toDateString();
 const auctionSlice = createSlice({
   name: "auction",
   initialState: {
+    setup: false,
     date: currentDate,
     name: "",
     currentLotNumber: 0,
     lots: [],
   },
   reducers: {
+    setSetup: (state, action: PayloadAction<boolean>) => {
+      state.setup = action.payload;
+    },
     setAuctionName: (state, action: PayloadAction<string>) => {
       state.name = action.payload;
     },
@@ -63,9 +68,10 @@ const auctionSlice = createSlice({
     setLotNumber: (state, action) => {
       state.currentLotNumber = action.payload;
     },
-    resetState: (state, action) => {
+    resetState: (state) => {
       // get current name of auction
       return {
+        setup: false,
         date: currentDate,
         name: state.name,
         currentLotNumber: 0,
@@ -76,6 +82,7 @@ const auctionSlice = createSlice({
 });
 
 export const {
+  setSetup,
   setAuctionName,
   setAuctionDate,
   setAuctionHouse,
