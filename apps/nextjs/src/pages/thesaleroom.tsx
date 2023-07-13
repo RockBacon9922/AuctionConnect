@@ -12,7 +12,7 @@ const bidder = () => {
       <Bid />
       <SetInterval />
       <RoomBid />
-      <UpdateCurrentLot type="unsold" status="unsold" />
+      <UpdateCurrentLot type="pass" status="pass" />
       <UpdateCurrentLot type="sell" status="sold" />
     </div>
   );
