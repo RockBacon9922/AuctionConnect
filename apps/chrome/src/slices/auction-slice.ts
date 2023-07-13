@@ -1,10 +1,11 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import type { RootState } from "~store";
 import { z } from "zod";
 
 const bid = z.object({
   amount: z.number(),
   platform: z.string(),
-  bidderId: z.string(),
+  id: z.string(),
 });
 
 const lot = z.object({
@@ -32,15 +33,17 @@ export type Lot = z.infer<typeof lot>;
 export type Bid = z.infer<typeof bid>;
 const currentDate = new Date().toDateString();
 
+const initialState: Auction = {
+  setup: false,
+  date: currentDate,
+  name: "",
+  currentLotNumber: 0,
+  lots: [],
+};
+
 const auctionSlice = createSlice({
   name: "auction",
-  initialState: {
-    setup: false,
-    date: currentDate,
-    name: "",
-    currentLotNumber: 0,
-    lots: [],
-  },
+  initialState,
   reducers: {
     setSetup: (state, action: PayloadAction<boolean>) => {
       state.setup = action.payload;
@@ -91,5 +94,7 @@ export const {
   setLotNumber,
   resetState,
 } = auctionSlice.actions;
+
+export const selectAuction = (state: RootState) => state.auction;
 
 export default auctionSlice.reducer;
