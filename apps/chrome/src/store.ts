@@ -12,11 +12,13 @@ import {
 import { Storage } from "@plasmohq/storage";
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import auctionSlice from "~slices/auction-slice";
+import platformSlice from "~slices/platform-slice";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 import { localStorage, syncStorage } from "redux-persist-webextension-storage";
 
 const rootReducer = combineReducers({
   auction: auctionSlice,
+  platform: platformSlice,
 });
 
 const persistConfig = {
