@@ -1,5 +1,5 @@
 import { PersistGate } from "@plasmohq/redux-persist/integration/react";
-import { persistor, store, useAppDispatch, useAppSelector } from "~store";
+import { persister, store, useAppDispatch, useAppSelector } from "~store";
 import { Provider } from "react-redux";
 
 import "../style.css";
@@ -149,7 +149,7 @@ const Empty = () => {
 const Wrapper = () => {
   return (
     <Provider store={store}>
-      <PersistGate persistor={persistor}>
+      <PersistGate persistor={persister}>
         <Console />
       </PersistGate>
     </Provider>
