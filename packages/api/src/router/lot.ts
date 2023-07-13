@@ -70,4 +70,24 @@ export const lotRouter = createTRPCRouter({
         data: { asking: input.asking },
       });
     }),
+  sell: publicProcedure
+    .input(z.object({ id: z.number(), status: z.string() }))
+    .mutation(async ({ ctx, input }) => {
+      // set all lots to upcoming
+      await ctx.prisma.lot.updateMany({
+        where: { status: "live" },
+        data: { status: "sold" },
+      });
+      // set next lot to live
+      return await ctx.prisma.lot.update({
+        where: { id: input.id },
+        data: { status: input.status },
+      });
+    }),
+  next: publicProcedure.query(({ ctx }) => {
+    return ctx.prisma.lot.findFirst({
+      where: { status: "upcoming" },
+      orderBy: { id: "asc" },
+    });
+  }),
 });

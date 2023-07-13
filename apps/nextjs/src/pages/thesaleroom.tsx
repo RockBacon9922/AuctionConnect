@@ -11,6 +11,9 @@ const bidder = () => {
       <IncomingBid />
       <Bid />
       <SetInterval />
+      <RoomBid />
+      <UpdateCurrentLot type="unsold" status="unsold" />
+      <UpdateCurrentLot type="sell" status="sold" />
     </div>
   );
 };
@@ -28,9 +31,12 @@ const IncomingBid = () => {
 
   return (
     <div>
-      <h1>Lot {lotId}</h1>
-      <h2>Asking: {asking}</h2>
-      <h2 style={bid?.online || false ? { color: "green" } : { color: "red" }}>
+      <h1 id="currentLot">Lot {lotId}</h1>
+      <h2 id="currentAsk">Asking: {asking}</h2>
+      <h2
+        style={bid?.online || false ? { color: "green" } : { color: "red" }}
+        id="currentBid"
+      >
         Bid: {bid?.amount}
       </h2>
       <h2>Time: {bid?.time.toLocaleDateString()}</h2>
@@ -70,6 +76,7 @@ const Bid = () => {
           bidMutation.mutate({ amount: asking, lotId: lotId, online: false });
         }}
         disabled={isDisabled}
+        id="bidButton"
       >
         Bid
       </button>
@@ -105,6 +112,7 @@ const SetInterval = () => {
       <h1>Lot {currentLot?.data?.id}</h1>
       <input
         value={ask}
+        id="askInput"
         onChange={(e) => setAsk(Number(e.target.value))}
         onKeyDown={(e) => {
           if (e.key === "Enter") {
@@ -112,6 +120,83 @@ const SetInterval = () => {
           }
         }}
       />
+    </div>
+  );
+};
+
+const RoomBid = () => {
+  const currentLot = api.lot.current.useQuery(undefined, {
+    refetchInterval: 3000,
+  });
+  const mutation = api.bid.create.useMutation({
+    onSuccess: () => {
+      currentLot.refetch();
+    },
+  });
+
+  // get the highest bid or asking price
+  const highestBid: number =
+    currentLot?.data?.Bid[0]?.amount || currentLot?.data?.asking || 1;
+
+  // create a bid button where it will bid the same price as the highest bid
+
+  return (
+    <div>
+      <h1>Lot {currentLot?.data?.id}</h1>
+      <button
+        onClick={() => {
+          mutation.mutate({
+            amount: highestBid,
+            lotId: currentLot?.data?.id || 0,
+            online: true,
+          });
+        }}
+        id="Room"
+      >
+        Bid Room
+      </button>
+    </div>
+  );
+};
+
+type UpdateCurrentLotProps = {
+  type: string;
+  status: string;
+};
+
+const UpdateCurrentLot: React.FC<UpdateCurrentLotProps> = ({
+  type,
+  status,
+}) => {
+  // get current lot
+  const currentLot = api.lot.current.useQuery(undefined, {
+    refetchInterval: 3000,
+  });
+
+  // get the next lot
+  const nextLot = api.lot.next.useQuery(undefined, {
+    refetchInterval: 3000,
+  });
+
+  // sell the item
+  const mutation = api.lot.sell.useMutation({
+    onSuccess: () => {
+      currentLot.refetch();
+      nextLot.refetch();
+    },
+  });
+
+  return (
+    <div>
+      <h1>Lot {currentLot?.data?.id}</h1>
+      <button
+        onClick={() => {
+          mutation.mutate({ id: currentLot?.data?.id || 0, status: status });
+        }}
+        id={type + "Button"}
+      >
+        {type}
+      </button>
     </div>
   );
 };
