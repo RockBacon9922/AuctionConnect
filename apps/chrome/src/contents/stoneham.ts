@@ -12,24 +12,13 @@ import {
 import { persister, RootState, store } from "~store";
 import type { PlasmoCSConfig } from "plasmo";
 
+import { observeElementContent } from "@acme/element-observer";
+
 export const config: PlasmoCSConfig = {
   matches: ["https://dev.gavelconnect.com/thesaleroom"],
   all_frames: true,
   run_at: "document_start",
 };
-
-// This function can be used to observe changes in the DOM
-function observeElementContent(element, callback) {
-  const observer = new MutationObserver(function (mutationsList) {
-    for (let mutation of mutationsList) {
-      if (mutation.type === "childList") {
-        callback();
-      }
-    }
-  });
-
-  observer.observe(element, { childList: true });
-}
 
 // get every element and put the references in an object
 const consoleElements = {
