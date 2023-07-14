@@ -109,7 +109,6 @@ const SetInterval = () => {
 
   return (
     <div>
-      <h1>Lot {currentLot?.data?.id}</h1>
       <input
         value={ask}
         id="askInput"
@@ -142,7 +141,6 @@ const RoomBid = () => {
 
   return (
     <div>
-      <h1>Lot {currentLot?.data?.id}</h1>
       <button
         onClick={() => {
           mutation.mutate({
@@ -188,7 +186,6 @@ const UpdateCurrentLot: React.FC<UpdateCurrentLotProps> = ({
 
   return (
     <div>
-      <h1>Lot {currentLot?.data?.id}</h1>
       <button
         onClick={() => {
           mutation.mutate({ id: currentLot?.data?.id || 0, status: status });
