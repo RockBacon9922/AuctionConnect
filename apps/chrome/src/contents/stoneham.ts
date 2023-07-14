@@ -1,3 +1,8 @@
+/* This file is a content script for the chrome extensions gavelconnect. This script will be injected into the webpage dev.gavelconnect.com/thesaleroom. 
+This webpage is a live updating dashboard which controls the auction. 
+The purpose of this page is to link the redux state and the dashboard so that on a different chrome extension page you can control multiple auction platforms at once
+ */
+
 import {
   Auction,
   createBid,
@@ -12,6 +17,19 @@ export const config: PlasmoCSConfig = {
   all_frames: true,
   run_at: "document_start",
 };
+
+// This function can be used to observe changes in the DOM
+function observeElementContent(element, callback) {
+  const observer = new MutationObserver(function (mutationsList) {
+    for (let mutation of mutationsList) {
+      if (mutation.type === "childList") {
+        callback();
+      }
+    }
+  });
+
+  observer.observe(element, { childList: true });
+}
 
 // get every element and put the references in an object
 const consoleElements = {
