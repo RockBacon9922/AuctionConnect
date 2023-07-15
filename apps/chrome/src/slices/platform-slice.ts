@@ -58,6 +58,6 @@ const platformSlice = createSlice({
 
 export const { setStatus, setPrimary } = platformSlice.actions;
 
-export const selectAuction = (state: RootState) => state.platform;
+export const selectPlatform = (state: RootState) => state.platform;
 
 export default platformSlice.reducer;
