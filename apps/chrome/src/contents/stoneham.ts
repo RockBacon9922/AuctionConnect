@@ -9,10 +9,29 @@ import {
   createLot,
   selectAuction,
 } from "~slices/auction-slice";
+import { Platform, selectPlatform } from "~slices/platform-slice";
 import { persister, RootState, store } from "~store";
 import type { PlasmoCSConfig } from "plasmo";
 
 import { observeElementContent } from "@acme/element-observer";
+
+/* ---------- Update to setup platform ---------- */
+
+// get every element and put the references in an object
+const consoleElements = {
+  // for each in consoleIDs add reference to element in this object
+  currentLot: "currentLot",
+  currentAsk: "currentAsk",
+  currentBid: "currentBid",
+  bidButton: "bidButton",
+  askInput: "askInput",
+  roomButton: "Room",
+  sellButton: "sellButton",
+  passButton: "passButton",
+};
+
+const platformName = "GavelConnect";
+/* ---------- End of platform setup ---------- */
 
 export const config: PlasmoCSConfig = {
   matches: ["https://dev.gavelconnect.com/thesaleroom"],
@@ -20,24 +39,34 @@ export const config: PlasmoCSConfig = {
   run_at: "document_start",
 };
 
-// get every element and put the references in an object
-const consoleElements = {
-  // for each in consoleIDs add reference to element in this object
-  currentLot: document.getElementById("currentLot"),
-  currentAsk: document.getElementById("currentAsk"),
-  currentBid: document.getElementById("currentBid"),
-  bidButton: document.getElementById("bidButton"),
-  askInput: document.getElementById("askInput"),
-  roomButton: document.getElementById("Room"),
-  sellButton: document.getElementById("sellButton"),
-  passButton: document.getElementById("passButton"),
-};
+// get the auction state from the redux store. Plus add typescript type
+const auctionState: Auction = selectAuction(store.getState());
+const platformState: Platform[] = selectPlatform(store.getState());
+
+// get current platform
+const currentPlatform = platformState.find(
+  (platform) => platform.name === platformName,
+);
 
 persister.subscribe(() => {
-  console.log("hi");
-  const state: Auction = selectAuction(store.getState());
-  state.lots.forEach((lot) => {
+  auctionState.lots.forEach((lot) => {
     console.log(lot);
     alert("hi");
+  });
+});
+
+// wait for dom to load
+document.addEventListener("DOMContentLoaded", () => {
+  // Update current lot when it changes
+  observeElementContent(consoleElements.currentLot, () => {
+    const lot = document.getElementById(consoleElements.currentLot).innerText;
+    console.log(lot);
+    // check if primary platform
+    // check if lot is equal to current lot
+    // if not, update current lot
+    // if so, do nothing
+    // if (lot !== auctionState.currentLotNumber && currentPlatform?.primary) {
+    //   store.dispatch(createLot(lot));
+    // }
   });
 });
