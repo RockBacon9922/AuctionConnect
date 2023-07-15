@@ -1,12 +1,21 @@
 // This function can be used to observe changes in the DOM
-export const observeElementContent = (element, callback) => {
-  const observer = new MutationObserver(function (mutationsList) {
-    for (let mutation of mutationsList) {
-      if (mutation.type === "childList") {
-        callback();
-      }
-    }
+export const observeElementContent = (
+  elementId: string,
+  callback: Function,
+) => {
+  const element = document.getElementById(elementId);
+
+  if (!element) {
+    throw new Error(`Element with ID '${elementId}' not found.`);
+  }
+
+  const observer = new MutationObserver(() => {
+    callback();
   });
 
-  observer.observe(element, { childList: true });
+  observer.observe(element, {
+    characterData: true,
+    childList: true,
+    subtree: true,
+  });
 };
