@@ -69,8 +69,6 @@ const Bid = () => {
 
   return (
     <div>
-      <h1>Lot {currentLot?.data?.id}</h1>
-      <h2>Asking: {asking}</h2>
       <button
         onClick={() => {
           bidMutation.mutate({ amount: asking, lotId: lotId, online: false });
