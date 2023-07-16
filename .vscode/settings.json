@@ -14,5 +14,6 @@
   "tailwindCSS.experimental.configFile": "./packages/config/tailwind/index.ts",
   "[prisma]": {
     "editor.defaultFormatter": "Prisma.prisma"
-  }
+  },
+  "cSpell.words": ["extrabold"]
 }
