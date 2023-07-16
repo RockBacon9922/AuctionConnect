@@ -4,18 +4,24 @@ import { Provider } from "react-redux";
 
 import "../style.css";
 
-import { useState } from "react";
-import { createBid, createLot, setLotNumber } from "~slices/auction-slice";
+import { useMemo, useState } from "react";
+import {
+  createBid,
+  createLot,
+  selectAuction,
+  setLotNumber,
+} from "~slices/auction-slice";
+import { set } from "zod";
 
 import { incrementPairs, increments } from "./Assets/increments";
 
 const Console = () => {
+  // set Title of the page to console
+  document.title = "Console: Gavel Connect";
   return (
     <div className="grid h-screen w-screen grid-cols-6 grid-rows-6 items-center gap-2 bg-gradient-to-br from-slate-300 to-slate-400 p-2">
-      <h1 className="row-span-2 text-xl font-extrabold">Lot 701</h1>
-      <div className="row-span-2 flex justify-start">
-        <img className="h-20" src="https://i.ibb.co/6D5pzNZ/Antique-Desk.png" />
-      </div>
+      <LotNumber />
+      <LotImage />
       <Box className="row-span-2 h-full flex-col bg-blue-600">
         <span>Easy Live ✔</span>
         <span>SaleRoom ❌</span>
@@ -58,7 +64,7 @@ const Console = () => {
           </tbody>
         </table>
       </div>
-      <BidLabel className="col-span-2 h-10">s</BidLabel>
+      <BidLabel />
       <Button>Undo</Button>
       <Asking>Asking :</Asking>
       <Box className="row-span-3 h-full w-full flex-col gap-2 bg-blue-500 p-2">
@@ -69,6 +75,39 @@ const Console = () => {
       </Box>
       <Button className="row-span-2">Bid</Button>
       <Button className="row-span-2">Split Bid</Button>
+    </div>
+  );
+};
+
+const Wrapper = () => {
+  return (
+    <Provider store={store}>
+      <PersistGate persistor={persister}>
+        <Console />
+      </PersistGate>
+    </Provider>
+  );
+};
+
+export default Wrapper;
+
+const currentLot = () => {
+  return selectAuction(store.getState()).lots.find(
+    (lot) => lot.id === selectAuction(store.getState()).currentLotId,
+  );
+};
+
+const LotImage = () => {
+  return currentLot()?.image ? (
+    <div className="row-span-2 flex justify-start">
+      <img
+        className="h-20"
+        src={currentLot()?.image || "https://i.ibb.co/RS5zd7R/Desk.png"}
+      />
+    </div>
+  ) : (
+    <div className="row-span-2 flex aspect-square items-center justify-center border-2 text-center font-extrabold">
+      <h2>No Image</h2>
     </div>
   );
 };
@@ -86,15 +125,45 @@ const Button = ({ children, ...props }) => {
   return <button {...props}>{children}</button>;
 };
 
-const BidLabel = ({ children, ...props }) => {
-  props.className +=
-    " h-full text-center rounded text-white flex items-center justify-center";
+const BidLabel = () => {
+  const [bgcolour, setBgColour] = useState("#1E40AF");
+  // check if there are any bids
+  if (!currentLot()?.bids.length) {
+    return (
+      <div className="col-span-2 flex h-full items-center justify-center rounded text-center text-white"></div>
+    );
+  }
+  // get the highest bid
+  const highestBid = currentLot()?.bids.reduce((prev, curr) => {
+    return prev.amount > curr.amount ? prev : curr;
+  });
+  const colours = {
+    easylive: ["#88dbff", "#50c4ff", "#28a6ff", "#0a70eb"],
+    theSaleroom: ["#ed9ec8", "#eb6fa7", "#e04b8b", "#ca316a"],
+  };
+  setBgColour(
+    useMemo(() => {
+      // get current colour
+      const currentColour = bgcolour;
+      const newColour = bgcolour;
+      if (highestBid.platform === "Room") {
+        return "";
+      }
+      return colours[highestBid.platform][
+        Math.floor(Math.random() * colours[highestBid.platform].length)
+      ];
+    }, [highestBid]),
+  );
+
   return (
     <div
-      className={props.className}
-      style={{ backgroundColor: props.bgcolour }}
+      className={
+        "col-span-2 flex h-full items-center justify-center rounded text-center text-white"
+      }
+      style={{ backgroundColor: bgcolour }}
     >
-      <h3>{children}</h3>
+      <h2>{highestBid.amount}</h2>
+      <h3 className="text-md">{highestBid.platform}</h3>
     </div>
   );
 };
@@ -146,14 +215,10 @@ const Empty = () => {
   return <div className="bg-slate-950">a</div>;
 };
 
-const Wrapper = () => {
+const LotNumber = () => {
+  // get current lot number
+  const currentLotId = selectAuction(store.getState()).currentLotId;
   return (
-    <Provider store={store}>
-      <PersistGate persistor={persister}>
-        <Console />
-      </PersistGate>
-    </Provider>
+    <h1 className="row-span-2 text-xl font-extrabold">Lot {currentLotId}</h1>
   );
 };
-
-export default Wrapper;
