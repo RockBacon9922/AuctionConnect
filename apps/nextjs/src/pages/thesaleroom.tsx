@@ -121,6 +121,14 @@ const SetInterval = () => {
           }
         }}
       />
+      <button
+        onClick={() => {
+          askMutation.mutate({ asking: ask, id: lotId });
+        }}
+        id="askButton"
+      >
+        Set Ask
+      </button>
     </div>
   );
 };
