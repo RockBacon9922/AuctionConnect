@@ -32,7 +32,11 @@ const IncomingBid = () => {
   return (
     <div>
       <h1 id="currentLot">Lot {lotId}</h1>
+      <h2 id="description">{currentLot.data?.description}</h2>
+      <h2 id="lowEstimate">Low Estimate: {currentLot.data?.lowEstimate}</h2>
+      <h2 id="highEstimate">High Estimate: {currentLot.data?.highEstimate}</h2>
       <h2 id="currentAsk">Asking: {asking}</h2>
+      <h2 id="currentBidder">Bidder: sr{bid?.id}</h2>
       <h2
         style={bid?.online || false ? { color: "green" } : { color: "red" }}
         id="currentBid"
