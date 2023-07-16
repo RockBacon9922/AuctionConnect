@@ -12,7 +12,7 @@ export type Platform = z.infer<typeof platform>;
 
 const initialState: Platform[] = [
   {
-    name: "GavelConnect",
+    name: "stoneham",
     primary: true,
     status: "inactive",
   },

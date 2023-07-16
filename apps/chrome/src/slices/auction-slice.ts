@@ -5,12 +5,11 @@ import { z } from "zod";
 const bid = z.object({
   amount: z.number(),
   platform: z.string(),
-  id: z.string(),
+  lotId: z.string(),
 });
 
 const lot = z.object({
-  id: z.number(),
-  name: z.string(),
+  id: z.string(),
   description: z.string(),
   image: z.string(),
   lowEstimate: z.number(),
@@ -23,7 +22,7 @@ const lot = z.object({
 export const auction = z.object({
   setup: z.boolean(),
   date: z.string(),
-  currentLotNumber: z.number(),
+  currentLotId: z.string(),
   name: z.string(),
   lots: z.array(lot),
 });
@@ -37,7 +36,7 @@ const initialState: Auction = {
   setup: false,
   date: currentDate,
   name: "",
-  currentLotNumber: 0,
+  currentLotId: "0",
   lots: [],
 };
 
@@ -57,19 +56,19 @@ const auctionSlice = createSlice({
     setAuctionHouse: (state, action: PayloadAction<string>) => {
       state.name = action.payload;
     },
-    createLot: (state, action) => {
+    createLot: (state, action: PayloadAction<Lot>) => {
       const payload = lot.parse(action.payload);
       state.lots.push(payload);
     },
     createBid: (state, action) => {
       const payload = bid.parse(action.payload);
-      const lot = state.lots.find((lot) => lot.id === state.currentLotNumber);
+      const lot = state.lots.find((lot) => lot.id === state.currentLotId);
       if (!lot) throw new Error("Lot not found");
       if (lot.state === "sold") return;
       lot.bids.push(payload);
     },
     setLotNumber: (state, action) => {
-      state.currentLotNumber = action.payload;
+      state.currentLotId = action.payload;
     },
     resetState: (state) => {
       // get current name of auction
@@ -77,7 +76,7 @@ const auctionSlice = createSlice({
         setup: false,
         date: currentDate,
         name: state.name,
-        currentLotNumber: 0,
+        currentLotId: "0",
         lots: [],
       };
     },
@@ -95,6 +94,6 @@ export const {
   resetState,
 } = auctionSlice.actions;
 
-export const selectAuction = (state: RootState) => state.auction;
+export const selectAuction = (state: RootState) => state.auction as Auction;
 
 export default auctionSlice.reducer;
