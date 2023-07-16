@@ -23,11 +23,13 @@ const consoleElements = {
   currentLot: "currentLot",
   currentAsk: "currentAsk",
   currentBid: "currentBid",
+  currentBidder: "currentBidder",
   description: "description",
   lowEstimate: "lowEstimate",
   highEstimate: "highEstimate",
   bidButton: "bidButton",
   askInput: "askInput",
+  askButton: "askButton",
   roomButton: "Room",
   sellButton: "sellButton",
   passButton: "passButton",
@@ -73,6 +75,7 @@ document.addEventListener("DOMContentLoaded", () => {
     console.log("the low estimate is: " + getLowEstimate());
     console.log("the high estimate is: " + getHighEstimate());
     console.log("the description is: " + getDescription());
+    console.log("the bidder is: " + getBidder());
     // check if primary platform
     // check if lot is equal to current lot
     // if not, update current lot
@@ -94,31 +97,53 @@ const getLot = () => {
 };
 
 const getAsk = () => {
-  return document
+  const stringAsk = document
     .getElementById(consoleElements.currentAsk)
     .innerText.replace("Asking: ", "");
+  return parseInt(stringAsk.replace(",", ""));
 };
 
 const getBid = () => {
-  return document
+  const stringBid = document
     .getElementById(consoleElements.currentBid)
     .innerText.replace("Bid: ", "");
+  return parseInt(stringBid.replace(",", ""));
 };
 
 const getLowEstimate = () => {
-  return document
-    .getElementById(consoleElements.currentBid)
+  const stringLowEstimate = document
+    .getElementById(consoleElements.lowEstimate)
     .innerText.replace("Low Estimate: ", "");
+  return parseInt(stringLowEstimate.replace(",", ""));
 };
 
 const getHighEstimate = () => {
-  return document
+  const stringHighEstimate = document
     .getElementById(consoleElements.highEstimate)
     .innerText.replace("High Estimate: ", "");
+  return parseInt(stringHighEstimate.replace(",", ""));
 };
 
 const getDescription = () => {
   return document
     .getElementById(consoleElements.description)
     .innerText.replace("Description: ", "");
+};
+
+const getBidder = () => {
+  return document
+    .getElementById(consoleElements.currentBidder)
+    .innerText.replace("Bidder: ", "");
+};
+
+const setAsk = (ask: number) => {
+  const askInput = document.getElementById(
+    consoleElements.askInput,
+  ) as HTMLInputElement;
+  askInput.value = ask.toString();
+  // press enter to submit
+  const askButton = document.getElementById(consoleElements.askButton);
+  askButton.click();
+  askInput.value = ask.toString();
+  askButton.click();
 };
