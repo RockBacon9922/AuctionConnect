@@ -13,7 +13,7 @@ import { Platform, selectPlatform } from "~slices/platform-slice";
 import { persister, RootState, store } from "~store";
 import type { PlasmoCSConfig } from "plasmo";
 
-import { observeElementContent } from "@acme/element-observer";
+import { observeElementContent, updateInput } from "@acme/element-operations";
 
 /* ---------- Update to setup platform ---------- */
 
@@ -137,13 +137,6 @@ const getBidder = () => {
 };
 
 const setAsk = (ask: number) => {
-  const askInput = document.getElementById(
-    consoleElements.askInput,
-  ) as HTMLInputElement;
-  askInput.value = ask.toString();
-  // press enter to submit
-  const askButton = document.getElementById(consoleElements.askButton);
-  askButton.click();
-  askInput.value = ask.toString();
-  askButton.click();
+  updateInput(consoleElements.askInput, ask.toString());
+  document.getElementById(consoleElements.askButton).click();
 };

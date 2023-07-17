@@ -5,7 +5,6 @@ import { z } from "zod";
 const bid = z.object({
   amount: z.number(),
   platform: z.string(),
-  lotId: z.string(),
 });
 
 const lot = z.object({
@@ -30,7 +29,7 @@ export const auction = z.object({
 export type Auction = z.infer<typeof auction>;
 export type Lot = z.infer<typeof lot>;
 export type Bid = z.infer<typeof bid>;
-const currentDate = new Date().toDateString();
+const currentDate = new Date().toISOString().split("T")[0];
 
 const initialState: Auction = {
   setup: false,
@@ -63,12 +62,11 @@ const auctionSlice = createSlice({
       const payload = lot.parse(action.payload);
       state.lots.push(payload);
     },
-    createBid: (state, action) => {
-      const payload = bid.parse(action.payload);
+    createBid: (state, action: PayloadAction<Bid>) => {
       const lot = state.lots.find((lot) => lot.id === state.currentLotId);
       if (!lot) throw new Error("Lot not found");
       if (lot.state === "sold") return;
-      lot.bids.push(payload);
+      lot.bids.push(action.payload);
     },
     resetState: (state) => {
       // get current name of auction
