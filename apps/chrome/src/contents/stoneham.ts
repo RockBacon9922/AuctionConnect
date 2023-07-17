@@ -22,7 +22,7 @@ const consoleElements = {
   // for each in consoleIDs add reference to element in this object
   currentLot: "currentLot",
   currentAsk: "currentAsk",
-  currentBid: "currentBid",
+  currentHammer: "currentBid",
   currentBidder: "currentBidder",
   description: "description",
   lowEstimate: "lowEstimate",
@@ -68,25 +68,39 @@ document.addEventListener("DOMContentLoaded", () => {
     // store.dispatch(createLot({ id: getLot() }));
   }
   // Update current lot when it changes
-  observeElementContent(consoleElements.currentLot, () => {
-    console.log("we are on lot number: " + getLot());
-    console.log("the ask is: " + getAsk());
-    console.log("the bid is: " + getBid());
-    console.log("the low estimate is: " + getLowEstimate());
-    console.log("the high estimate is: " + getHighEstimate());
-    console.log("the description is: " + getDescription());
-    console.log("the bidder is: " + getBidder());
+  observeElementContent(consoleElements.currentLot, async () => {
+    const lot = getLot();
+    const ask = getAsk();
+    const hammer = getHammer();
+    const lowEstimate = getLowEstimate();
+    const highEstimate = getHighEstimate();
+    const description = getDescription();
+    const bidder = getBidder();
+    console.log("we are on lot number: " + lot);
+    console.log("the ask is: " + ask);
+    console.log("the bid is: " + hammer);
+    console.log("the low estimate is: " + lowEstimate);
+    console.log("the high estimate is: " + highEstimate);
+    console.log("the description is: " + description);
+    console.log("the bidder is: " + bidder);
     // check if primary platform
     // check if lot is equal to current lot
     // if not, update current lot
     // if so, do nothing
-    // if (lot !== auctionState.currentLotId && currentPlatform?.primary) {
-    //   store.dispatch(
-    //     createLot({
-    //       lotId: getLot(),
-    //     }),
-    //   );
-    // }
+    if (lot !== auctionState.currentLotId && currentPlatform?.primary) {
+      store.dispatch(
+        createLot({
+          id: lot,
+          description: getDescription(),
+          image: "",
+          lowEstimate: getLowEstimate(),
+          highEstimate: getHighEstimate(),
+          asking: getAsk(),
+          bids: [],
+          state: "unsold",
+        }),
+      );
+    }
   });
 });
 
@@ -103,9 +117,9 @@ const getAsk = () => {
   return parseInt(stringAsk.replace(",", ""));
 };
 
-const getBid = () => {
+const getHammer = () => {
   const stringBid = document
-    .getElementById(consoleElements.currentBid)
+    .getElementById(consoleElements.currentHammer)
     .innerText.replace("Bid: ", "");
   return parseInt(stringBid.replace(",", ""));
 };
