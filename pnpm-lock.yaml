@@ -41,9 +41,9 @@ importers:
       '@acme/api':
         specifier: ^0.1.0
         version: link:../../packages/api
-      '@acme/element-observer':
+      '@acme/element-operations':
         specifier: ^0.1.0
-        version: link:../../packages/element-observer
+        version: link:../../packages/element-operations
       '@plasmohq/redux-persist':
         specifier: ^6.1.0
         version: 6.1.0(redux@4.2.1)
@@ -338,7 +338,7 @@ importers:
         specifier: ^5.1.3
         version: 5.1.3
 
-  packages/element-observer: {}
+  packages/element-operations: {}
 
 packages:
 

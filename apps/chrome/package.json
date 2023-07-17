@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@acme/api": "^0.1.0",
-    "@acme/element-observer": "^0.1.0",
+    "@acme/element-operations": "^0.1.0",
     "@plasmohq/redux-persist": "^6.1.0",
     "@plasmohq/storage": "^1.6.2",
     "@reduxjs/toolkit": "^1.9.5",
@@ -41,7 +41,9 @@
     ],
     "permissions": [
       "tabs",
-      "storage"
+      "storage",
+      "scripting",
+      "activeTab"
     ],
     "externally_connectable": {
       "matches": [

@@ -5,5 +5,5 @@ packages:
   - packages/api
   - packages/auth
   - packages/db
-  - packages/element-observer
+  - packages/element-operations
   - packages/config/*
