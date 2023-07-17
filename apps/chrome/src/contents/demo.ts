@@ -4,7 +4,7 @@ import { persister, store } from "~store";
 import { PlasmoCSConfig } from "plasmo";
 
 export const config: PlasmoCSConfig = {
-  matches: ["https://dev.gavelconnect.com/demo"],
+  matches: ["https://dev.gavelconnect.com/demo", "https://localhost:3000/demo"],
   all_frames: true,
   run_at: "document_start",
 };
@@ -25,19 +25,22 @@ addEventListener("DOMContentLoaded", () => {
   const delay = (time: number) =>
     new Promise((resolve) => setTimeout(resolve, time));
 
-  const func = async () => {
-    await delay(1000);
-    console.log("hi");
-    counter.innerText = String(parseInt(counter.innerText) + 1);
-  };
-
-  const click = () => {
-    console.log("clicked");
-    counter.click();
-  };
-
   store.subscribe(() => {
     console.log("store updated");
-    click();
+    updateInput("word", "70");
   });
 });
+
+const updateInput = (id: string, value: string) => {
+  const input = document.getElementById(id);
+  // React >=16
+  var nativeInputValueSetter = Object.getOwnPropertyDescriptor(
+    window.HTMLInputElement.prototype,
+    "value",
+  ).set;
+  nativeInputValueSetter.call(input, value);
+
+  // i know for a fact that "input" event works for react. "change" event works for blazor and react let's hope that works for everything.
+  var ev = new Event("change", { bubbles: true });
+  input.dispatchEvent(ev);
+};
