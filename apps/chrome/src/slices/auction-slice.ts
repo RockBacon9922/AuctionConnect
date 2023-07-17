@@ -53,6 +53,9 @@ const auctionSlice = createSlice({
     setAuctionDate: (state, action: PayloadAction<string>) => {
       state.date = action.payload;
     },
+    setLotNumber: (state, action: PayloadAction<string>) => {
+      state.currentLotId = action.payload;
+    },
     setAuctionHouse: (state, action: PayloadAction<string>) => {
       state.name = action.payload;
     },
@@ -66,9 +69,6 @@ const auctionSlice = createSlice({
       if (!lot) throw new Error("Lot not found");
       if (lot.state === "sold") return;
       lot.bids.push(payload);
-    },
-    setLotNumber: (state, action) => {
-      state.currentLotId = action.payload;
     },
     resetState: (state) => {
       // get current name of auction
@@ -88,9 +88,9 @@ export const {
   setAuctionName,
   setAuctionDate,
   setAuctionHouse,
+  setLotNumber,
   createLot,
   createBid,
-  setLotNumber,
   resetState,
 } = auctionSlice.actions;
 
