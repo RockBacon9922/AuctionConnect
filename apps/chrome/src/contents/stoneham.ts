@@ -3,7 +3,7 @@ This webpage is a live updating dashboard which controls the auction.
 The purpose of this page is to link the redux state and the dashboard so that on a different chrome extension page you can control multiple auction platforms at once
  */
 
-import { Auction, createLot } from "~slices/auction-slice";
+import { Auction, createLot, setActiveLot } from "~slices/auction-slice";
 import { Platform } from "~slices/platform-slice";
 import { persister, store } from "~store";
 import type { PlasmoCSConfig } from "plasmo";

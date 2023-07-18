@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import {
   resetState,
+  setActiveLot,
   setAuctionDate,
   setAuctionName,
-  setLotNumber,
   setSetup,
 } from "~slices/auction-slice";
 import { RootState, useAppDispatch, useAppSelector } from "~store";

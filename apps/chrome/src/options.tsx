@@ -7,9 +7,9 @@ import { useEffect, useState } from "react";
 import {
   createLot,
   resetState,
+  setActiveLot,
   setAuctionDate,
   setAuctionName,
-  setLotNumber,
   setSetup,
   type Auction,
 } from "~slices/auction-slice";
@@ -141,7 +141,7 @@ const SetCurrentLot = () => {
         value={lotNumber}
         onChange={(e) => setLotNumberState(e.target.value)}
       />
-      <button onClick={() => dispatch(setLotNumber(lotNumber))}>
+      <button onClick={() => dispatch(setActiveLot(lotNumber))}>
         Set Lot Number
       </button>
     </div>

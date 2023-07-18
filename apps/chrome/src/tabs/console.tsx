@@ -9,7 +9,7 @@ import {
   createBid,
   createLot,
   selectAuction,
-  setLotNumber,
+  setActiveLot,
 } from "~slices/auction-slice";
 import { set } from "zod";
 

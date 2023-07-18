@@ -52,7 +52,7 @@ const auctionSlice = createSlice({
     setAuctionDate: (state, action: PayloadAction<string>) => {
       state.date = action.payload;
     },
-    setLotNumber: (state, action: PayloadAction<string>) => {
+    setActiveLot: (state, action: PayloadAction<string>) => {
       state.currentLotId = action.payload;
     },
     setAuctionHouse: (state, action: PayloadAction<string>) => {
@@ -86,7 +86,7 @@ export const {
   setAuctionName,
   setAuctionDate,
   setAuctionHouse,
-  setLotNumber,
+  setActiveLot,
   createLot,
   createBid,
   resetState,
