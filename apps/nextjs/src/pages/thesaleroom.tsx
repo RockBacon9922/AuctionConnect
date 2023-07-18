@@ -1,4 +1,5 @@
 import { useMemo, useState } from "react";
+import Image from "next/image";
 
 import { getIncrementForPrice } from "@acme/increments";
 
@@ -14,6 +15,11 @@ const bidder = () => {
       <RoomBid />
       <UpdateCurrentLot type="pass" status="pass" />
       <UpdateCurrentLot type="sell" status="sold" />
+      <Image
+        src="https://i.ibb.co/RS5zd7R/Desk.png"
+        alt="picture of list item"
+        id="image"
+      />
     </div>
   );
 };
