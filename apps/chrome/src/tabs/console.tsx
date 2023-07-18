@@ -217,7 +217,7 @@ const Empty = () => {
 
 const LotNumber = () => {
   // get current lot number
-  const currentLotId = selectAuction(store.getState()).currentLotId;
+  const currentLotId = useAppSelector((state) => state.auction.currentLotId);
   return (
     <h1 className="row-span-2 text-xl font-extrabold">Lot {currentLotId}</h1>
   );
