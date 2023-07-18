@@ -62,6 +62,7 @@ new Storage({
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
 
-// Export the hooks with the types from the mock store
-export const useAppDispatch: () => AppDispatch = useDispatch;
+// Use throughout your app instead of plain `useDispatch` and `useSelector`
+type DispatchFunc = () => AppDispatch;
+export const useAppDispatch: DispatchFunc = useDispatch;
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
