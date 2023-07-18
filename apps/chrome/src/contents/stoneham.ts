@@ -80,7 +80,7 @@ document.addEventListener("DOMContentLoaded", () => {
           description: getDescription(),
           highEstimate: getHighEstimate(),
           lowEstimate: getLowEstimate(),
-          image: "",
+          image: getImage(),
           state: "unsold",
         }),
       );
