@@ -3,17 +3,12 @@ This webpage is a live updating dashboard which controls the auction.
 The purpose of this page is to link the redux state and the dashboard so that on a different chrome extension page you can control multiple auction platforms at once
  */
 
-import {
-  Auction,
-  createBid,
-  createLot,
-  selectAuction,
-} from "~slices/auction-slice";
-import { Platform, selectPlatform } from "~slices/platform-slice";
-import { persister, RootState, store } from "~store";
+import { Auction, createLot } from "~slices/auction-slice";
+import { Platform } from "~slices/platform-slice";
+import { persister, store } from "~store";
 import type { PlasmoCSConfig } from "plasmo";
 
-import { observeElementContent, updateInput } from "@acme/element-operations";
+import { updateInput } from "@acme/element-operations";
 
 /* ---------- Update to setup platform ---------- */
 
@@ -33,6 +28,8 @@ const consoleElements = {
   roomButton: "Room",
   sellButton: "sellButton",
   passButton: "passButton",
+  image: "image",
+  nextLotButton: "nextLotButton",
 };
 
 const platformName = "stoneham";
@@ -44,70 +41,56 @@ export const config: PlasmoCSConfig = {
   run_at: "document_start",
 };
 
-// get the auction state from the redux store. Plus add typescript type
-const auctionState: Auction = selectAuction(store.getState());
-const platformState: Platform[] = selectPlatform(store.getState());
+// Keep track of state
+let auctionState = store.getState().auction as Auction;
+let platformState = store.getState().platform as Platform[];
+persister.subscribe(() => {
+  auctionState = store.getState().auction;
+  platformState = store.getState().platform;
+  console.debug("auctionState", auctionState);
+});
 
 // get current platform
 const currentPlatform = platformState.find(
   (platform) => platform.name === platformName,
 );
 
-persister.subscribe(() => {
-  auctionState.lots.forEach((lot) => {
-    console.log(lot);
-    alert("hi");
-  });
-});
-
-// wait for dom to load
+// create event listener for when dom is loaded
 document.addEventListener("DOMContentLoaded", () => {
-  // check if lot in in redux
-  // if not, add it
-  if (!auctionState.lots.find((lot) => lot.id === getLot())) {
-    // store.dispatch(createLot({ id: getLot() }));
-  }
-  // Update current lot when it changes
-  observeElementContent(consoleElements.currentLot, async () => {
-    const lot = getLot();
-    const ask = getAsk();
-    const hammer = getHammer();
-    const lowEstimate = getLowEstimate();
-    const highEstimate = getHighEstimate();
-    const description = getDescription();
-    const bidder = getBidder();
-    console.log("we are on lot number: " + lot);
-    console.log("the ask is: " + ask);
-    console.log("the bid is: " + hammer);
-    console.log("the low estimate is: " + lowEstimate);
-    console.log("the high estimate is: " + highEstimate);
-    console.log("the description is: " + description);
-    console.log("the bidder is: " + bidder);
-    // check if primary platform
-    // check if lot is equal to current lot
-    // if not, update current lot
-    // if so, do nothing
-    if (lot !== auctionState.currentLotId && currentPlatform?.primary) {
+  // check if lot is in auction state
+  const lotExists = auctionState.lots.some((lot) => lot.id === getLot());
+
+  if (!lotExists && currentPlatform?.primary) {
+    // find lot in auction state
+    setTimeout(() => {
       store.dispatch(
         createLot({
-          id: lot,
-          description: getDescription(),
-          image: "",
-          lowEstimate: getLowEstimate(),
-          highEstimate: getHighEstimate(),
+          id: getLot(),
           asking: getAsk(),
           bids: [],
+          description: getDescription(),
+          highEstimate: getHighEstimate(),
+          lowEstimate: getLowEstimate(),
+          image: "",
           state: "unsold",
         }),
       );
-    }
-  });
+    }, 1000);
+  }
 });
 
 const getLot = () => {
   return document
     .getElementById(consoleElements.currentLot)
     .innerText.replace("Lot ", "");
+};
+
+const getImage = () => {
+  // get image url
+  const image = document.getElementById(
+    consoleElements.image,
+  ) as HTMLImageElement;
+  return image.src;
 };
 
 const getAsk = () => {
@@ -153,4 +136,27 @@ const getBidder = () => {
 const setAsk = (ask: number) => {
   updateInput(consoleElements.askInput, ask.toString());
   document.getElementById(consoleElements.askButton).click();
+};
+
+const clickBid = () => {
+  document.getElementById(consoleElements.bidButton).click();
+};
+
+const clickAsk = () => {
+  document.getElementById(consoleElements.askButton).click();
+};
+
+const clickSold = () => {
+  document.getElementById(consoleElements.sellButton).click();
+};
+const clickPass = () => {
+  document.getElementById(consoleElements.passButton).click();
+};
+
+const clickRoom = () => {
+  document.getElementById(consoleElements.roomButton).click();
+};
+
+const clickNextLot = () => {
+  document.getElementById(consoleElements.nextLotButton).click();
 };
