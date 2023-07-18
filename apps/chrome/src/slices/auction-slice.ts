@@ -62,6 +62,11 @@ const auctionSlice = createSlice({
       const payload = lot.parse(action.payload);
       state.lots.push(payload);
     },
+    setAsk: (state, action: PayloadAction<number>) => {
+      const lot = state.lots.find((lot) => lot.id === state.currentLotId);
+      if (!lot) throw new Error("Lot not found");
+      lot.asking = action.payload;
+    },
     createBid: (state, action: PayloadAction<Bid>) => {
       const lot = state.lots.find((lot) => lot.id === state.currentLotId);
       if (!lot) throw new Error("Lot not found");
@@ -89,6 +94,7 @@ export const {
   setActiveLot,
   createLot,
   createBid,
+  setAsk,
   resetState,
 } = auctionSlice.actions;
 
