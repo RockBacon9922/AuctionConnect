@@ -4,6 +4,7 @@ import Image from "next/image";
 import { getIncrementForPrice } from "@acme/increments";
 
 import { api } from "~/utils/api";
+import deskimage from "../../public/Desk.png";
 
 const bidder = () => {
   return (
@@ -15,11 +16,7 @@ const bidder = () => {
       <RoomBid />
       <UpdateCurrentLot type="pass" status="pass" />
       <UpdateCurrentLot type="sell" status="sold" />
-      <Image
-        src="https://i.ibb.co/RS5zd7R/Desk.png"
-        alt="picture of list item"
-        id="image"
-      />
+      <Image src={deskimage} alt="image of lot" width={200} />
     </div>
   );
 };
