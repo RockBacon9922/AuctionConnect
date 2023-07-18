@@ -79,10 +79,14 @@ const Console = () => {
   );
 };
 
+const Loading = () => {
+  return <div>Loading...</div>;
+};
+
 const Wrapper = () => {
   return (
     <Provider store={store}>
-      <PersistGate persistor={persister}>
+      <PersistGate persistor={persister} loading={<Loading />}>
         <Console />
       </PersistGate>
     </Provider>
