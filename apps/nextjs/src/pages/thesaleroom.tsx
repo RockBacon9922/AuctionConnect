@@ -16,7 +16,7 @@ const bidder = () => {
       <RoomBid />
       <UpdateCurrentLot type="pass" status="pass" />
       <UpdateCurrentLot type="sell" status="sold" />
-      <Image src={deskimage} alt="image of lot" width={200} />
+      <Image src={deskimage} id="image" alt="image of lot" width={200} />
     </div>
   );
 };
