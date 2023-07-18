@@ -1,17 +1,26 @@
+// TODO: Asking box doesn't update when new lot is selected
 import { PersistGate } from "@plasmohq/redux-persist/integration/react";
-import { persister, store, useAppDispatch, useAppSelector } from "~store";
+import {
+  persister,
+  store,
+  useAppDispatch,
+  useAppSelector,
+  useGetAuction,
+  useGetCurrentLot,
+} from "~store";
 import { Provider } from "react-redux";
 
 import "../style.css";
 
 import { useMemo, useState } from "react";
 import {
+  Auction,
   createBid,
   createLot,
   selectAuction,
   setActiveLot,
+  setAsk,
 } from "~slices/auction-slice";
-import { set } from "zod";
 
 import { incrementPairs, increments } from "./Assets/increments";
 
@@ -95,18 +104,15 @@ const Wrapper = () => {
 
 export default Wrapper;
 
-const currentLot = () => {
-  return selectAuction(store.getState()).lots.find(
-    (lot) => lot.id === selectAuction(store.getState()).currentLotId,
-  );
-};
-
 const LotImage = () => {
-  return currentLot()?.image ? (
+  const auction = useAppSelector((state) => state.auction) as Auction;
+  const currentLotId = auction.currentLotId;
+  const currentLot = auction.lots.find((lot) => lot.id === currentLotId);
+  return currentLot?.image ? (
     <div className="row-span-2 flex justify-start">
       <img
         className="h-20"
-        src={currentLot()?.image || "https://i.ibb.co/RS5zd7R/Desk.png"}
+        src={currentLot?.image || "https://i.ibb.co/RS5zd7R/Desk.png"}
       />
     </div>
   ) : (
@@ -131,14 +137,17 @@ const Button = ({ children, ...props }) => {
 
 const BidLabel = () => {
   const [bgcolour, setBgColour] = useState("#1E40AF");
+  const auction = useAppSelector((state) => state.auction) as Auction;
+  const currentLotId = auction.currentLotId;
+  const currentLot = auction.lots.find((lot) => lot.id === currentLotId);
   // check if there are any bids
-  if (!currentLot()?.bids.length) {
+  if (!currentLot?.bids.length) {
     return (
       <div className="col-span-2 flex h-full items-center justify-center rounded text-center text-white"></div>
     );
   }
   // get the highest bid
-  const highestBid = currentLot()?.bids.reduce((prev, curr) => {
+  const highestBid = currentLot?.bids.reduce((prev, curr) => {
     return prev.amount > curr.amount ? prev : curr;
   });
   const colours = {
@@ -189,25 +198,28 @@ const Box = ({ children, ...props }) => {
 };
 
 const Asking = ({ children, ...props }) => {
-  const [asking, setAsking] = useState();
-  props.className +=
-    " h-full text-center rounded text-white flex items-center justify-center bg-blue-500 col-span-2";
-  const keyDownHandler = (e) => {
-    if (e.key === "Enter") {
-      props.submit();
-      // highlight the input
-      e.target.select();
-    }
-  };
+  const currentLot = useGetCurrentLot();
+  const [asking, setReactAsking] = useState(currentLot?.asking);
+  const dispatch = useAppDispatch();
   return (
-    <span className={props.className}>
-      <label>Asking : </label>
+    <span className="col-span-2 flex h-full items-center justify-center rounded bg-blue-500 text-center text-white">
+      <label
+        style={{
+          color: asking === currentLot?.asking ? "white" : "red",
+        }}
+      >
+        Asking :{" "}
+      </label>
       <input
         className="ml-2 w-[44%] text-black"
         inputMode="numeric"
-        value={props.asking}
-        onChange={props.handler}
-        onKeyDown={keyDownHandler}
+        value={asking}
+        onChange={(e) => setReactAsking(parseInt(e.target.value))}
+        onKeyDown={(e) => {
+          if (e.key === "Enter") {
+            dispatch(setAsk(asking));
+          }
+        }}
         pattern="[0-9]*"
         type="number"
       />
