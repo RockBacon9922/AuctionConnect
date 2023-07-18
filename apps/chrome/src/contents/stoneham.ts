@@ -8,7 +8,7 @@ import { Platform } from "~slices/platform-slice";
 import { persister, store } from "~store";
 import type { PlasmoCSConfig } from "plasmo";
 
-import { updateInput } from "@acme/element-operations";
+import { observeElementContent, updateInput } from "@acme/element-operations";
 
 /* ---------- Update to setup platform ---------- */
 
@@ -47,7 +47,10 @@ let platformState = store.getState().platform as Platform[];
 persister.subscribe(() => {
   auctionState = store.getState().auction;
   platformState = store.getState().platform;
-  console.debug("auctionState", auctionState);
+  // if environment is not production log state
+  if (process.env.NODE_ENV !== "production") {
+    console.debug("auction state", auctionState);
+  }
 });
 
 // get current platform
@@ -57,15 +60,21 @@ const currentPlatform = platformState.find(
 
 // create event listener for when dom is loaded
 document.addEventListener("DOMContentLoaded", () => {
-  // check if lot is in auction state
-  const lotExists = auctionState.lots.some((lot) => lot.id === getLot());
+  observeElementContent(consoleElements.currentLot, () => {
+    // check if lot is in auction state
+    const lotId = getLot();
+    if (lotId === "0") return;
+    const lotExists = auctionState.lots.some((lot) => lot.id === lotId);
 
-  if (!lotExists && currentPlatform?.primary) {
-    // find lot in auction state
-    setTimeout(() => {
+    // if not the primary platform you have no authority to control the auction
+    if (!currentPlatform?.primary) return;
+
+    // if lot does not exist. Create it!!!
+    if (!lotExists) {
+      // find lot in auction state
       store.dispatch(
         createLot({
-          id: getLot(),
+          id: lotId,
           asking: getAsk(),
           bids: [],
           description: getDescription(),
@@ -75,8 +84,9 @@ document.addEventListener("DOMContentLoaded", () => {
           state: "unsold",
         }),
       );
-    }, 1000);
-  }
+    }
+    store.dispatch(setActiveLot(lotId));
+  });
 });
 
 const getLot = () => {
