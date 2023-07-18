@@ -66,3 +66,8 @@ export type AppDispatch = typeof store.dispatch;
 type DispatchFunc = () => AppDispatch;
 export const useAppDispatch: DispatchFunc = useDispatch;
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
+export const useGetAuction = () => useAppSelector((state) => state.auction);
+export const useGetCurrentLot = () => {
+  const auction = useGetAuction();
+  return auction.lots.find((lot) => lot.id === auction.currentLotId);
+};
