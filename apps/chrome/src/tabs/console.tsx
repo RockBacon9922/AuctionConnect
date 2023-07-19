@@ -197,7 +197,7 @@ const Box = ({ children, ...props }) => {
   return <div className={props.className}>{children}</div>;
 };
 
-const Asking = ({ children, ...props }) => {
+const Asking = ({ children }) => {
   const currentLot = useGetCurrentLot();
   const [asking, setReactAsking] = useState(currentLot?.asking);
   const dispatch = useAppDispatch();
