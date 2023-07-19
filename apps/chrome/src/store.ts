@@ -11,7 +11,7 @@ import {
 } from "@plasmohq/redux-persist";
 import { Storage } from "@plasmohq/storage";
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import auctionSlice from "~slices/auction-slice";
+import auctionSlice, { Auction } from "~slices/auction-slice";
 import platformSlice from "~slices/platform-slice";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 import { localStorage, syncStorage } from "redux-persist-webextension-storage";
@@ -66,8 +66,9 @@ export type AppDispatch = typeof store.dispatch;
 type DispatchFunc = () => AppDispatch;
 export const useAppDispatch: DispatchFunc = useDispatch;
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
-export const useGetAuction = () => useAppSelector((state) => state.auction);
+export const useGetAuction = () =>
+  useAppSelector((state) => state.auction as Auction);
 export const useGetCurrentLot = () => {
-  const auction = useGetAuction();
+  const auction: Auction = useAppSelector((state) => state.auction);
   return auction.lots.find((lot) => lot.id === auction.currentLotId);
 };
