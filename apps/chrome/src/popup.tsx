@@ -9,6 +9,12 @@ import {
 import { RootState, useAppDispatch, useAppSelector } from "~store";
 import Wrapper from "~tabs/Assets/wrapper";
 
+// write a function to  check if we are in dev mode
+
+const isDev = () => {
+  process.env.NODE_ENV === "development";
+};
+
 function IndexPopup() {
   // get if setup is complete
   const setup = useAppSelector((state) => state.auction.setup);
@@ -31,7 +37,14 @@ function IndexPopup() {
       >
         Auction Connect
       </h1>
-      {setup ? <ToConsole /> : <Setup />}
+      {setup ? (
+        <ToConsole />
+      ) : (
+        <div>
+          {process.env.NODE_ENV === "development" && <ToConsole />}
+          <Setup />
+        </div>
+      )}
       <ul>
         <li>
           <h3>SaleRoom: ✔</h3>
