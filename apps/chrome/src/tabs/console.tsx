@@ -137,9 +137,7 @@ const Button = ({ children, ...props }) => {
 
 const BidLabel = () => {
   const [bgcolour, setBgColour] = useState("#1E40AF");
-  const auction = useAppSelector((state) => state.auction) as Auction;
-  const currentLotId = auction.currentLotId;
-  const currentLot = auction.lots.find((lot) => lot.id === currentLotId);
+  const currentLot = useGetCurrentLot();
   // check if there are any bids
   if (!currentLot?.bids.length) {
     return (
@@ -199,13 +197,13 @@ const Box = ({ children, ...props }) => {
 
 const Asking = ({ children }) => {
   const currentLot = useGetCurrentLot();
-  const [asking, setReactAsking] = useState(currentLot?.asking);
+  const [asking, setReactAsking] = useState(currentLot?.asking.toString());
   const dispatch = useAppDispatch();
   return (
     <span className="col-span-2 flex h-full items-center justify-center rounded bg-blue-500 text-center text-white">
       <label
         style={{
-          color: asking === currentLot?.asking ? "white" : "red",
+          color: asking === currentLot?.asking.toString() ? "white" : "red",
         }}
       >
         Asking :{" "}
@@ -214,10 +212,10 @@ const Asking = ({ children }) => {
         className="ml-2 w-[44%] text-black"
         inputMode="numeric"
         value={asking}
-        onChange={(e) => setReactAsking(parseInt(e.target.value))}
+        onChange={(e) => setReactAsking(e.target.value)}
         onKeyDown={(e) => {
           if (e.key === "Enter") {
-            dispatch(setAsk(asking));
+            dispatch(setAsk(parseInt(asking) || currentLot?.asking));
           }
         }}
         pattern="[0-9]*"
