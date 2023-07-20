@@ -3,7 +3,12 @@ This webpage is a live updating dashboard which controls the auction.
 The purpose of this page is to link the redux state and the dashboard so that on a different chrome extension page you can control multiple auction platforms at once
  */
 
-import { createLot, setActiveLot } from "~slices/auction-slice";
+import {
+  createBid,
+  createLot,
+  setActiveLot,
+  type CreateBid,
+} from "~slices/auction-slice";
 import { getState, persister, store } from "~store";
 import type { PlasmoCSConfig } from "plasmo";
 
@@ -65,6 +70,7 @@ document.addEventListener("DOMContentLoaded", () => {
       setAsk(lot.asking);
     }
   });
+  // Lot Number
   observeElementContent(consoleElements.currentLot, () => {
     // check if lot is in auction state
     const lotId = getLot();
@@ -91,6 +97,25 @@ document.addEventListener("DOMContentLoaded", () => {
       );
     }
     store.dispatch(setActiveLot(lotId));
+  });
+  // Bid
+  observeElementContent(consoleElements.currentHammer, () => {
+    const lotId = getLot();
+    const hammer = getHammer();
+    if (lotId === "0" && isNaN(hammer)) return;
+    const lot = auctionState.lots.find((lot) => lot.id === lotId);
+    if (!lot) return;
+    const bidAmount = getHammer();
+    const bidder = getBidder();
+    if (bidder === "Room") return;
+    // create bid object
+    const bid: CreateBid = {
+      amount: bidAmount,
+      bidder: bidder,
+      platform: platformName,
+      lotId: lotId,
+    };
+    store.dispatch(createBid(bid));
   });
 });
 

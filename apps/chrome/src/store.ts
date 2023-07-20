@@ -28,6 +28,7 @@ const rootReducer = combineReducers({
 const persistConfig = {
   key: "root",
   version: 1,
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   storage: localStorage,
 };
 
@@ -58,6 +59,7 @@ new Storage({
   area: "local",
 }).watch({
   [`persist:${persistConfig.key}`]: () => {
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
     persister.resync();
   },
 });

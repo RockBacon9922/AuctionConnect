@@ -1,10 +1,11 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import type { RootState } from "~store";
 import { z } from "zod";
 
 const bid = z.object({
   amount: z.number(),
   platform: z.string(),
+  bidder: z.string(),
 });
 
 const lot = z.object({
@@ -39,6 +40,10 @@ const initialState: Auction = {
   lots: [],
 };
 
+export interface CreateBid extends Bid {
+  lotId: string;
+}
+
 const auctionSlice = createSlice({
   name: "auction",
   initialState,
@@ -67,11 +72,15 @@ const auctionSlice = createSlice({
       if (!lot) throw new Error("Lot not found");
       lot.asking = action.payload;
     },
-    createBid: (state, action: PayloadAction<Bid>) => {
-      const lot = state.lots.find((lot) => lot.id === state.currentLotId);
+    createBid: (state, action: PayloadAction<CreateBid>) => {
+      const lot = state.lots.find((lot) => lot.id === action.payload.lotId);
       if (!lot) throw new Error("Lot not found");
       if (lot.state === "sold") return;
-      lot.bids.push(action.payload);
+      lot.bids.push({
+        amount: action.payload.amount,
+        platform: action.payload.platform,
+        bidder: action.payload.bidder,
+      });
     },
     resetState: (state) => {
       // get current name of auction
