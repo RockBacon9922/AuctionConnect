@@ -76,6 +76,7 @@ document.addEventListener("DOMContentLoaded", () => {
         clickBid();
         setAsk(lot.asking);
       }
+      // something hear to handle undo e.g if bid is higher then remove it!!!
     }
   });
   // Lot Number
@@ -190,10 +191,6 @@ const setAsk = (ask: number) => {
 
 const clickBid = () => {
   document.getElementById(consoleElements.bidButton).click();
-};
-
-const clickAsk = () => {
-  document.getElementById(consoleElements.askButton).click();
 };
 
 const clickSold = () => {
