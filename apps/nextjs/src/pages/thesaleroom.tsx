@@ -137,34 +137,38 @@ const SetInterval = () => {
 };
 
 const RoomBid = () => {
+  const [isDisabled, setIsDisabled] = useState(false);
   const currentLot = api.lot.current.useQuery(undefined, {
     refetchInterval: 3000,
   });
-  const mutation = api.bid.createRoom.useMutation({
+  const bidMutation = api.bid.createRoom.useMutation({
     onSuccess: () => {
       currentLot.refetch();
     },
   });
 
-  // get the highest bid or asking price
-  const highestBid: number =
-    currentLot?.data?.Bid[0]?.amount || currentLot?.data?.asking || 1;
+  const asking: number = currentLot?.data?.asking || 1;
+  const lotId: number = currentLot?.data?.id || 0;
+  const bid: number = currentLot?.data?.Bid[0]?.amount || 0;
 
-  // create a bid button where it will bid the same price as the highest bid
+  useMemo(() => {
+    if (asking != bid) {
+      setIsDisabled(false);
+    } else {
+      setIsDisabled(true);
+    }
+  }, [asking, bid]);
 
   return (
     <div>
       <button
         onClick={() => {
-          mutation.mutate({
-            amount: highestBid,
-            lotId: currentLot?.data?.id || 0,
-            online: true,
-          });
+          bidMutation.mutate({ amount: asking, lotId: lotId, online: false });
         }}
-        id="Room"
+        disabled={isDisabled}
+        id="bidButton"
       >
-        Bid Room
+        Room Bid
       </button>
     </div>
   );
