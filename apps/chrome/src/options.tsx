@@ -152,10 +152,9 @@ const BidsTable = () => {
           <table>
             <thead>
               <tr>
-                <th>Lot Number</th>
-                <th>Bid Number</th>
                 <th>Bid Amount</th>
-                <th>Bid State</th>
+                <th>Bidder</th>
+                <th>Platform</th>
               </tr>
             </thead>
             <tbody>
