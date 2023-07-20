@@ -45,10 +45,7 @@ export const config: PlasmoCSConfig = {
   run_at: "document_start",
 };
 
-// Keep track of state
-let auctionState = getState().auction;
-let platformState = getState().platform;
-
+const platformState = getState().platform;
 // get current platform
 const currentPlatform = platformState.find(
   (platform) => platform.name === platformName,
@@ -57,8 +54,7 @@ const currentPlatform = platformState.find(
 // create event listener for when dom is loaded
 document.addEventListener("DOMContentLoaded", () => {
   persister.subscribe(() => {
-    auctionState = getState().auction;
-    platformState = getState().platform;
+    const auctionState = getState().auction;
     // if environment is not production log state
     if (process.env.NODE_ENV !== "production") {
       console.debug("auction state", auctionState);
@@ -72,6 +68,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
   // Lot Number
   observeElementContent(consoleElements.currentLot, () => {
+    const auctionState = getState().auction;
     // check if lot is in auction state
     const lotId = getLot();
     if (lotId === "0") return;
@@ -103,7 +100,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const lotId = getLot();
     const hammer = getHammer();
     if (lotId === "0" && isNaN(hammer)) return;
-    const lot = auctionState.lots.find((lot) => lot.id === lotId);
+    const lot = getState().auction.lots.find((lot) => lot.id === lotId);
     if (!lot) return;
     const bidAmount = getHammer();
     const bidder = getBidder();
