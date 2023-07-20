@@ -1,28 +1,16 @@
 // TODO: Asking box doesn't update when new lot is selected
-import { PersistGate } from "@plasmohq/redux-persist/integration/react";
 import {
   persister,
-  store,
   useAppDispatch,
   useAppSelector,
-  useGetAuction,
   useGetCurrentLot,
 } from "~store";
-import { Provider } from "react-redux";
 
 import "../style.css";
 
-import { useMemo, useState } from "react";
-import {
-  type Auction,
-  createBid,
-  createLot,
-  selectAuction,
-  setActiveLot,
-  setAsk,
-} from "~slices/auction-slice";
+import { useEffect, useMemo, useState } from "react";
+import { setAsk, type Auction } from "~slices/auction-slice";
 
-import { incrementPairs, increments } from "./Assets/increments";
 import Wrapper from "./Assets/wrapper";
 
 const Console = () => {
@@ -74,7 +62,7 @@ const Console = () => {
           </tbody>
         </table>
       </div>
-      <BidLabel />
+      {/* <BidLabel /> */}
       <Button>Undo</Button>
       <Asking />
       <Box className="row-span-3 h-full w-full flex-col gap-2 bg-blue-500 p-2">
@@ -194,6 +182,9 @@ const Asking = () => {
   const currentLot = useGetCurrentLot();
   const [asking, setReactAsking] = useState(currentLot?.asking.toString());
   const dispatch = useAppDispatch();
+  useEffect(() => {
+    setReactAsking(currentLot?.asking.toString());
+  }, [currentLot?.asking]);
   return (
     <span className="col-span-2 flex h-full items-center justify-center rounded bg-blue-500 text-center text-white">
       <label
@@ -210,7 +201,7 @@ const Asking = () => {
         onChange={(e) => setReactAsking(e.target.value)}
         onKeyDown={(e) => {
           if (e.key === "Enter") {
-            dispatch(setAsk(parseInt(asking) || currentLot?.asking));
+            dispatch(setAsk(parseInt(asking)));
           }
         }}
         pattern="[0-9]*"
