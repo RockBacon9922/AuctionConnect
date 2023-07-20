@@ -72,6 +72,11 @@ const auctionSlice = createSlice({
       if (!lot) throw new Error("Lot not found");
       lot.asking = action.payload;
     },
+    sortBids: (state, action: PayloadAction<string>) => {
+      const lot = state.lots.find((lot) => lot.id === action.payload);
+      if (!lot) throw new Error("Lot not found");
+      lot.bids.sort((a, b) => b.amount - a.amount);
+    },
     createBid: (state, action: PayloadAction<CreateBid>) => {
       const lot = state.lots.find((lot) => lot.id === action.payload.lotId);
       if (!lot) throw new Error("Lot not found");
@@ -104,9 +109,8 @@ export const {
   createLot,
   createBid,
   setAsk,
+  sortBids,
   resetState,
 } = auctionSlice.actions;
-
-export const selectAuction = (state: RootState) => state.auction as Auction;
 
 export default auctionSlice.reducer;

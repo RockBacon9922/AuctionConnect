@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import type { RootState } from "~store";
 import { z } from "zod";
 
@@ -57,8 +57,5 @@ const platformSlice = createSlice({
 });
 
 export const { setStatus, setPrimary } = platformSlice.actions;
-
-export const selectPlatform = (state: RootState) =>
-  state.platform as Platform[];
 
 export default platformSlice.reducer;
