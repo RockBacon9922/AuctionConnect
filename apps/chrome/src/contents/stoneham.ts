@@ -68,8 +68,8 @@ document.addEventListener("DOMContentLoaded", () => {
     if (lot?.state === "sold") {
       clickSold();
     }
-    if (lot.bids[0].platform !== platformName) {
-      if (getHammer() === lot.bids[0].amount) {
+    if (lot.bids.length && lot.bids[0].platform !== platformName) {
+      if (getHammer() === lot.bids[0]?.amount) {
         clickRoom();
       } else if (getHammer() < lot.bids[0].amount) {
         setAsk(lot.bids[0].amount);
