@@ -6,7 +6,12 @@ import {
   setAuctionName,
   setSetup,
 } from "~slices/auction-slice";
-import { RootState, useAppDispatch, useAppSelector } from "~store";
+import {
+  RootState,
+  useAppDispatch,
+  useAppSelector,
+  useGetAuction,
+} from "~store";
 import Wrapper from "~tabs/Assets/wrapper";
 
 // write a function to  check if we are in dev mode
@@ -17,7 +22,7 @@ const isDev = () => {
 
 function IndexPopup() {
   // get if setup is complete
-  const setup = useAppSelector((state) => state.auction.setup);
+  const setup = useGetAuction().setup;
   return (
     <div
       style={{
@@ -59,20 +64,17 @@ function IndexPopup() {
   );
 }
 
-export default () => (
+const Export = () => (
   <Wrapper>
     <IndexPopup />
   </Wrapper>
 );
+export default Export;
+
 const Setup = () => {
   // create a rfc which is used to set the auction name and date
   const dispatch = useAppDispatch();
-  const auctionName = useAppSelector((state: RootState) => state.auction.name);
-  const auctionDateString: string = useAppSelector(
-    (state: RootState) => state.auction.date,
-  );
-  const setup = useAppSelector((state) => state.auction.setup);
-
+  const auction = useGetAuction();
   return (
     <div className="grid grid-cols-2 gap-2">
       <div className="flex flex-col">
@@ -80,7 +82,7 @@ const Setup = () => {
         <input
           type="text"
           name="auctionName"
-          value={auctionName}
+          defaultValue={auction.name}
           onChange={(e) => dispatch(setAuctionName(e.target.value))}
         />
       </div>
@@ -89,7 +91,7 @@ const Setup = () => {
         <input
           type="date"
           name="auctionDate"
-          value={auctionDateString}
+          defaultValue={auction.date}
           onChange={(e) => dispatch(setAuctionDate(e.target.value))}
         />
       </div>

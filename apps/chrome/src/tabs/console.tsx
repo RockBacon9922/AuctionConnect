@@ -14,7 +14,7 @@ import "../style.css";
 
 import { useMemo, useState } from "react";
 import {
-  Auction,
+  type Auction,
   createBid,
   createLot,
   selectAuction,
@@ -76,7 +76,7 @@ const Console = () => {
       </div>
       <BidLabel />
       <Button>Undo</Button>
-      <Asking>Asking :</Asking>
+      <Asking/>
       <Box className="row-span-3 h-full w-full flex-col gap-2 bg-blue-500 p-2">
         <Label className="w-[90%]">Quick Ask</Label>
         <Button className="w-[90%] bg-sky-300 hover:bg-sky-400">s</Button>
@@ -89,13 +89,15 @@ const Console = () => {
   );
 };
 
-export default () => {
+const Export = () => {
   return (
     <Wrapper>
       <Console />
     </Wrapper>
   );
 };
+
+export default Export;
 
 const LotImage = () => {
   const auction = useAppSelector((state) => state.auction) as Auction;
@@ -188,7 +190,7 @@ const Box = ({ children, ...props }) => {
   return <div className={props.className}>{children}</div>;
 };
 
-const Asking = ({ children }) => {
+const Asking = () => {
   const currentLot = useGetCurrentLot();
   const [asking, setReactAsking] = useState(currentLot?.asking.toString());
   const dispatch = useAppDispatch();
