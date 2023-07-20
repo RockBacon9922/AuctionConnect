@@ -39,7 +39,7 @@ const IncomingBid = () => {
       <h2 id="lowEstimate">Low Estimate: {currentLot.data?.lowEstimate}</h2>
       <h2 id="highEstimate">High Estimate: {currentLot.data?.highEstimate}</h2>
       <h2 id="currentAsk">Asking: {asking}</h2>
-      <h2 id="currentBidder">Bidder: sr{bid?.id}</h2>
+      <h2 id="currentBidder">Bidder: {bid?.userId}</h2>
       <h2
         style={bid?.online || false ? { color: "green" } : { color: "red" }}
         id="currentBid"
@@ -140,7 +140,7 @@ const RoomBid = () => {
   const currentLot = api.lot.current.useQuery(undefined, {
     refetchInterval: 3000,
   });
-  const mutation = api.bid.create.useMutation({
+  const mutation = api.bid.createRoom.useMutation({
     onSuccess: () => {
       currentLot.refetch();
     },

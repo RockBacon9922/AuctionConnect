@@ -85,4 +85,5 @@ model Bid {
     amount Int
     time   DateTime
     online Boolean
+    userId String   @default(cuid())
 }

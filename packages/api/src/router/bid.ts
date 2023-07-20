@@ -30,4 +30,24 @@ export const bidRouter = createTRPCRouter({
         },
       });
     }),
+  createRoom: publicProcedure
+    .input(
+      z.object({
+        lotId: z.number(),
+        amount: z.number(),
+        online: z.boolean(),
+      }),
+    )
+    .mutation(({ ctx, input }) => {
+      // add current time to data
+      return ctx.prisma.bid.create({
+        data: {
+          lotId: input.lotId,
+          amount: input.amount,
+          online: input.online,
+          time: new Date(),
+          userId: "Room",
+        },
+      });
+    }),
 });
