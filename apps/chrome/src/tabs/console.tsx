@@ -23,6 +23,7 @@ import {
 } from "~slices/auction-slice";
 
 import { incrementPairs, increments } from "./Assets/increments";
+import Wrapper from "./Assets/wrapper";
 
 const Console = () => {
   // set Title of the page to console
@@ -88,21 +89,13 @@ const Console = () => {
   );
 };
 
-const Loading = () => {
-  return <div>Loading...</div>;
-};
-
-const Wrapper = () => {
+export default () => {
   return (
-    <Provider store={store}>
-      <PersistGate persistor={persister} loading={<Loading />}>
-        <Console />
-      </PersistGate>
-    </Provider>
+    <Wrapper>
+      <Console />
+    </Wrapper>
   );
 };
-
-export default Wrapper;
 
 const LotImage = () => {
   const auction = useAppSelector((state) => state.auction) as Auction;
