@@ -1,8 +1,8 @@
 version = 1
 
 exclude_patterns = [
-  "pnpm-workspace",
-  "pnpm-lock"
+  "pnpm-workspace.yaml",
+  "pnpm-lock.yaml"
 ]
 
 [[analyzers]]
