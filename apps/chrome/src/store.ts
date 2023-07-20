@@ -11,10 +11,14 @@ import {
 } from "@plasmohq/redux-persist";
 import { Storage } from "@plasmohq/storage";
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import auctionSlice, { Auction } from "~slices/auction-slice";
-import platformSlice from "~slices/platform-slice";
-import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
-import { localStorage, syncStorage } from "redux-persist-webextension-storage";
+import auctionSlice, { type Auction } from "~slices/auction-slice";
+import platformSlice, { type Platform } from "~slices/platform-slice";
+import {
+  useDispatch,
+  useSelector,
+  type TypedUseSelectorHook,
+} from "react-redux";
+import { localStorage } from "redux-persist-webextension-storage";
 
 const rootReducer = combineReducers({
   auction: auctionSlice,
@@ -58,6 +62,11 @@ new Storage({
   },
 });
 
+export interface AppState {
+  auction: Auction;
+  platform: Platform[];
+}
+
 // Get the types from the mock store
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
@@ -66,9 +75,16 @@ export type AppDispatch = typeof store.dispatch;
 type DispatchFunc = () => AppDispatch;
 export const useAppDispatch: DispatchFunc = useDispatch;
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
+
 export const useGetAuction = () =>
-  useAppSelector((state) => state.auction as Auction);
+  useAppSelector((state: AppState) => state.auction);
+
 export const useGetCurrentLot = () => {
-  const auction: Auction = useAppSelector((state) => state.auction);
+  const auction: Auction = useAppSelector((state: AppState) => state.auction);
   return auction.lots.find((lot) => lot.id === auction.currentLotId);
 };
+
+export const useGetPlatforms = () =>
+  useAppSelector((state: AppState) => state.platform);
+
+export const getState = () => store.getState() as AppState;

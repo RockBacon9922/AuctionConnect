@@ -3,9 +3,8 @@ This webpage is a live updating dashboard which controls the auction.
 The purpose of this page is to link the redux state and the dashboard so that on a different chrome extension page you can control multiple auction platforms at once
  */
 
-import { Auction, createLot, setActiveLot } from "~slices/auction-slice";
-import { Platform } from "~slices/platform-slice";
-import { persister, store } from "~store";
+import { createLot, setActiveLot } from "~slices/auction-slice";
+import { getState, persister, store } from "~store";
 import type { PlasmoCSConfig } from "plasmo";
 
 import { observeElementContent, updateInput } from "@acme/element-operations";
@@ -42,8 +41,8 @@ export const config: PlasmoCSConfig = {
 };
 
 // Keep track of state
-let auctionState = store.getState().auction as Auction;
-let platformState = store.getState().platform as Platform[];
+let auctionState = getState().auction;
+let platformState = getState().platform;
 
 // get current platform
 const currentPlatform = platformState.find(
@@ -53,8 +52,8 @@ const currentPlatform = platformState.find(
 // create event listener for when dom is loaded
 document.addEventListener("DOMContentLoaded", () => {
   persister.subscribe(() => {
-    auctionState = store.getState().auction;
-    platformState = store.getState().platform;
+    auctionState = getState().auction;
+    platformState = getState().platform;
     // if environment is not production log state
     if (process.env.NODE_ENV !== "production") {
       console.debug("auction state", auctionState);
