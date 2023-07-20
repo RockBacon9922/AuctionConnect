@@ -65,6 +65,18 @@ document.addEventListener("DOMContentLoaded", () => {
     if (lot?.asking !== getAsk()) {
       setAsk(lot.asking);
     }
+    if (lot?.state === "sold") {
+      clickSold();
+    }
+    if (lot.bids[0].platform !== platformName) {
+      if (getHammer() === lot.bids[0].amount) {
+        clickRoom();
+      } else if (getHammer() < lot.bids[0].amount) {
+        setAsk(lot.bids[0].amount);
+        clickBid();
+        setAsk(lot.asking);
+      }
+    }
   });
   // Lot Number
   observeElementContent(consoleElements.currentLot, () => {
@@ -102,12 +114,13 @@ document.addEventListener("DOMContentLoaded", () => {
     if (lotId === "0" && isNaN(hammer)) return;
     const lot = getState().auction.lots.find((lot) => lot.id === lotId);
     if (!lot) return;
-    const bidAmount = getHammer();
+    // check if there is already a bid at this amount
+    if (lot.bids.some((bid) => bid.amount === hammer)) return;
     const bidder = getBidder();
     if (bidder === "Room") return;
     // create bid object
     const bid: CreateBid = {
-      amount: bidAmount,
+      amount: hammer,
       bidder: bidder,
       platform: platformName,
       lotId: lotId,

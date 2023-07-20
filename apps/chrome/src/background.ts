@@ -1,4 +1,5 @@
-import { getState, persister } from "~store";
+import { sortBids } from "~slices/auction-slice";
+import { getState, persister, store } from "~store";
 
 export {};
 
@@ -13,9 +14,5 @@ persister.subscribe(() => {
   if (process.env.NODE_ENV !== "production") {
     console.debug("auction state", auctionState);
   }
-  // if lot is not in auction state return
-  if (!lot) return;
-
-  // for each bid in lot bids
-  lot.bids.sort((a, b) => b.amount - a.amount);
+  store.dispatch(sortBids(lot.id));
 });
