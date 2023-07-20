@@ -1,5 +1,8 @@
 # create-t3-turbo
 
+[![DeepScan grade](https://deepscan.io/api/teams/21740/projects/25143/branches/781425/badge/grade.svg?token=a1fa0980263b30233c0ddf1e9c3ed778290db2ee)](https://deepscan.io/dashboard#view=project&tid=21740&pid=25143&bid=781425)
+[![DeepSource](https://app.deepsource.com/gh/RockBacon9922/GavelConnect.svg/?label=active+issues&show_trend=true&token=1YLQJ4djGbd2NskxEzAlMSKF)](https://app.deepsource.com/gh/RockBacon9922/GavelConnect/?ref=repository-badge)
+
 <img width="1758" alt="turbo2" src="https://user-images.githubusercontent.com/51714798/213819392-33e50db9-3e38-4c51-9a22-03abe5e48f3d.png">
 
 ## Installation
