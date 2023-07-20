@@ -1,16 +1,11 @@
+/* eslint-disable @next/next/no-img-element */
 // TODO: Asking box doesn't update when new lot is selected
-import {
-  persister,
-  useAppDispatch,
-  useAppSelector,
-  useGetAuction,
-  useGetCurrentLot,
-} from "~store";
+import { useAppDispatch, useGetAuction, useGetCurrentLot } from "~store";
 
 import "../style.css";
 
-import { useEffect, useMemo, useState } from "react";
-import { setAsk, type Auction } from "~slices/auction-slice";
+import { useEffect, useState } from "react";
+import { setAsk } from "~slices/auction-slice";
 
 import Wrapper from "./Assets/wrapper";
 
@@ -31,7 +26,7 @@ const Console = () => {
       <Button>Sell</Button>
       <Button>Next Lot</Button>
       <LotTable />
-      {/* <BidLabel /> */}
+      <BidLabel />
       <Button>Undo</Button>
       <Asking />
       <Box className="row-span-3 h-full w-full flex-col gap-2 bg-blue-500 p-2">
@@ -57,7 +52,7 @@ const Export = () => {
 export default Export;
 
 const LotImage = () => {
-  const auction = useAppSelector((state) => state.auction) as Auction;
+  const auction = useGetAuction();
   const currentLotId = auction.currentLotId;
   const currentLot = auction.lots.find((lot) => lot.id === currentLotId);
   return currentLot?.image ? (
@@ -65,6 +60,7 @@ const LotImage = () => {
       <img
         className="h-20"
         src={currentLot?.image || "https://i.ibb.co/RS5zd7R/Desk.png"}
+        alt="Lot Image"
       />
     </div>
   ) : (
@@ -90,33 +86,21 @@ const Button = ({ children, ...props }) => {
 const BidLabel = () => {
   const [bgcolour, setBgColour] = useState("#1E40AF");
   const currentLot = useGetCurrentLot();
+  // get the highest bid
+  const highestBid = currentLot?.bids[0];
+
   // check if there are any bids
-  if (!currentLot?.bids.length) {
+  if (!currentLot.bids.length) {
     return (
       <div className="col-span-2 flex h-full items-center justify-center rounded text-center text-white"></div>
     );
+  } else if (highestBid?.bidder === "Room") {
+    return (
+      <div className="col-span-2 flex h-full items-center justify-center rounded text-center text-black">
+        <h2>Room: {highestBid.amount}</h2>
+      </div>
+    );
   }
-  // get the highest bid
-  const highestBid = currentLot?.bids.reduce((prev, curr) => {
-    return prev.amount > curr.amount ? prev : curr;
-  });
-  const colours = {
-    easylive: ["#88dbff", "#50c4ff", "#28a6ff", "#0a70eb"],
-    theSaleroom: ["#ed9ec8", "#eb6fa7", "#e04b8b", "#ca316a"],
-  };
-  setBgColour(
-    useMemo(() => {
-      // get current colour
-      const currentColour = bgcolour;
-      const newColour = bgcolour;
-      if (highestBid.platform === "Room") {
-        return "";
-      }
-      return colours[highestBid.platform][
-        Math.floor(Math.random() * colours[highestBid.platform].length)
-      ];
-    }, [highestBid]),
-  );
 
   return (
     <div
@@ -125,8 +109,9 @@ const BidLabel = () => {
       }
       style={{ backgroundColor: bgcolour }}
     >
-      <h2>{highestBid.amount}</h2>
-      <h3 className="text-md">{highestBid.platform}</h3>
+      <h2>
+        {highestBid?.amount} : {highestBid?.platform}
+      </h2>
     </div>
   );
 };
@@ -135,6 +120,7 @@ const Label = ({ children, ...props }) => {
   props.className +=
     " text-center rounded text-white flex items-center justify-center";
   return (
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     <div className={props.className}>
       <h3>{children}</h3>
     </div>
@@ -144,6 +130,7 @@ const Label = ({ children, ...props }) => {
 const Box = ({ children, ...props }) => {
   props.className +=
     " text-center rounded text-white flex justify-center items-center";
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   return <div className={props.className}>{children}</div>;
 };
 
@@ -180,10 +167,6 @@ const Asking = () => {
   );
 };
 
-const Empty = () => {
-  return <div className="bg-slate-950">a</div>;
-};
-
 const LotNumber = () => {
   // get current lot number
   const currentLotId = useGetCurrentLot()?.id;
@@ -209,7 +192,7 @@ const LotTable = () => {
             <tr key={lot.id}>
               <td>{lot.id}</td>
               <td>{lot.description}</td>
-              <td>{lot.bids[0].amount}</td>
+              <td>{lot.bids[0]?.amount}</td>
             </tr>
           ))}
         </tbody>
