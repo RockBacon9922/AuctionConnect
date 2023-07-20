@@ -109,7 +109,7 @@ const SetInterval = () => {
 
   // const asking = getIncrementForPrice(highestBid) + highestBid || 1;
   useMemo(() => {
-    setAsk(getIncrementForPrice(highestBid) + highestBid || 1);
+    setAsk(highestBid || 1);
   }, [highestBid]);
 
   return (
