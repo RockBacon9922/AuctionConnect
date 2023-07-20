@@ -6,9 +6,11 @@ export {};
 persister.subscribe(() => {
   // This is going to get the current lot. All the bids and sort the bids by amount from highest to lowest
   const auctionState = getState().auction;
+  // Check if auction state has lots
+  if (!auctionState?.lots?.length) return;
   // get current lot
-  const lot = auctionState.lots.find(
-    (lot) => lot.id === auctionState.currentLotId,
+  const lot = auctionState?.lots?.find(
+    (lot) => lot.id === auctionState?.currentLotId,
   );
   // if environment is not production log state
   if (process.env.NODE_ENV !== "production") {
