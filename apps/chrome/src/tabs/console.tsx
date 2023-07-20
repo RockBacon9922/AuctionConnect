@@ -76,7 +76,7 @@ const Console = () => {
       </div>
       <BidLabel />
       <Button>Undo</Button>
-      <Asking/>
+      <Asking />
       <Box className="row-span-3 h-full w-full flex-col gap-2 bg-blue-500 p-2">
         <Label className="w-[90%]">Quick Ask</Label>
         <Button className="w-[90%] bg-sky-300 hover:bg-sky-400">s</Button>
