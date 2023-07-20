@@ -1,5 +1,10 @@
 version = 1
 
+exclude_patterns = [
+  "pnpm-workspace",
+  "pnpm-lock"
+]
+
 [[analyzers]]
 name = "javascript"
 
