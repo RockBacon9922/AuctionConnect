@@ -2,18 +2,9 @@
 
 // i want to be able to see the lots from redux
 
-import exp from "constants";
-import { useEffect, useState } from "react";
-import {
-  createLot,
-  resetState,
-  setActiveLot,
-  setAuctionDate,
-  setAuctionName,
-  setSetup,
-  type Auction,
-} from "~slices/auction-slice";
-import { RootState, useAppDispatch, useAppSelector } from "~store";
+import { useState } from "react";
+import { createLot, setActiveLot, type Auction } from "~slices/auction-slice";
+import { useAppDispatch, useGetAuction } from "~store";
 import Wrapper from "~tabs/Assets/wrapper";
 
 const Options = () => {
@@ -22,6 +13,7 @@ const Options = () => {
       <LotsTable />
       <CreateLot />
       <SetCurrentLot />
+      <BidsTable />
     </Wrapper>
   );
 };
@@ -29,7 +21,7 @@ const Options = () => {
 export default Options;
 
 const LotsTable = () => {
-  const auction: Auction = useAppSelector((state: RootState) => state.auction);
+  const auction = useGetAuction();
   const lots = auction.lots;
   return (
     <table>
@@ -129,7 +121,7 @@ const CreateLot = () => {
 };
 
 const SetCurrentLot = () => {
-  const auction: Auction = useAppSelector((state: RootState) => state.auction);
+  const auction = useGetAuction();
   const [lotNumber, setLotNumberState] = useState(auction.currentLotId);
   const dispatch = useAppDispatch();
   return (
@@ -144,6 +136,40 @@ const SetCurrentLot = () => {
       <button onClick={() => dispatch(setActiveLot(lotNumber))}>
         Set Lot Number
       </button>
+    </div>
+  );
+};
+
+const BidsTable = () => {
+  const auction: Auction = useGetAuction();
+  const lots = auction.lots;
+
+  return (
+    <div>
+      {lots.map((lot) => (
+        <div key={lot.id}>
+          <h2>Lot Number: {lot.id}</h2>
+          <table>
+            <thead>
+              <tr>
+                <th>Lot Number</th>
+                <th>Bid Number</th>
+                <th>Bid Amount</th>
+                <th>Bid State</th>
+              </tr>
+            </thead>
+            <tbody>
+              {lot.bids.map((bid) => (
+                <tr key={bid.amount.toString() + bid.bidder}>
+                  <td>{bid.amount}</td>
+                  <td>{bid.bidder}</td>
+                  <td>{bid.platform}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      ))}
     </div>
   );
 };
