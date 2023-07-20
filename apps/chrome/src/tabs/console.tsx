@@ -3,6 +3,7 @@ import {
   persister,
   useAppDispatch,
   useAppSelector,
+  useGetAuction,
   useGetCurrentLot,
 } from "~store";
 
@@ -29,39 +30,7 @@ const Console = () => {
       <Button>Pass</Button>
       <Button>Sell</Button>
       <Button>Next Lot</Button>
-      <div className="col-span-3 row-span-5 overflow-x-auto ">
-        <table className="table w-full">
-          <thead>
-            <tr>
-              <th>Lot</th>
-              <th>Description</th>
-              <th>Estimate</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>701</td>
-              <td>description</td>
-              <td>estimate</td>
-            </tr>
-            <tr>
-              <td>702</td>
-              <td>description</td>
-              <td>estimate</td>
-            </tr>
-            <tr>
-              <td>703</td>
-              <td>description</td>
-              <td>estimate</td>
-            </tr>
-            <tr>
-              <td>704</td>
-              <td>description</td>
-              <td>estimate</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+      <LotTable />
       {/* <BidLabel /> */}
       <Button>Undo</Button>
       <Asking />
@@ -201,7 +170,7 @@ const Asking = () => {
         onChange={(e) => setReactAsking(e.target.value)}
         onKeyDown={(e) => {
           if (e.key === "Enter") {
-            dispatch(setAsk(parseInt(asking)));
+            dispatch(setAsk(parseInt(asking) || currentLot?.asking));
           }
         }}
         pattern="[0-9]*"
@@ -217,8 +186,34 @@ const Empty = () => {
 
 const LotNumber = () => {
   // get current lot number
-  const currentLotId = useAppSelector((state) => state.auction.currentLotId);
+  const currentLotId = useGetCurrentLot()?.id;
   return (
     <h1 className="row-span-2 text-xl font-extrabold">Lot {currentLotId}</h1>
+  );
+};
+
+const LotTable = () => {
+  const auction = useGetAuction();
+  return (
+    <div className="col-span-3 row-span-5 overflow-x-auto ">
+      <table className="table w-full">
+        <thead>
+          <tr>
+            <th>Lot</th>
+            <th>Description</th>
+            <th>Hammer</th>
+          </tr>
+        </thead>
+        <tbody>
+          {auction?.lots.map((lot) => (
+            <tr key={lot.id}>
+              <td>{lot.id}</td>
+              <td>{lot.description}</td>
+              <td>{lot.bids[0].amount}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 };
