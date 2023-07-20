@@ -161,7 +161,7 @@ const getHighEstimate = () => {
 const getDescription = () => {
   return document
     .getElementById(consoleElements.description)
-    .innerText.replace("Description: ", "");
+    .innerText.replace("description: ", "");
 };
 
 const getBidder = () => {
