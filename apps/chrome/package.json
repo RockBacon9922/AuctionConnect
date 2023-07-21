@@ -11,6 +11,7 @@
   "dependencies": {
     "@acme/api": "^0.1.0",
     "@acme/element-operations": "^0.1.0",
+    "@acme/increments": "^0.1.0",
     "@plasmohq/redux-persist": "^6.1.0",
     "@plasmohq/storage": "^1.7.0",
     "@reduxjs/toolkit": "^1.9.5",

@@ -1,11 +1,20 @@
 /* eslint-disable @next/next/no-img-element */
 // TODO: Asking box doesn't update when new lot is selected
-import { useAppDispatch, useGetAuction, useGetCurrentLot } from "~store";
+import {
+  getState,
+  store,
+  useAppDispatch,
+  useGetAuction,
+  useGetCurrentLot,
+} from "~store";
 
 import "../style.css";
 
+import { get } from "http";
 import { useEffect, useState } from "react";
-import { setAsk } from "~slices/auction-slice";
+import { createBid, setAsk } from "~slices/auction-slice";
+
+import getIncrementForPrice from "@acme/increments";
 
 import Wrapper from "./Assets/wrapper";
 
@@ -35,7 +44,9 @@ const Console = () => {
         <Button className="w-[90%] bg-sky-300 hover:bg-sky-400">s</Button>
         <Button className="w-[90%] bg-sky-300 hover:bg-sky-400">s</Button>
       </Box>
-      <Button className="row-span-2">Bid</Button>
+      <Button className="row-span-2" onClick={handleBid}>
+        Bid
+      </Button>
       <Button className="row-span-2">Split Bid</Button>
     </div>
   );
@@ -198,5 +209,25 @@ const LotTable = () => {
         </tbody>
       </table>
     </div>
+  );
+};
+
+const handleBid = () => {
+  const currentLot = getState().auction.lots.find(
+    (e) => getState().auction.currentLotId === e.id,
+  );
+  // create a new bid
+  // set bid platform to "Room"
+  // set bid amount to the asking price
+  const bid = {
+    bidder: "Room",
+    amount: currentLot.asking,
+    platform: "GavelConnect",
+    lotId: currentLot.id,
+  };
+  // add the bid to the current lot
+  store.dispatch(createBid(bid));
+  store.dispatch(
+    setAsk(getIncrementForPrice(currentLot.asking) + currentLot.asking),
   );
 };
