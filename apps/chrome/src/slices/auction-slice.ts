@@ -1,5 +1,4 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
-import type { RootState } from "~store";
 import { z } from "zod";
 
 const bid = z.object({
@@ -16,7 +15,7 @@ const lot = z.object({
   highEstimate: z.number(),
   asking: z.number(),
   bids: z.array(bid),
-  state: z.enum(["unsold", "sold"]),
+  state: z.enum(["unsold", "sold", "passed"]),
 });
 
 export const auction = z.object({
