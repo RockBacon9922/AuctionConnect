@@ -78,7 +78,7 @@ const Bid = () => {
     <div>
       <button
         onClick={() => {
-          bidMutation.mutate({ amount: asking, lotId: lotId, online: false });
+          bidMutation.mutate({ amount: asking, lotId: lotId, online: true });
         }}
         disabled={isDisabled}
         id="bidButton"
