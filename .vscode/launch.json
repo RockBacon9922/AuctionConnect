@@ -8,6 +8,14 @@
       "command": "pnpm dev",
       "cwd": "${workspaceFolder}/apps/nextjs/",
       "skipFiles": ["<node_internals>/**"]
+    },
+    {
+      "name": "Chrome",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "pnpm dev",
+      "cwd": "${workspaceFolder}/apps/chrome/",
+      "skipFiles": ["<node_internals>/**"]
     }
   ]
 }
