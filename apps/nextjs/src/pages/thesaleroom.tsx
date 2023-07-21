@@ -166,7 +166,7 @@ const RoomBid = () => {
           bidMutation.mutate({ amount: asking, lotId: lotId, online: false });
         }}
         disabled={isDisabled}
-        id="bidButton"
+        id="Room"
       >
         Room Bid
       </button>
