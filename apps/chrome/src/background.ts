@@ -1,5 +1,7 @@
-import { sortBids } from "~slices/auction-slice";
+import { setAsk, sortBids } from "~slices/auction-slice";
 import { getState, persister, store } from "~store";
+
+import getIncrementForPrice from "@acme/increments";
 
 export {};
 
@@ -17,4 +19,7 @@ persister.subscribe(() => {
     console.debug("auction state", auctionState);
   }
   store.dispatch(sortBids(lot.id));
+  if (lot?.asking === lot?.bids[0]?.amount) {
+    store.dispatch(setAsk(getIncrementForPrice(lot?.asking) + lot?.asking));
+  }
 });
