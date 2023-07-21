@@ -62,52 +62,70 @@ document.addEventListener("DOMContentLoaded", () => {
     const lot = auctionState.lots.find(
       (lot) => lot.id === auctionState.currentLotId,
     );
+    // if ask is not the same as in state update it
     if (lot?.asking !== getAsk()) {
       setAsk(lot.asking);
     }
+    // Does redux show current lot as sold/unsold
     if (lot?.state === "sold") {
       clickSold();
+      //TODO: add seller id
+    } else if (lot?.state === "passed") {
+      clickPass();
     }
-    if (lot.bids.length && lot.bids[0].platform !== platformName) {
-      if (getHammer() === lot.bids[0]?.amount) {
-        clickRoom();
-      } else if (getHammer() < lot.bids[0].amount) {
-        setAsk(lot.bids[0].amount);
-        clickBid();
-        setAsk(lot.asking);
-      }
-      // something hear to handle undo e.g if bid is higher then remove it!!!
+    // does current lot number match redux
+    if (getLot() <= auctionState.currentLotId) {
+      clickNextLot();
+      return;
+    }
+    // check if there are lots
+    if (!auctionState.lots.length) return;
+    const topBid = lot?.bids[0];
+    // check if hammer matches the top bid in state
+    if (
+      getHammer() === lot?.bids[0]?.amount &&
+      topBid.platform !== platformName
+    ) {
+      clickRoom();
+    }
+    if (getHammer() > topBid?.amount) {
+      //TODO: undo/delete bid
+    }
+    if (getHammer() < topBid?.amount) {
+      setAsk(topBid.amount);
+      clickBid();
+      setAsk(lot?.asking);
     }
   });
   // Lot Number
-  observeElementContent(consoleElements.currentLot, () => {
-    const auctionState = getState().auction;
-    // check if lot is in auction state
-    const lotId = getLot();
-    if (lotId === "0") return;
-    const lotExists = auctionState.lots.some((lot) => lot.id === lotId);
+  // if the primary platform regester event listener for lot number
+  if (currentPlatform?.primary) {
+    observeElementContent(consoleElements.currentLot, () => {
+      const auctionState = getState().auction;
+      // check if lot is in auction state
+      const lotId = getLot();
+      if (lotId === "0") return;
+      const lotExists = auctionState.lots.some((lot) => lot.id === lotId);
 
-    // if not the primary platform you have no authority to control the auction
-    if (!currentPlatform?.primary) return;
-
-    // if lot does not exist. Create it!!!
-    if (!lotExists) {
-      // find lot in auction state
-      store.dispatch(
-        createLot({
-          id: lotId,
-          asking: getAsk(),
-          bids: [],
-          description: getDescription(),
-          highEstimate: getHighEstimate(),
-          lowEstimate: getLowEstimate(),
-          image: getImage(),
-          state: "unsold",
-        }),
-      );
-    }
-    store.dispatch(setActiveLot(lotId));
-  });
+      // if lot does not exist. Create it!!!
+      if (!lotExists) {
+        // find lot in auction state
+        store.dispatch(
+          createLot({
+            id: lotId,
+            asking: getAsk(),
+            bids: [],
+            description: getDescription(),
+            highEstimate: getHighEstimate(),
+            lowEstimate: getLowEstimate(),
+            image: getImage(),
+            state: "unsold",
+          }),
+        );
+      }
+      store.dispatch(setActiveLot(lotId));
+    });
+  }
   // Bid
   observeElementContent(consoleElements.currentHammer, () => {
     const lotId = getLot();
@@ -115,10 +133,15 @@ document.addEventListener("DOMContentLoaded", () => {
     if (lotId === "0" && isNaN(hammer)) return;
     const lot = getState().auction.lots.find((lot) => lot.id === lotId);
     if (!lot) return;
-    // check if there is already a bid at this amount
-    if (lot.bids.some((bid) => bid.amount === hammer)) return;
+    // check if lot is sold
+    if (lot.state === "sold") return;
+
+    // check if bidder is room
     const bidder = getBidder();
     if (bidder === "Room") return;
+
+    // check if there is already a bid at this amount
+    if (lot.bids.some((bid) => bid.amount <= hammer)) return;
     // create bid object
     const bid: CreateBid = {
       amount: hammer,
