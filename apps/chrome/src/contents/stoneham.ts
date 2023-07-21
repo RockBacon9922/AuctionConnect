@@ -76,7 +76,7 @@ document.addEventListener("DOMContentLoaded", () => {
       clickPass();
     }
     // does current lot number match redux
-    if (getLot() <= auctionState.currentLotId) {
+    if (getLot() < auctionState.currentLotId) {
       clickNextLot();
       return;
     }
@@ -138,12 +138,12 @@ document.addEventListener("DOMContentLoaded", () => {
     // check if lot is sold
     if (lot.state === "sold") return;
 
-    // check if bidder is room
+    // check if bidder is itself
     const bidder = getBidder();
     if (bidder === "Room") return;
 
     // check if there is already a bid at this amount
-    if (lot.bids.some((bid) => bid.amount <= hammer)) return;
+    if (lot.bids.some((bid) => bid.amount === hammer)) return;
     // create bid object
     const bid: CreateBid = {
       amount: hammer,

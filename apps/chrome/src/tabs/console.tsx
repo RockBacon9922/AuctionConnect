@@ -227,7 +227,4 @@ const handleBid = () => {
   };
   // add the bid to the current lot
   store.dispatch(createBid(bid));
-  store.dispatch(
-    setAsk(getIncrementForPrice(currentLot.asking) + currentLot.asking),
-  );
 };
