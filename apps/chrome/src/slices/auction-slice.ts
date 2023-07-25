@@ -71,15 +71,9 @@ const auctionSlice = createSlice({
       if (!lot) throw new Error("Lot not found");
       lot.asking = action.payload;
     },
-    sortBids: (state, action: PayloadAction<string>) => {
-      const lot = state.lots.find((lot) => lot.id === action.payload);
-      if (!lot) throw new Error("Lot not found");
-      lot.bids.sort((a, b) => b.amount - a.amount);
-    },
     createBid: (state, action: PayloadAction<CreateBid>) => {
       const lot = state.lots.find((lot) => lot.id === action.payload.lotId);
       if (!lot) throw new Error("Lot not found");
-      if (lot.state === "sold") return;
       lot.bids.push({
         amount: action.payload.amount,
         platform: action.payload.platform,
@@ -95,6 +89,11 @@ const auctionSlice = createSlice({
         currentLotId: "0",
         lots: [],
       };
+    },
+    sortBids: (state, action: PayloadAction<string>) => {
+      const lot = state.lots.find((lot) => lot.id === action.payload);
+      if (!lot || lot.bids.length <= 1) return;
+      lot.bids.sort((a, b) => b.amount - a.amount);
     },
   },
 });
