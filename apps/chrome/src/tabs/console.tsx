@@ -121,7 +121,8 @@ const BidLabel = () => {
       style={{ backgroundColor: bgcolour }}
     >
       <h2>
-        {highestBid?.amount} : {highestBid?.platform}
+        {highestBid?.platform.slice(0, 2).toUpperCase()}:
+        {highestBid?.bidder.slice(0, 8)}:{highestBid?.amount}
       </h2>
     </div>
   );

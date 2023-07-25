@@ -64,6 +64,11 @@ document.addEventListener("DOMContentLoaded", () => {
     const lot = auctionState.lots.find(
       (lot) => lot.id === auctionState.currentLotId,
     );
+    // if there is no lot create it and return
+    if (!lot) {
+      getSetCurrentLot();
+      return;
+    }
     // if ask is not the same as in state update it
     if (lot?.asking !== getAsk()) {
       setAsk(lot.asking);
@@ -88,14 +93,14 @@ document.addEventListener("DOMContentLoaded", () => {
       getHammer() === lot?.bids[0]?.amount &&
       topBid.platform !== platformName
     ) {
-      clickRoom();
+      //TODO: Change bid to room
     }
     if (getHammer() > topBid?.amount) {
       //TODO: undo/delete bid
     }
     if (getHammer() < topBid?.amount) {
       setAsk(topBid.amount);
-      clickBid();
+      clickRoom();
       setAsk(lot?.asking);
     }
   });
@@ -103,42 +108,22 @@ document.addEventListener("DOMContentLoaded", () => {
   // if the primary platform regester event listener for lot number
   if (currentPlatform?.primary) {
     observeElementContent(consoleElements.currentLot, () => {
-      const auctionState = getState().auction;
-      // check if lot is in auction state
-      const lotId = getLot();
-      if (lotId === "0") return;
-      const lotExists = auctionState.lots.some((lot) => lot.id === lotId);
-
-      // if lot does not exist. Create it!!!
-      if (!lotExists) {
-        // find lot in auction state
-        store.dispatch(
-          createLot({
-            id: lotId,
-            asking: getAsk(),
-            bids: [],
-            description: getDescription(),
-            highEstimate: getHighEstimate(),
-            lowEstimate: getLowEstimate(),
-            image: getImage(),
-            state: "unsold",
-          }),
-        );
-      }
-      store.dispatch(setActiveLot(lotId));
+      getSetCurrentLot();
     });
   }
   // Bid
   observeElementContent(consoleElements.currentHammer, () => {
     const lotId = getLot();
     const hammer = getHammer();
+    console.debug("hammer", hammer);
+    console.debug("type of hammer", typeof hammer);
     if (lotId === "0" && isNaN(hammer)) return;
     const lot = getState().auction.lots.find((lot) => lot.id === lotId);
     if (!lot) return;
     // check if lot is sold
     if (lot.state === "sold") return;
 
-    // check if bidder is itself
+    // check if bidder is room
     const bidder = getBidder();
     if (bidder === "Room") return;
 
@@ -231,4 +216,30 @@ const clickRoom = () => {
 
 const clickNextLot = () => {
   document.getElementById(consoleElements.nextLotButton).click();
+};
+
+const getSetCurrentLot = () => {
+  const auctionState = getState().auction;
+  // check if lot is in auction state
+  const lotId = getLot();
+  if (lotId === "0") return;
+  const lotExists = auctionState.lots.some((lot) => lot.id === lotId);
+
+  // if lot does not exist. Create it!!!
+  if (!lotExists) {
+    // find lot in auction state
+    store.dispatch(
+      createLot({
+        id: lotId,
+        asking: getAsk(),
+        bids: [],
+        description: getDescription(),
+        highEstimate: getHighEstimate(),
+        lowEstimate: getLowEstimate(),
+        image: getImage(),
+        state: "unsold",
+      }),
+    );
+  }
+  store.dispatch(setActiveLot(lotId));
 };
