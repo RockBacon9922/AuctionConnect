@@ -1,8 +1,6 @@
 import { useMemo, useState } from "react";
 import Image from "next/image";
 
-import { getIncrementForPrice } from "@acme/increments";
-
 import { api } from "~/utils/api";
 import deskimage from "../../public/Desk.png";
 
@@ -52,13 +50,14 @@ const IncomingBid = () => {
 };
 
 const Bid = () => {
+  const ctx = api.useContext();
   const [isDisabled, setIsDisabled] = useState(false);
   const currentLot = api.lot.current.useQuery(undefined, {
     refetchInterval: 3000,
   });
   const bidMutation = api.bid.create.useMutation({
-    onSuccess: () => {
-      currentLot.refetch();
+    onSuccess: async () => {
+      await ctx.bid.invalidate();
     },
   });
 
@@ -90,14 +89,15 @@ const Bid = () => {
 };
 
 const SetInterval = () => {
+  const ctx = api.useContext();
   const [ask, setAsk] = useState(1);
   const currentLot = api.lot.current.useQuery(undefined, {
-    refetchInterval: 3000,
+    refetchInterval: 5000,
   });
 
   const askMutation = api.lot.updateAsk.useMutation({
-    onSuccess: () => {
-      currentLot.refetch();
+    onSuccess: async () => {
+      await ctx.lot.invalidate();
     },
   });
 
@@ -137,13 +137,14 @@ const SetInterval = () => {
 };
 
 const RoomBid = () => {
+  const ctx = api.useContext();
   const [isDisabled, setIsDisabled] = useState(false);
   const currentLot = api.lot.current.useQuery(undefined, {
-    refetchInterval: 3000,
+    refetchInterval: 5000,
   });
   const bidMutation = api.bid.createRoom.useMutation({
-    onSuccess: () => {
-      currentLot.refetch();
+    onSuccess: async () => {
+      await ctx.bid.invalidate();
     },
   });
 
@@ -183,21 +184,17 @@ const UpdateCurrentLot: React.FC<UpdateCurrentLotProps> = ({
   type,
   status,
 }) => {
+  const ctx = api.useContext();
   // get current lot
   const currentLot = api.lot.current.useQuery(undefined, {
-    refetchInterval: 3000,
-  });
-
-  // get the next lot
-  const nextLot = api.lot.next.useQuery(undefined, {
-    refetchInterval: 3000,
+    refetchInterval: 5000,
   });
 
   // sell the item
   const mutation = api.lot.sell.useMutation({
-    onSuccess: () => {
-      currentLot.refetch();
-      nextLot.refetch();
+    onSuccess: async () => {
+      await ctx.lot.invalidate();
+      await ctx.bid.invalidate();
     },
   });
 
