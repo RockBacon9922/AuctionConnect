@@ -60,6 +60,7 @@ function IndexPopup() {
       </ul>
       <Version />
       <Reset />
+      by William Stoneham
     </div>
   );
 }
