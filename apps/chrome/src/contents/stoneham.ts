@@ -28,21 +28,21 @@ const consoleElements = {
   description: "description",
   lowEstimate: "lowEstimate",
   highEstimate: "highEstimate",
-  bidButton: "bidButton",
-  askInput: "askInput",
+  bidButton: "button-bid.button_StyledButton_sc_9ohyvw_0.ktZtTg",
+  askInput: "input-asking.input-SC-1wrv6ku-0.gnEekH",
   askButton: "askButton",
   roomButton: "Room",
   sellButton: "sellButton",
   passButton: "passButton",
   image: "image",
-  nextLotButton: "nextLotButton",
+  nextLotButton: "button-next.button_StyledButton_sc_9ohyvw_0.WGJFq",
 };
 
 const platformName = "stoneham";
 /* ---------- End of platform setup ---------- */
 
 export const config: PlasmoCSConfig = {
-  matches: ["https://dev.gavelconnect.com/thesaleroom"],
+  matches: ["https://gaplive-eu.globalauctionplatform.com/operator2/*"],
   all_frames: true,
   run_at: "document_start",
 };
