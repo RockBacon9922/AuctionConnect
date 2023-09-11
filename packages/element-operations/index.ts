@@ -26,10 +26,10 @@ export const updateInput = (id: string, value: string) => {
   var nativeInputValueSetter = Object.getOwnPropertyDescriptor(
     window.HTMLInputElement.prototype,
     "value",
-  ).set;
-  nativeInputValueSetter.call(input, value);
+  )?.set;
+  nativeInputValueSetter?.call(input, value);
 
   // i know for a fact that "input" event works for react. "change" event works for blazor and react let's hope that works for everything.
   var ev = new Event("change", { bubbles: true });
-  input.dispatchEvent(ev);
+  input?.dispatchEvent(ev);
 };
