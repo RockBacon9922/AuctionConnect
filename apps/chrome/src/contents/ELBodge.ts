@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // create a new button
   const newButton = document.createElement("button");
   // copy the styles from the old button
-  newButton.setAttribute("style", launchAuctioneer.getAttribute("style"));
+  newButton.setAttribute("style", launchAuctioneer?.getAttribute("style"));
   // move the image into the new button
   newButton.appendChild(launchAuctioneer.children[0]);
 
