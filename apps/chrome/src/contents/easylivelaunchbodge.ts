@@ -1,4 +1,3 @@
-import { on } from "events";
 import { type PlasmoCSConfig } from "plasmo";
 
 export const config: PlasmoCSConfig = {
@@ -7,25 +6,31 @@ export const config: PlasmoCSConfig = {
   run_at: "document_start",
 };
 
+// modify index.cfm to open the auctioneer in a new tab
+
 document.addEventListener("DOMContentLoaded", () => {
   // find the element with the id of launchAuctioneer
   const launchAuctioneer = document.getElementById("launchAuctioneer");
 
   // get the contents of the onclick attribute
-  const launchAuctioneerOnClick = launchAuctioneer.getAttribute("onclick");
-  alert(launchAuctioneerOnClick);
+  const auctionId = launchAuctioneer.getAttribute("onclick").split("'")[1];
 
-  // "launchAuctioneer('32f22c89c0d5c49488edfe7f0120cab7b2cd883a378cede804dc80bf4ad6593c') parse the string to get the auction id
-  const auctionId = launchAuctioneerOnClick.split("'")[1];
-
-  // remove the onclick event listener
-  launchAuctioneer.removeAttribute("onclick");
+  // Because i can't remove the onClick event listener, i'm and going to create a new button copy the styles from the old button and place it into the new one. I am also going to move the image inside the old button into the new one.
+  // create a new button
+  const newButton = document.createElement("button");
+  // copy the styles from the old button
+  newButton.setAttribute("style", launchAuctioneer.getAttribute("style"));
+  // move the image into the new button
+  newButton.appendChild(launchAuctioneer.children[0]);
 
   // create a new event listener where it will open https://www.easyliveauction.com/live_v2/clerk.cfm?evtID= with the auction id
-  launchAuctioneer.addEventListener("click", () => {
+  newButton.addEventListener("click", () => {
     window.open(
       `https://www.easyliveauction.com/live_v2/clerk.cfm?evtID=${auctionId}`,
       "_blank",
     );
   });
+
+  // replace the old button with the new one
+  launchAuctioneer.replaceWith(newButton);
 });
