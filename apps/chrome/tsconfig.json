@@ -10,7 +10,7 @@
     "postcss.config.js"
   ],
   "compilerOptions": {
-    "strict": false,
+    "strict": true,
     "skipLibCheck": true,
 
     "target": "esnext",
