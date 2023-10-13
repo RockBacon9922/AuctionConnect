@@ -18,8 +18,10 @@ persister.subscribe(() => {
   if (process.env.NODE_ENV !== "production") {
     console.debug("auction state", auctionState);
   }
-  store.dispatch(sortBids(lot.id));
+  store.dispatch(sortBids(lot?.id || ""));
   if (lot?.asking === lot?.bids[0]?.amount) {
-    store.dispatch(setAsk(getIncrementForPrice(lot?.asking) + lot?.asking));
+    store.dispatch(
+      setAsk(getIncrementForPrice(lot?.asking || 0) + (lot?.asking || 0)),
+    );
   }
 });
