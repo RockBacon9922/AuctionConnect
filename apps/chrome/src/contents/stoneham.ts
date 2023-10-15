@@ -1,5 +1,5 @@
-/* This file is a content script for the chrome extensions gavelconnect. This script will be injected into the webpage dev.gavelconnect.com/thesaleroom. 
-This webpage is a live updating dashboard which controls the auction. 
+/* This file is a content script for the chrome extensions gavelconnect. This script will be injected into the webpage dev.gavelconnect.com/thesaleroom.
+This webpage is a live updating dashboard which controls the auction.
 The purpose of this page is to link the redux state and the dashboard so that on a different chrome extension page you can control multiple auction platforms at once
  */
 
