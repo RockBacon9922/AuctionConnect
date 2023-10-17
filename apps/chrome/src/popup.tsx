@@ -14,12 +14,6 @@ import {
 } from "~store";
 import Wrapper from "~tabs/Assets/wrapper";
 
-// write a function to  check if we are in dev mode
-
-const isDev = () => {
-  process.env.NODE_ENV === "development";
-};
-
 function IndexPopup() {
   // get if setup is complete
   const setup = useGetAuction().setup;
@@ -40,7 +34,7 @@ function IndexPopup() {
           marginBottom: 10,
         }}
       >
-        Auction Connect
+        Gavel Connect
       </h1>
       {setup ? (
         <ToConsole />
@@ -50,14 +44,6 @@ function IndexPopup() {
           <Setup />
         </div>
       )}
-      <ul>
-        <li>
-          <h3>SaleRoom: ✔</h3>
-        </li>
-        <li>
-          <h3>Easy Live: ✔</h3>
-        </li>
-      </ul>
       <Version />
       <Reset />
       by William Stoneham
@@ -137,11 +123,11 @@ const ToConsole = () => {
           (tabs) => {
             if (tabs.length > 0) {
               // if console is open then bring it into view
-              chrome.tabs.update(tabs[0].id, { active: true });
-              chrome.windows.update(tabs[0].windowId, { focused: true });
+              void chrome.tabs.update(tabs[0].id, { active: true });
+              void chrome.windows.update(tabs[0].windowId, { focused: true });
               return;
             } else {
-              chrome.tabs.create({
+              void chrome.tabs.create({
                 url: "chrome-extension://" + extensionId + "/tabs/console.html",
               });
             }

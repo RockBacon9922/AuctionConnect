@@ -10,7 +10,6 @@ import {
 
 import "../style.css";
 
-import { get } from "http";
 import { useEffect, useState } from "react";
 import { createBid, setAsk } from "~slices/auction-slice";
 
