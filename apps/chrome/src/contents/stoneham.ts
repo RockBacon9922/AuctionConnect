@@ -1,5 +1,5 @@
-/* This file is a content script for the chrome extensions gavelconnect. This script will be injected into the webpage dev.gavelconnect.com/thesaleroom. 
-This webpage is a live updating dashboard which controls the auction. 
+/* This file is a content script for the chrome extensions gavelconnect. This script will be injected into the webpage dev.gavelconnect.com/thesaleroom.
+This webpage is a live updating dashboard which controls the auction.
 The purpose of this page is to link the redux state and the dashboard so that on a different chrome extension page you can control multiple auction platforms at once
  */
 
@@ -115,6 +115,8 @@ document.addEventListener("DOMContentLoaded", () => {
   observeElementContent(consoleElements.currentHammer, () => {
     const lotId = getLot();
     const hammer = getHammer();
+    const bidder = getBidder();
+    if (!lotId || !hammer || !bidder) return;
     console.debug("hammer", hammer);
     console.debug("type of hammer", typeof hammer);
     if (lotId === "0" && isNaN(hammer)) return;
@@ -124,7 +126,6 @@ document.addEventListener("DOMContentLoaded", () => {
     if (lot.state === "sold") return;
 
     // check if bidder is room
-    const bidder = getBidder();
     if (bidder === "Room") return;
 
     // check if there is already a bid at this amount
@@ -141,102 +142,116 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 const getLot = () => {
-  return document
+  const lotNumber = document
     .getElementById(consoleElements.currentLot)
-    .innerText.replace("Lot ", "");
+    ?.innerText.replace("Lot ", "");
+  if (lotNumber) return parseInt(lotNumber);
+  throw new Error("Lot number not found");
 };
 
+// create me a typesafe get image function
 const getImage = () => {
-  // get image url
-  const image = document.getElementById(
-    consoleElements.image,
-  ) as HTMLImageElement;
-  return image.src;
+  const image = document.getElementById(consoleElements.image);
+  if (image) return image.getAttribute("src");
+  throw new Error("Image element not found");
 };
 
 const getAsk = () => {
-  const stringAsk = document
-    .getElementById(consoleElements.currentAsk)
-    .innerText.replace("Asking: ", "");
-  return parseInt(stringAsk.replace(",", ""));
+  const askElement = document.getElementById(consoleElements.currentAsk);
+  if (askElement)
+    return parseInt(
+      askElement.innerText.replace("Asking: ", "").replace(",", ""),
+    );
+  throw new Error("Ask element not found");
 };
 
 const getHammer = () => {
-  const stringBid = document
-    .getElementById(consoleElements.currentHammer)
-    .innerText.replace("Bid: ", "");
-  return parseInt(stringBid.replace(",", ""));
+  const hammerElement = document.getElementById(consoleElements.currentHammer);
+  if (hammerElement)
+    return parseInt(
+      hammerElement.innerText.replace("Bid: ", "").replace(",", ""),
+    );
+  throw new Error("Hammer element not found");
 };
 
 const getLowEstimate = () => {
-  const stringLowEstimate = document
-    .getElementById(consoleElements.lowEstimate)
-    .innerText.replace("Low Estimate: ", "");
-  return parseInt(stringLowEstimate.replace(",", ""));
+  const lowEstimateElement = document.getElementById(
+    consoleElements.lowEstimate,
+  );
+  if (lowEstimateElement)
+    return parseInt(
+      lowEstimateElement.innerText
+        .replace("Low Estimate: ", "")
+        .replace(",", ""),
+    );
+  throw new Error("Low Estimate not found");
 };
 
 const getHighEstimate = () => {
-  const stringHighEstimate = document
-    .getElementById(consoleElements.highEstimate)
-    .innerText.replace("High Estimate: ", "");
-  return parseInt(stringHighEstimate.replace(",", ""));
+  const highEstimateElement = document.getElementById(
+    consoleElements.highEstimate,
+  );
+  if (highEstimateElement)
+    return parseInt(
+      highEstimateElement.innerText
+        .replace("High Estimate: ", "")
+        .replace(",", ""),
+    );
 };
 
 const getDescription = () => {
   return document
     .getElementById(consoleElements.description)
-    .innerText.replace("description: ", "");
+    ?.innerText.replace("description: ", "");
 };
 
 const getBidder = () => {
   return document
     .getElementById(consoleElements.currentBidder)
-    .innerText.replace("Bidder: ", "");
+    ?.innerText.replace("Bidder: ", "");
 };
 
 const setAsk = (ask: number) => {
   updateInput(consoleElements.askInput, ask.toString());
-  document.getElementById(consoleElements.askButton).click();
+  document.getElementById(consoleElements.askButton)?.click();
 };
 
 const clickBid = () => {
-  document.getElementById(consoleElements.bidButton).click();
+  document.getElementById(consoleElements.bidButton)?.click();
 };
 
 const clickSold = () => {
-  document.getElementById(consoleElements.sellButton).click();
+  document.getElementById(consoleElements.sellButton)?.click();
 };
 const clickPass = () => {
-  document.getElementById(consoleElements.passButton).click();
+  document.getElementById(consoleElements.passButton)?.click();
 };
 
 const clickRoom = () => {
-  document.getElementById(consoleElements.roomButton).click();
+  document.getElementById(consoleElements.roomButton)?.click();
 };
 
 const clickNextLot = () => {
-  document.getElementById(consoleElements.nextLotButton).click();
+  document.getElementById(consoleElements.nextLotButton)?.click();
 };
 
 const getSetCurrentLot = () => {
   const auctionState = getState().auction;
   // check if lot is in auction state
   const lotId = getLot();
-  if (lotId === "0") return;
+  if (!lotId) return;
   const lotExists = auctionState.lots.some((lot) => lot.id === lotId);
-
   // if lot does not exist. Create it!!!
   if (!lotExists) {
-    // find lot in auction state
     store.dispatch(
       createLot({
         id: lotId,
-        asking: getAsk(),
+        asking: getAsk() || 0,
         bids: [],
-        description: getDescription(),
-        highEstimate: getHighEstimate(),
-        lowEstimate: getLowEstimate(),
-        image: getImage(),
+        description: getDescription() || "",
+        highEstimate: getHighEstimate() || 0,
+        lowEstimate: getLowEstimate() || 0,
+        image: getImage() || "",
         state: "unsold",
       }),
     );
