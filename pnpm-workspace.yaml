@@ -1,5 +1,5 @@
 packages:
-  - apps/nextjs
+  - apps/www
   - apps/chrome
   - packages/api
   - packages/auth
