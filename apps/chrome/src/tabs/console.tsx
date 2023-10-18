@@ -1,5 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 // TODO: Asking box doesn't update when new lot is selected
+// TODO: System to help user fix errors
 import {
   getState,
   store,
@@ -10,10 +11,9 @@ import {
 
 import "../style.css";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import { createBid, setAsk } from "~slices/auction-slice";
-
-import getIncrementForPrice from "@acme/increments";
+import { cn } from "~utils/cn";
 
 import Wrapper from "./Assets/wrapper";
 
@@ -69,7 +69,7 @@ const LotImage = () => {
     <div className="row-span-2 flex justify-start">
       <img
         className="h-20"
-        src={currentLot?.image || "https://i.ibb.co/RS5zd7R/Desk.png"}
+        src={currentLot?.image || "https://i.ibb.co/RS5zd7R/Desk.png"} //TODO: replace with placeholder image
         alt="Lot Image"
       />
     </div>
@@ -80,27 +80,33 @@ const LotImage = () => {
   );
 };
 
-const Button = ({ children, ...props }) => {
-  // if props include b- in the class name, then use that colour
-  // else use the default colour
-  // check if props.className is undefined
-
-  if (!props?.className?.includes("bg-")) {
-    props.className += " bg-blue-500 hover:bg-blue-600";
-  }
-  props.className += " w-30 h-full rounded text-white";
-
-  return <button {...props}>{children}</button>;
+const Button: React.FC<{
+  className?: string;
+  children: ReactNode;
+  onClick?: () => void;
+}> = ({ children, className, onClick, ...props }) => {
+  return (
+    <button
+      {...props}
+      className={cn(
+        "w-30 h-full rounded bg-blue-500 text-white hover:bg-blue-600",
+        className,
+      )}
+      onClick={onClick}
+    >
+      {children}
+    </button>
+  );
 };
 
 const BidLabel = () => {
-  const [bgcolour, setBgColour] = useState("#1E40AF");
+  const [bgColour, setBgColour] = useState("#1E40AF"); // FIXME: What is this doing
   const currentLot = useGetCurrentLot();
   // get the highest bid
   const highestBid = currentLot?.bids[0];
 
   // check if there are any bids
-  if (!currentLot.bids.length) {
+  if (!currentLot?.bids.length) {
     return (
       <div className="col-span-2 flex h-full items-center justify-center rounded text-center text-white"></div>
     );
@@ -117,7 +123,7 @@ const BidLabel = () => {
       className={
         "col-span-2 flex h-full items-center justify-center rounded text-center text-white"
       }
-      style={{ backgroundColor: bgcolour }}
+      style={{ backgroundColor: bgColour }}
     >
       <h2>
         {highestBid?.platform.slice(0, 2).toUpperCase()}:
@@ -127,22 +133,36 @@ const BidLabel = () => {
   );
 };
 
-const Label = ({ children, ...props }) => {
-  props.className +=
-    " text-center rounded text-white flex items-center justify-center";
+const Label: React.FC<{ children: ReactNode; className?: string }> = ({
+  children,
+  className,
+}) => {
   return (
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-    <div className={props.className}>
+    <div
+      className={cn(
+        "flex items-center justify-center rounded text-center text-white",
+        className,
+      )}
+    >
       <h3>{children}</h3>
     </div>
   );
 };
 
-const Box = ({ children, ...props }) => {
-  props.className +=
-    " text-center rounded text-white flex justify-center items-center";
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-  return <div className={props.className}>{children}</div>;
+const Box: React.FC<{ children: ReactNode; className: string }> = ({
+  children,
+  className,
+}) => {
+  return (
+    <div
+      className={cn(
+        "flex items-center justify-center rounded text-center text-white",
+        className,
+      )}
+    >
+      {children}
+    </div>
+  );
 };
 
 const Asking = () => {
@@ -168,7 +188,8 @@ const Asking = () => {
         onChange={(e) => setReactAsking(e.target.value)}
         onKeyDown={(e) => {
           if (e.key === "Enter") {
-            dispatch(setAsk(parseInt(asking) || currentLot?.asking));
+            if (!asking) return;
+            dispatch(setAsk(parseInt(asking)));
           }
         }}
         pattern="[0-9]*"
@@ -216,6 +237,7 @@ const handleBid = () => {
   const currentLot = getState().auction.lots.find(
     (e) => getState().auction.currentLotId === e.id,
   );
+  if (!currentLot) return;
   // create a new bid
   // set bid platform to "Room"
   // set bid amount to the asking price
