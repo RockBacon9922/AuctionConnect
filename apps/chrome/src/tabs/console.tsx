@@ -100,7 +100,7 @@ const Button: React.FC<{
 };
 
 const BidLabel = () => {
-  const [bgColour, setBgColour] = useState("#1E40AF"); // FIXME: What is this doing
+  const bgColour = "#1E40AF";
   const currentLot = useGetCurrentLot();
   // get the highest bid
   const highestBid = currentLot?.bids[0];
