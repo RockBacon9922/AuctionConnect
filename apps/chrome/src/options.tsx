@@ -52,6 +52,7 @@ const LotsTable = () => {
 };
 
 const CreateLot = () => {
+  type state = "unsold" | "sold" | "passed";
   // create a rfc which is used to create a lot
   const dispatch = useAppDispatch();
   const [lotNumber, setLotNumber] = useState("");
@@ -59,7 +60,7 @@ const CreateLot = () => {
   const [lotLowEstimate, setLotLowEstimate] = useState(0);
   const [lotHighEstimate, setLotHighEstimate] = useState(0);
   const [lotAsking, setLotAsking] = useState(0);
-  const [lotState, setLotState] = useState("unsold");
+  const [lotState, setLotState] = useState<state>("unsold");
   const lotBids = [];
   const image = "";
 
@@ -71,7 +72,7 @@ const CreateLot = () => {
         lowEstimate: lotLowEstimate,
         highEstimate: lotHighEstimate,
         asking: lotAsking,
-        state: lotState,
+        state: lotState satisfies state,
         bids: lotBids,
         image: image,
       }),
@@ -111,9 +112,13 @@ const CreateLot = () => {
         value={lotAsking}
         onChange={(e) => setLotAsking(parseInt(e.target.value))}
       />
-      <select value={lotState} onChange={(e) => setLotState(e.target.value)}>
+      <select
+        value={lotState}
+        onChange={(e) => setLotState(e.target.value as state)} // FIXME: this is a hack. I don't like that I am using as here
+      >
         <option value="unsold">Unsold</option>
         <option value="sold">Sold</option>
+        <option value="passed">Passed</option>
       </select>
       <button onClick={createLotDispatch}>Create Lot</button>
     </div>
