@@ -1,17 +1,11 @@
 import { useEffect, useState } from "react";
 import {
   resetState,
-  setActiveLot,
   setAuctionDate,
   setAuctionName,
   setSetup,
 } from "~slices/auction-slice";
-import {
-  RootState,
-  useAppDispatch,
-  useAppSelector,
-  useGetAuction,
-} from "~store";
+import { useAppDispatch, useGetAuction } from "~store";
 import Wrapper from "~tabs/Assets/wrapper";
 
 function IndexPopup() {
@@ -111,7 +105,7 @@ const ToConsole = () => {
         }
       },
     );
-  }, [chrome.tabs.onUpdated, chrome.tabs.onCreated]);
+  }, [extensionId]);
   return (
     <button
       onClick={() => {
