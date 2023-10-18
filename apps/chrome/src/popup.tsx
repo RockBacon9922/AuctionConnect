@@ -122,6 +122,8 @@ const ToConsole = () => {
           },
           (tabs) => {
             if (tabs.length > 0) {
+              // check if tab id is found
+              if (!tabs[0].id) throw new Error("Tab id not found");
               // if console is open then bring it into view
               void chrome.tabs.update(tabs[0].id, { active: true });
               void chrome.windows.update(tabs[0].windowId, { focused: true });
