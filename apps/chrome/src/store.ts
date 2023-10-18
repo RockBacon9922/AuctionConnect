@@ -29,7 +29,7 @@ const persistConfig = {
   key: "root",
   version: 1,
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-  storage: localStorage,
+  storage: localStorage, // TODO: This is a type error. when installing the type package there is a inconsitency with the type that is expected by the persistReducer function
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
@@ -75,7 +75,13 @@ export type AppDispatch = typeof store.dispatch;
 
 // Use throughout your app instead of plain `useDispatch` and `useSelector`
 type DispatchFunc = () => AppDispatch;
+/**
+ * Function that allows you to dispatch a Redux reducer action to the store
+ */
 export const useAppDispatch: DispatchFunc = useDispatch;
+/**
+ * Function that allows you to get the current state of the Redux store
+ */
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
 
 export const useGetAuction = () =>
