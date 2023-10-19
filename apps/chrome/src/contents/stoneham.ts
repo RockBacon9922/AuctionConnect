@@ -21,28 +21,27 @@ import { observeElementContent, updateInput } from "@acme/element-operations";
 // get every element and put the references in an object
 const consoleElements = {
   // for each in consoleIDs add reference to element in this object
-  currentLot: "currentLot",
-  currentAsk: "currentAsk",
-  currentHammer: "currentBid",
-  currentBidder: "currentBidder",
-  description: "description",
-  lowEstimate: "lowEstimate",
-  highEstimate: "highEstimate",
-  bidButton: "button-bid.button_StyledButton_sc_9ohyvw_0.ktZtTg",
-  askInput: "input-asking.input-SC-1wrv6ku-0.gnEekH",
-  askButton: "askButton",
-  roomButton: "Room",
-  sellButton: "sellButton",
-  passButton: "passButton",
-  image: "image",
-  nextLotButton: "button-next.button_StyledButton_sc_9ohyvw_0.WGJFq",
+  currentLot: "auctioneer-lot-no", // this is the id of the parent of the parent which contains the element with the lot number
+  currentAsk: "bid-amount", // this is the id of a input element which contains the current ask
+  currentHammer: "text-current-bid112233", // this can be the current ask or the current hammer
+  currentBidder: "client-bid", // when displaying ask currentHammer displays the asking price otherwise this displays the bidder id
+  description: "auctioneer-lot-desc", // Warning contains br tags
+  lowEstimate: "auctioneer-lot-est", // this is the id of the parent of the parent which contains the element with the current estimate Est: £80 - £120
+  highEstimate: "auctioneer-lot-est", // this is the id of the parent of the parent which contains the element with the current estimate Est: £80 - £120
+  bidButton: "btn-sold",
+  askInput: "bid-amount",
+  askButton: "btn-ask445566",
+  roomButton: "btn-room",
+  sellButton: "btn-sold",
+  passButton: "btn-pass",
+  image: "auctioneer-lot-img", // this is the parent element of the image tag
 };
 
 const platformName = "stoneham";
 /* ---------- End of platform setup ---------- */
 
 export const config: PlasmoCSConfig = {
-  matches: ["https://gaplive-eu.globalauctionplatform.com/operator2/*"],
+  matches: ["https://www.easyliveauction.com/live_v2/clerk.cfm/*"],
   all_frames: true,
   run_at: "document_start",
 };
