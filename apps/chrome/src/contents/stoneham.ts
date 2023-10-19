@@ -16,44 +16,47 @@ import type { PlasmoCSConfig } from "plasmo";
 
 import { observeElementContent, updateInput } from "@acme/element-operations";
 
-/* ---------- Update to setup platform ---------- */
-
-// get every element and put the references in an object
-const consoleElements = {
-  // for each in consoleIDs add reference to element in this object
-  currentLot: "auctioneer-lot-no", // this is the id of the parent of the parent which contains the element with the lot number
-  currentAsk: "bid-amount", // this is the id of a input element which contains the current ask
-  currentHammer: "text-current-bid112233", // this can be the current ask or the current hammer
-  currentBidder: "client-bid", // when displaying ask currentHammer displays the asking price otherwise this displays the bidder id
-  description: "auctioneer-lot-desc", // Warning contains br tags
-  lowEstimate: "auctioneer-lot-est", // this is the id of the parent of the parent which contains the element with the current estimate Est: £80 - £120
-  highEstimate: "auctioneer-lot-est", // this is the id of the parent of the parent which contains the element with the current estimate Est: £80 - £120
-  bidButton: "btn-sold",
-  askInput: "bid-amount",
-  askButton: "btn-ask445566",
-  roomButton: "btn-room",
-  sellButton: "btn-sold",
-  passButton: "btn-pass",
-  image: "auctioneer-lot-img", // this is the parent element of the image tag
-};
-
-const platformName = "stoneham";
-/* ---------- End of platform setup ---------- */
-
 export const config: PlasmoCSConfig = {
   matches: ["https://www.easyliveauction.com/live_v2/clerk.cfm/*"],
   all_frames: true,
   run_at: "document_start",
 };
 
+/* ---------- Update to setup platform ---------- */
+
+const platformName = "easyliveAuction";
 const platformState = getState().platform;
 // get current platform
 const currentPlatform = platformState.find(
   (platform) => platform.name === platformName,
 );
+/* ---------- End of platform setup ---------- */
 
 // create event listener for when dom is loaded
 document.addEventListener("DOMContentLoaded", () => {
+  // getting all the console elements
+  const consoleElements2 = {
+    currentLot: document.querySelector("#auctioneer-lot-no strong"),
+    // currentAsk: document.querySelector(),
+    currentHammer: document.querySelector("#text-current-bid112233"),
+    currentBidder: document.querySelector("#client-bid"),
+    description: document.querySelector("#auctioneer-lot-desc"),
+    lowEstimate: document.querySelector("#auctioneer-lot-est"),
+    highEstimate: document.querySelector("#auctioneer-lot-est"),
+    bidButton: document.querySelector("#btn-sold"),
+    askInput: document.querySelector("#bid-amount") as HTMLInputElement,
+    askButton: document.querySelector("#btn-ask445566"),
+    roomButton: document.querySelector("#btn-room"),
+    sellButton: document.querySelector("#btn-sold"),
+    passButton: document.querySelector("#btn-pass"),
+    image: document.querySelector("#auctioneer-lot-img"),
+  };
+  // check if all the console elements exist
+  for (const element in consoleElements2) {
+    if (!consoleElements2[element]) {
+      throw new Error(`${element} not found`);
+    }
+  }
   persister.subscribe(() => {
     const auctionState = getState().auction;
     // if environment is not production log state

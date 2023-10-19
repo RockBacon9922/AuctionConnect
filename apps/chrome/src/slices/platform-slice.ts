@@ -1,5 +1,4 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
-import type { RootState } from "~store";
 import { z } from "zod";
 
 const platform = z.object({
@@ -17,7 +16,7 @@ const initialState: Platform[] = [
     status: "inactive",
   },
   {
-    name: "easyLive",
+    name: "easyliveAuction",
     primary: false,
     status: "inactive",
   },
