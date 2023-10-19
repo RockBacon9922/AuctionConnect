@@ -1,5 +1,5 @@
 // This function can be used to observe changes in the DOM
-export const observeElementContent = (
+export const observeElementByIdContent = (
   elementId: string,
   callback: Function,
 ) => {
@@ -7,6 +7,32 @@ export const observeElementContent = (
 
   if (!element) {
     throw new Error(`Element with ID '${elementId}' not found.`);
+  }
+
+  const observer = new MutationObserver(() => {
+    callback();
+  });
+
+  observer.observe(element, {
+    characterData: true,
+    childList: true,
+    subtree: true,
+  });
+};
+
+// This function can be used to observe changes in the DOM
+/**
+ *
+ * @param element
+ * @param callback
+ * Function that runs a callback function everytime there is changes to the passed element
+ */
+export const observeElementContent = (
+  element: Element, // The element to be observed
+  callback: Function,
+) => {
+  if (!element) {
+    throw new Error(`Passed element could not be found.`);
   }
 
   const observer = new MutationObserver(() => {
