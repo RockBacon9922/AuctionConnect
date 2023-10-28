@@ -22,20 +22,16 @@ export const config: PlasmoCSConfig = {
   run_at: "document_start",
 };
 
-/* ---------- Update to setup platform ---------- */
-
-const platformName = "easyliveAuction";
-const platformState = getState().platform;
 // get current platform
-const currentPlatform = platformState.find(
+const platformName = "easyliveAuction";
+const currentPlatform = getState().platform.find(
   (platform) => platform.name === platformName,
 );
-/* ---------- End of platform setup ---------- */
 
 // create event listener for when dom is loaded
 document.addEventListener("DOMContentLoaded", () => {
   // getting all the console elements
-  const consoleElements2 = {
+  const consoleElements = getConsoleElements({
     currentLot: document.querySelector("#auctioneer-lot-no strong"),
     // currentAsk: document.querySelector(),
     currentHammer: document.querySelector("#text-current-bid112233"),
@@ -50,21 +46,12 @@ document.addEventListener("DOMContentLoaded", () => {
     sellButton: document.querySelector("#btn-sold"),
     passButton: document.querySelector("#btn-pass"),
     image: document.querySelector("#auctioneer-lot-img"),
-  };
-  // check if all the console elements exist
-  for (const element in consoleElements2) {
-    if (!consoleElements2[element]) {
-      throw new Error(`${element} not found`);
-    }
-  }
+  });
+
   persister.subscribe(() => {
     const auctionState = getState().auction;
-    // if environment is not production log state
-    if (process.env.NODE_ENV !== "production") {
-      console.debug("auction state", auctionState);
-    }
     const lot = auctionState.lots.find(
-      (lot) => lot.id === auctionState.currentLotId,
+      (lot) => lot.id === auctionState.currentLotId, // get lot from store using currentLotID from store. May not exist
     );
     // if there is no lot create it and return
     if (!lot) {
@@ -72,7 +59,7 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
     // if ask is not the same as in state update it
-    if (lot?.asking !== getAsk()) {
+    if (lot?.asking != getAsk()) {
       setAsk(lot.asking);
     }
     // Does redux show current lot as sold/unsold
@@ -82,11 +69,7 @@ document.addEventListener("DOMContentLoaded", () => {
     } else if (lot?.state === "passed") {
       clickPass();
     }
-    // does current lot number match redux
-    if (getLot() < auctionState.currentLotId) {
-      clickNextLot();
-      return;
-    }
+    // TODO: Next Lot
     // check if there are lots
     if (!auctionState.lots.length) return;
     const topBid = lot?.bids[0];
@@ -106,8 +89,9 @@ document.addEventListener("DOMContentLoaded", () => {
       setAsk(lot?.asking);
     }
   });
+
   // Lot Number
-  // if the primary platform regester event listener for lot number
+  // if the primary platform register event listener for lot number
   if (currentPlatform?.primary) {
     observeElementContent(consoleElements.currentLot, () => {
       getSetCurrentLot();
@@ -144,10 +128,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 const getLot = () => {
-  const lotNumber = document
-    .getElementById(consoleElements.currentLot)
-    ?.innerText.replace("Lot ", "");
-  if (lotNumber) return parseInt(lotNumber);
+  return consoleElements.currentLot.innerText.replace("Lot ", "");
   throw new Error("Lot number not found");
 };
 
@@ -237,6 +218,8 @@ const clickNextLot = () => {
   document.getElementById(consoleElements.nextLotButton)?.click();
 };
 
+// TODO: check if this fn is given a lot id that is already registered it doesn't shit itself
+// TODO: Make sure that this function is only run if the lot is primary platform
 const getSetCurrentLot = () => {
   const auctionState = getState().auction;
   // check if lot is in auction state
@@ -259,4 +242,45 @@ const getSetCurrentLot = () => {
     );
   }
   store.dispatch(setActiveLot(lotId));
+};
+
+type ConsoleElements = {
+  currentLot: HTMLElement | null;
+  currentHammer: HTMLElement | null;
+  currentBidder: HTMLElement | null;
+  description: HTMLElement | null;
+  lowEstimate: HTMLElement | null;
+  highEstimate: HTMLElement | null;
+  bidButton: HTMLElement | null;
+  askInput: HTMLInputElement | null;
+  askButton: HTMLElement | null;
+  roomButton: HTMLElement | null;
+  sellButton: HTMLElement | null;
+  passButton: HTMLElement | null;
+  image: HTMLElement | null;
+};
+
+const getConsoleElements = (elements: ConsoleElements) => {
+  // check if all the console elements exist
+  for (const element in elements) {
+    if (!elements[element]) {
+      throw new Error(`Element with ID '${element}' not found.`);
+    }
+  }
+  // as we have checked that all the elements exist we can return them in a object with the same keys without the null
+  return {
+    currentLot: elements.currentLot as HTMLElement,
+    currentHammer: elements.currentHammer as HTMLElement,
+    currentBidder: elements.currentBidder as HTMLElement,
+    description: elements.description as HTMLElement,
+    lowEstimate: elements.lowEstimate as HTMLElement,
+    highEstimate: elements.highEstiamte as HTMLElement,
+    bidButton: elements.bidButton as HTMLElement,
+    askInput: elements.askInput as HTMLInputElement,
+    askButton: elements.askButton as HTMLElement,
+    roomButton: elements.roomButton as HTMLElement,
+    sellButton: elements.sellButton as HTMLElement,
+    passButton: elements.passButton as HTMLElement,
+    image: elements.image as HTMLElement,
+  };
 };
