@@ -58,8 +58,28 @@ export const observeElementContent = (
  * @param id
  * @param value
  */
-export const updateInput = (id: string, value: string) => {
+export const updateInputById = (id: string, value: string) => {
   const input = document.getElementById(id);
+  // React >=16
+  var nativeInputValueSetter = Object.getOwnPropertyDescriptor(
+    window.HTMLInputElement.prototype,
+    "value",
+  )?.set;
+  nativeInputValueSetter?.call(input, value);
+
+  // i know for a fact that "input" event works for react. "change" event works for blazor and react let's hope that works for everything.
+  var ev = new Event("change", { bubbles: true }); // Bubbles means event propogates across the whole DOM. I think writing this comment without internet.
+  input?.dispatchEvent(ev);
+};
+
+/**
+ * @description Function to update the value of an input element
+ * @param {HTMLInputElement} input
+ * @param {string} value
+ * @returns {void}
+ */
+
+export const updateInput = (input: HTMLInputElement, value: string) => {
   // React >=16
   var nativeInputValueSetter = Object.getOwnPropertyDescriptor(
     window.HTMLInputElement.prototype,
