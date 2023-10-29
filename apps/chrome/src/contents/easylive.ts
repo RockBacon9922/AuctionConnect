@@ -5,27 +5,24 @@ The purpose of this page is to link the redux state and the dashboard so that on
 
 // TODO: Purple bid detector
 
-import {
-  createBid,
-  createLot,
-  setActiveLot,
-  type CreateBid,
-} from "~slices/auction-slice";
+import { createBid, type CreateBid } from "~slices/auction-slice";
 import { getState, persister, store } from "~store";
 import type { PlasmoCSConfig } from "plasmo";
 
-import { observeElementContent, updateInput } from "@acme/element-operations";
+import { observeElementContent } from "@acme/element-operations";
+
+import { createOrUpdateActiveLot, setAsk } from "./common/utils";
 
 export const config: PlasmoCSConfig = {
   matches: ["https://www.easyliveauction.com/live_v2/clerk.cfm/*"],
-  all_frames: true,
+  all_frames: false, // FIXME: This could be a potential issue. I have set it to false as we really only want to be controlling one instance of the dashboard
   run_at: "document_start",
 };
 
 // get current platform
-const platformName = "easyliveAuction";
+const PLATFORMNAME = "easyliveAuction";
 const currentPlatform = getState().platform.find(
-  (platform) => platform.name === platformName,
+  (platform) => platform.name === PLATFORMNAME,
 );
 // create event listener for when dom is loaded
 document.addEventListener("DOMContentLoaded", () => {
@@ -39,19 +36,26 @@ document.addEventListener("DOMContentLoaded", () => {
     );
     // if there is no lot create it and return
     if (!lot) {
-      getSetCurrentLot();
+      createOrUpdateActiveLot(
+        auctionState.currentLotId,
+        getAsk(consoleElements.askInput),
+        getDescription(consoleElements.description),
+        getHighEstimate(consoleElements.highEstimate),
+        getLowEstimate(consoleElements.lowEstimate),
+        getImage(consoleElements.image),
+      );
       return;
     }
     // if ask is not the same as in state update it
-    if (lot?.asking != getAsk()) {
-      setAsk(lot.asking);
+    if (lot?.asking != getAsk(consoleElements.askInput)) {
+      setAsk(consoleElements.askInput, lot.asking);
     }
     // Does redux show current lot as sold/unsold
     if (lot?.state === "sold") {
-      clickSold();
+      consoleElements.sellButton.click();
       //TODO: add seller id
     } else if (lot?.state === "passed") {
-      clickPass();
+      consoleElements.passButton.click();
     }
     // TODO: Next Lot
     // check if there are lots
@@ -59,18 +63,18 @@ document.addEventListener("DOMContentLoaded", () => {
     const topBid = lot?.bids[0];
     // check if hammer matches the top bid in state
     if (
-      getHammer() === lot?.bids[0]?.amount &&
-      topBid.platform !== platformName
+      getHammer(consoleElements.currentHammer) === lot?.bids[0]?.amount &&
+      topBid.platform !== PLATFORMNAME
     ) {
       //TODO: Change bid to room
     }
-    if (getHammer() > topBid?.amount) {
+    if (getHammer(consoleElements.currentHammer) > topBid?.amount) {
       //TODO: undo/delete bid
     }
-    if (getHammer() < topBid?.amount) {
-      setAsk(topBid.amount);
-      clickRoom();
-      setAsk(lot?.asking);
+    if (getHammer(consoleElements.currentHammer) < topBid?.amount) {
+      setAsk(consoleElements.askInput, topBid?.amount);
+      consoleElements.roomButton.click();
+      setAsk(consoleElements.askInput, lot?.asking);
     }
   });
 
@@ -78,14 +82,21 @@ document.addEventListener("DOMContentLoaded", () => {
   // if the primary platform register event listener for lot number
   if (currentPlatform?.primary) {
     observeElementContent(consoleElements.currentLot, () => {
-      getSetCurrentLot();
+      createOrUpdateActiveLot(
+        getLot(consoleElements.currentLot),
+        getAsk(consoleElements.askInput),
+        getDescription(consoleElements.description),
+        getHighEstimate(consoleElements.highEstimate),
+        getLowEstimate(consoleElements.lowEstimate),
+        getImage(consoleElements.image),
+      );
     });
   }
   // Bid
   observeElementContent(consoleElements.currentHammer, () => {
-    const lotId = getLot();
-    const hammer = getHammer();
-    const bidder = getBidder();
+    const lotId = getLot(consoleElements.currentLot);
+    const hammer = getHammer(consoleElements.currentHammer);
+    const bidder = consoleElements.currentBidder.innerText;
     if (!lotId || !hammer || !bidder) return;
     console.debug("hammer", hammer);
     console.debug("type of hammer", typeof hammer);
@@ -104,12 +115,18 @@ document.addEventListener("DOMContentLoaded", () => {
     const bid: CreateBid = {
       amount: hammer,
       bidder: bidder,
-      platform: platformName,
+      platform: PLATFORMNAME,
       lotId: lotId,
     };
     store.dispatch(createBid(bid));
   });
 });
+
+/**
+ * @description Function to get all the console dom elements and return a type safe object
+ * @returns Object with all the console dom elements
+ * @throws Error if any of the elements are not found
+ **/
 
 const getConsoleElements = () => {
   const consoleElements = {
@@ -126,7 +143,7 @@ const getConsoleElements = () => {
     roomButton: document.querySelector("#btn-room"),
     sellButton: document.querySelector("#btn-sold"),
     passButton: document.querySelector("#btn-pass"),
-    image: document.querySelector("#auctioneer-lot-img"),
+    image: document.querySelector("#auctioneer-lot-img") as HTMLImageElement,
   };
   type ConsoleElements = typeof consoleElements;
   // create a version of type ConsoleElements without the null
@@ -139,7 +156,48 @@ const getConsoleElements = () => {
   type ConsoleElementsNotNull = {
     [key in keyof ConsoleElements]: ConsoleElements[key] extends HTMLInputElement
       ? HTMLInputElement
+      : ConsoleElements[key] extends HTMLImageElement
+      ? HTMLImageElement
       : HTMLElement;
   };
   return consoleElements as ConsoleElementsNotNull;
+};
+
+export const getLot = (currentLot: HTMLElement) => {
+  return currentLot.innerText.replace("Lot ", "");
+};
+
+export const getImage = (lotImage: HTMLImageElement) => {
+  // get image url
+  return lotImage.src;
+};
+
+export const getAsk = (ask: HTMLInputElement) => {
+  return parseInt(ask.innerText.replace("Asking: ", "").replace(",", ""));
+};
+
+export const getHammer = (hammer: HTMLElement) => {
+  return parseInt(hammer.innerText.replace("Bid: ", "").replace(",", ""));
+};
+
+export const getLowEstimate = (lowEstimate: HTMLElement) => {
+  return parseInt(
+    lowEstimate.innerText
+      .replace("Est: ", "")
+      .replaceAll("£", "")
+      .split(" - ")[0],
+  );
+};
+
+export const getHighEstimate = (highEstimate: HTMLElement) => {
+  return parseInt(
+    highEstimate.innerText
+      .replace("Est: ", "")
+      .replaceAll("£", "")
+      .split(" - ")[1],
+  );
+};
+
+export const getDescription = (description: HTMLElement) => {
+  return description.innerText.replace("description: ", "");
 };
