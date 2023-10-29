@@ -27,26 +27,10 @@ const platformName = "easyliveAuction";
 const currentPlatform = getState().platform.find(
   (platform) => platform.name === platformName,
 );
-
 // create event listener for when dom is loaded
 document.addEventListener("DOMContentLoaded", () => {
   // getting all the console elements
-  const consoleElements = getConsoleElements({
-    currentLot: document.querySelector("#auctioneer-lot-no strong"),
-    // currentAsk: document.querySelector(),
-    currentHammer: document.querySelector("#text-current-bid112233"),
-    currentBidder: document.querySelector("#client-bid"),
-    description: document.querySelector("#auctioneer-lot-desc"),
-    lowEstimate: document.querySelector("#auctioneer-lot-est"),
-    highEstimate: document.querySelector("#auctioneer-lot-est"),
-    bidButton: document.querySelector("#btn-sold"),
-    askInput: document.querySelector("#bid-amount") as HTMLInputElement,
-    askButton: document.querySelector("#btn-ask445566"),
-    roomButton: document.querySelector("#btn-room"),
-    sellButton: document.querySelector("#btn-sold"),
-    passButton: document.querySelector("#btn-pass"),
-    image: document.querySelector("#auctioneer-lot-img"),
-  });
+  const consoleElements = getConsoleElements();
 
   persister.subscribe(() => {
     const auctionState = getState().auction;
@@ -127,160 +111,35 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-const getLot = () => {
-  return consoleElements.currentLot.innerText.replace("Lot ", "");
-  throw new Error("Lot number not found");
-};
-
-// create me a typesafe get image function
-const getImage = () => {
-  const image = document.getElementById(consoleElements.image);
-  if (image) return image.getAttribute("src");
-  throw new Error("Image element not found");
-};
-
-const getAsk = () => {
-  const askElement = document.getElementById(consoleElements.currentAsk);
-  if (askElement)
-    return parseInt(
-      askElement.innerText.replace("Asking: ", "").replace(",", ""),
-    );
-  throw new Error("Ask element not found");
-};
-
-const getHammer = () => {
-  const hammerElement = document.getElementById(consoleElements.currentHammer);
-  if (hammerElement)
-    return parseInt(
-      hammerElement.innerText.replace("Bid: ", "").replace(",", ""),
-    );
-  throw new Error("Hammer element not found");
-};
-
-const getLowEstimate = () => {
-  const lowEstimateElement = document.getElementById(
-    consoleElements.lowEstimate,
-  );
-  if (lowEstimateElement)
-    return parseInt(
-      lowEstimateElement.innerText
-        .replace("Low Estimate: ", "")
-        .replace(",", ""),
-    );
-  throw new Error("Low Estimate not found");
-};
-
-const getHighEstimate = () => {
-  const highEstimateElement = document.getElementById(
-    consoleElements.highEstimate,
-  );
-  if (highEstimateElement)
-    return parseInt(
-      highEstimateElement.innerText
-        .replace("High Estimate: ", "")
-        .replace(",", ""),
-    );
-};
-
-const getDescription = () => {
-  return document
-    .getElementById(consoleElements.description)
-    ?.innerText.replace("description: ", "");
-};
-
-const getBidder = () => {
-  return document
-    .getElementById(consoleElements.currentBidder)
-    ?.innerText.replace("Bidder: ", "");
-};
-
-const setAsk = (ask: number) => {
-  updateInput(consoleElements.askInput, ask.toString());
-  document.getElementById(consoleElements.askButton)?.click();
-};
-
-const clickBid = () => {
-  document.getElementById(consoleElements.bidButton)?.click();
-};
-
-const clickSold = () => {
-  document.getElementById(consoleElements.sellButton)?.click();
-};
-const clickPass = () => {
-  document.getElementById(consoleElements.passButton)?.click();
-};
-
-const clickRoom = () => {
-  document.getElementById(consoleElements.roomButton)?.click();
-};
-
-const clickNextLot = () => {
-  document.getElementById(consoleElements.nextLotButton)?.click();
-};
-
-// TODO: check if this fn is given a lot id that is already registered it doesn't shit itself
-// TODO: Make sure that this function is only run if the lot is primary platform
-const getSetCurrentLot = () => {
-  const auctionState = getState().auction;
-  // check if lot is in auction state
-  const lotId = getLot();
-  if (!lotId) return;
-  const lotExists = auctionState.lots.some((lot) => lot.id === lotId);
-  // if lot does not exist. Create it!!!
-  if (!lotExists) {
-    store.dispatch(
-      createLot({
-        id: lotId,
-        asking: getAsk() || 0,
-        bids: [],
-        description: getDescription() || "",
-        highEstimate: getHighEstimate() || 0,
-        lowEstimate: getLowEstimate() || 0,
-        image: getImage() || "",
-        state: "unsold",
-      }),
-    );
-  }
-  store.dispatch(setActiveLot(lotId));
-};
-
-type ConsoleElements = {
-  currentLot: HTMLElement | null;
-  currentHammer: HTMLElement | null;
-  currentBidder: HTMLElement | null;
-  description: HTMLElement | null;
-  lowEstimate: HTMLElement | null;
-  highEstimate: HTMLElement | null;
-  bidButton: HTMLElement | null;
-  askInput: HTMLInputElement | null;
-  askButton: HTMLElement | null;
-  roomButton: HTMLElement | null;
-  sellButton: HTMLElement | null;
-  passButton: HTMLElement | null;
-  image: HTMLElement | null;
-};
-
-const getConsoleElements = (elements: ConsoleElements) => {
+const getConsoleElements = () => {
+  const consoleElements = {
+    currentLot: document.querySelector("#auctioneer-lot-no strong"),
+    // currentAsk: document.querySelector(),
+    currentHammer: document.querySelector("#text-current-bid112233"),
+    currentBidder: document.querySelector("#client-bid"),
+    description: document.querySelector("#auctioneer-lot-desc"),
+    lowEstimate: document.querySelector("#auctioneer-lot-est"),
+    highEstimate: document.querySelector("#auctioneer-lot-est"),
+    bidButton: document.querySelector("#btn-sold"),
+    askInput: document.querySelector("#bid-amount") as HTMLInputElement,
+    askButton: document.querySelector("#btn-ask445566"),
+    roomButton: document.querySelector("#btn-room"),
+    sellButton: document.querySelector("#btn-sold"),
+    passButton: document.querySelector("#btn-pass"),
+    image: document.querySelector("#auctioneer-lot-img"),
+  };
+  type ConsoleElements = typeof consoleElements;
+  // create a version of type ConsoleElements without the null
   // check if all the console elements exist
-  for (const element in elements) {
-    if (!elements[element]) {
+  for (const element in consoleElements) {
+    if (!consoleElements[element]) {
       throw new Error(`Element with ID '${element}' not found.`);
     }
   }
-  // as we have checked that all the elements exist we can return them in a object with the same keys without the null
-  return {
-    currentLot: elements.currentLot as HTMLElement,
-    currentHammer: elements.currentHammer as HTMLElement,
-    currentBidder: elements.currentBidder as HTMLElement,
-    description: elements.description as HTMLElement,
-    lowEstimate: elements.lowEstimate as HTMLElement,
-    highEstimate: elements.highEstiamte as HTMLElement,
-    bidButton: elements.bidButton as HTMLElement,
-    askInput: elements.askInput as HTMLInputElement,
-    askButton: elements.askButton as HTMLElement,
-    roomButton: elements.roomButton as HTMLElement,
-    sellButton: elements.sellButton as HTMLElement,
-    passButton: elements.passButton as HTMLElement,
-    image: elements.image as HTMLElement,
+  type ConsoleElementsNotNull = {
+    [key in keyof ConsoleElements]: ConsoleElements[key] extends HTMLInputElement
+      ? HTMLInputElement
+      : HTMLElement;
   };
+  return consoleElements as ConsoleElementsNotNull;
 };
