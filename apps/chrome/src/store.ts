@@ -12,7 +12,7 @@ import {
 import { Storage } from "@plasmohq/storage";
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import auctionSlice, { type Auction } from "~slices/auction-slice";
-import platformSlice, { type Platform } from "~slices/platform-slice";
+import platformSlice, { type Platforms } from "~slices/platform-slice";
 import {
   useDispatch,
   useSelector,
@@ -66,7 +66,7 @@ new Storage({
 
 export interface AppState {
   auction: Auction;
-  platform: Platform[];
+  platform: Platforms;
 }
 
 // Get the types from the mock store

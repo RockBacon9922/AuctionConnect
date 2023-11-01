@@ -3,6 +3,7 @@ import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 type status = "active" | "inactive";
 
 type Platform = {
+  name: string;
   primary: boolean;
   status: status;
 };
@@ -14,10 +15,12 @@ export type Platforms = {
 
 const initialState: Platforms = {
   easylive: {
+    name: "easylive",
     primary: false,
     status: "inactive",
   },
   theSaleroom: {
+    name: "theSaleroom",
     primary: false,
     status: "inactive",
   },
