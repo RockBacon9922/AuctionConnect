@@ -9,10 +9,7 @@ import { createBid, type CreateBid } from "~slices/auction-slice";
 import { getState, persister, store } from "~store";
 import type { PlasmoCSConfig } from "plasmo";
 
-import {
-  observeElementByIdContent,
-  observeElementContent,
-} from "@acme/element-operations";
+import { observeElementContent } from "@acme/element-operations";
 
 import { createOrUpdateActiveLot, setAsk } from "./common/utils";
 
