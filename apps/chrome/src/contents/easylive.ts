@@ -5,6 +5,7 @@ The purpose of this page is to link the redux state and the dashboard so that on
 
 // TODO: Purple bid detector
 
+import { platform } from "os";
 import { createBid, type CreateBid } from "~slices/auction-slice";
 import { getState, persister, store } from "~store";
 import type { PlasmoCSConfig } from "plasmo";
@@ -19,11 +20,7 @@ export const config: PlasmoCSConfig = {
   run_at: "document_start",
 };
 
-// get current platform
-const PLATFORMNAME = "easyliveAuction";
-const currentPlatform = getState().platform.find(
-  (platform) => platform.name === PLATFORMNAME,
-);
+const currentPlatform = getState().platform.easylive;
 // create event listener for when dom is loaded
 document.addEventListener("DOMContentLoaded", () => {
   // getting all the console elements
@@ -31,40 +28,44 @@ document.addEventListener("DOMContentLoaded", () => {
 
   persister.subscribe(() => {
     const auctionState = getState().auction;
-    const lot = auctionState.lots.find(
+    const currentLot = auctionState.lots.find(
       (lot) => lot.id === auctionState.currentLotId, // get lot from store using currentLotID from store. May not exist
     );
+
     // if there is no lot create it and return
-    if (!lot) {
-      createOrUpdateActiveLot(
-        auctionState.currentLotId,
-        getAsk(consoleElements.askInput),
-        getDescription(consoleElements.description),
-        getHighEstimate(consoleElements.highEstimate),
-        getLowEstimate(consoleElements.lowEstimate),
-        getImage(consoleElements.image),
-      );
+    if (!currentLot) {
+      if (currentPlatform.primary) {
+        createOrUpdateActiveLot(
+          auctionState.currentLotId,
+          getAsk(consoleElements.askInput),
+          getDescription(consoleElements.description),
+          getHighEstimate(consoleElements.highEstimate),
+          getLowEstimate(consoleElements.lowEstimate),
+          getImage(consoleElements.image),
+        );
+      }
       return;
     }
     // if ask is not the same as in state update it
-    if (lot?.asking != getAsk(consoleElements.askInput)) {
-      setAsk(consoleElements.askInput, lot.asking);
+    if (currentLot?.asking != getAsk(consoleElements.askInput)) {
+      setAsk(consoleElements.askInput, currentLot.asking);
     }
     // Does redux show current lot as sold/unsold
-    if (lot?.state === "sold") {
+    if (currentLot?.state === "sold") {
       consoleElements.sellButton.click();
       //TODO: add seller id
-    } else if (lot?.state === "passed") {
+    } else if (currentLot?.state === "passed") {
       consoleElements.passButton.click();
     }
     // TODO: Next Lot
     // check if there are lots
     if (!auctionState.lots.length) return;
-    const topBid = lot?.bids[0];
+    const topBid = currentLot?.bids[0];
     // check if hammer matches the top bid in state
     if (
-      getHammer(consoleElements.currentHammer) === lot?.bids[0]?.amount &&
-      topBid.platform !== PLATFORMNAME
+      getHammer(consoleElements.currentHammer) ===
+        currentLot?.bids[0]?.amount &&
+      topBid.platform !== currentPlatform.name
     ) {
       //TODO: Change bid to room
     }
@@ -74,7 +75,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (getHammer(consoleElements.currentHammer) < topBid?.amount) {
       setAsk(consoleElements.askInput, topBid?.amount);
       consoleElements.roomButton.click();
-      setAsk(consoleElements.askInput, lot?.asking);
+      setAsk(consoleElements.askInput, currentLot?.asking);
     }
   });
 
@@ -115,7 +116,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const bid: CreateBid = {
       amount: hammer,
       bidder: bidder,
-      platform: PLATFORMNAME,
+      platform: currentPlatform.name,
       lotId: lotId,
     };
     store.dispatch(createBid(bid));
