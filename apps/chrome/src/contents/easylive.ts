@@ -5,7 +5,6 @@ The purpose of this page is to link the redux state and the dashboard so that on
 
 // TODO: Purple bid detector
 
-import { platform } from "os";
 import { createBid, type CreateBid } from "~slices/auction-slice";
 import { getState, persister, store } from "~store";
 import type { PlasmoCSConfig } from "plasmo";
@@ -15,7 +14,7 @@ import { observeElementContent } from "@acme/element-operations";
 import { createOrUpdateActiveLot, setAsk } from "./common/utils";
 
 export const config: PlasmoCSConfig = {
-  matches: ["https://www.easyliveauction.com/live_v2/clerk.cfm/*"],
+  matches: ["https://www.easyliveauction.com/live_v2/*"],
   all_frames: false, // FIXME: This could be a potential issue. I have set it to false as we really only want to be controlling one instance of the dashboard
   run_at: "document_start",
 };
@@ -23,6 +22,7 @@ export const config: PlasmoCSConfig = {
 const currentPlatform = getState().platform.easylive;
 // create event listener for when dom is loaded
 document.addEventListener("DOMContentLoaded", () => {
+  console.debug("DOM loaded");
   // getting all the console elements
   const consoleElements = getConsoleElements();
 
