@@ -1,56 +1,68 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
-import { z } from "zod";
 
-const platform = z.object({
-  name: z.string(),
-  primary: z.boolean(),
-  status: z.enum(["active", "inactive"]),
-});
+type status = "active" | "inactive";
 
-export type Platform = z.infer<typeof platform>;
+type Platform = {
+  primary: boolean;
+  status: status;
+};
 
-const initialState: Platform[] = [
-  {
-    name: "stoneham",
-    primary: true,
-    status: "inactive",
-  },
-  {
-    name: "easyliveAuction",
+export type Platforms = {
+  easylive: Platform;
+  theSaleroom: Platform;
+};
+
+const initialState: Platforms = {
+  easylive: {
     primary: false,
     status: "inactive",
   },
-  {
-    name: "theSaleroom",
+  theSaleroom: {
     primary: false,
     status: "inactive",
   },
-];
+};
 
 const platformSlice = createSlice({
   name: "platform",
   initialState,
   reducers: {
+    /**
+     *
+     * @param @ignore state -- automatically passed by redux
+     * @param action Object containing platform name and desired status
+     * @returns void
+     * @description Sets the status of a platform
+     */
     setStatus: (
       state,
-      action: PayloadAction<{ name: string; status: "active" | "inactive" }>,
+      action: PayloadAction<{ platformName: string; status: status }>,
     ) => {
-      const platform = state.find(
-        (platform) => platform.name === action.payload.name,
-      );
-      if (platform) {
-        platform.status = action.payload.status;
-      }
+      // get all platforms
+      const platforms = Object.keys(state);
+      // check if platform exists
+      if (!platforms.includes(action.payload.platformName)) return;
+      // set status
+      state[action.payload.platformName].status = action.payload.status;
     },
+    /**
+     *
+     * @param @ignore state -- automatically passed by redux
+     * @param action String of platform name
+     * @returns void
+     * @description Sets the primary platform
+     */
     setPrimary: (state, action: PayloadAction<string>) => {
+      // get all platforms
+      const platforms = Object.keys(state);
+      // check if platform exists
+      if (!platforms.includes(action.payload)) return;
       // set all platforms to false
-      state.forEach((platform) => (platform.primary = false));
-      const platform = state.find(
-        (platform) => platform.name === action.payload,
-      );
-      if (platform) {
-        platform.primary = true;
-      }
+      platforms.forEach((platform) => {
+        state[platform].primary = false;
+      });
+      // set status
+      state[action.payload].primary = true;
     },
   },
 });
