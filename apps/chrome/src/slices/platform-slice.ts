@@ -1,11 +1,9 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 
-type status = "active" | "inactive";
-
 type Platform = {
   name: string;
   primary: boolean;
-  connected: boolean;
+  status: boolean;
 };
 
 export type Platforms = {
@@ -14,16 +12,17 @@ export type Platforms = {
 };
 
 //TODO: Make sure that one of the platforms is the primary when starting a new auction
+// name and id are required due to searching. //TODO: Convert back to list, it works better
 const initialState: Platforms = {
   easylive: {
     name: "easylive",
     primary: true,
-    connected: false,
+    status: false,
   },
   theSaleroom: {
     name: "theSaleroom",
     primary: false,
-    connected: false,
+    status: false,
   },
 };
 
@@ -40,14 +39,15 @@ const platformSlice = createSlice({
      */
     setStatus: (
       state,
-      action: PayloadAction<{ platformName: string; status: status }>,
+      action: PayloadAction<{ platformName: string; status: boolean }>,
     ) => {
-      // get all platforms
-      const platforms = Object.keys(state);
-      // check if platform exists
-      if (!platforms.includes(action.payload.platformName)) return;
+      // find the object with the id of the platform
+      const platform = Object.values(state).find(
+        (platform) => platform.name === action.payload.platformName,
+      );
+      if (!platform) throw new Error("Platform not found");
       // set status
-      state[action.payload.platformName].status = action.payload.status;
+      platform.status = action.payload.status;
     },
 
     /**
@@ -59,15 +59,14 @@ const platformSlice = createSlice({
      */
     setPrimary: (state, action: PayloadAction<string>) => {
       // get all platforms
-      const platforms = Object.keys(state);
-      // check if platform exists
-      if (!platforms.includes(action.payload)) return;
+      const platform = Object.values(state).find(
+        (platform) => platform.name === action.payload,
+      );
+      if (!platform) throw new Error("Platform not found");
       // set all platforms to false
-      platforms.forEach((platform) => {
-        state[platform].primary = false;
-      });
+      Object.values(state).forEach((platform) => (platform.primary = false));
       // set status
-      state[action.payload].primary = true;
+      platform.primary = true;
     },
   },
 });

@@ -6,6 +6,7 @@ The purpose of this page is to link the redux state and the dashboard so that on
 // TODO: Purple bid detector
 
 import { createBid, createLot, type CreateBid } from "~slices/auction-slice";
+import { setStatus } from "~slices/platform-slice";
 import { getState, persister, store } from "~store";
 import type { PlasmoCSConfig } from "plasmo";
 
@@ -86,6 +87,28 @@ document.addEventListener("DOMContentLoaded", () => {
         consoleElements.roomButton.click();
         setAsk(consoleElements.askInput, currentLot?.asking);
       }
+    });
+    // TODO: check if connection is lost
+    observeElementContent(consoleElements.lostConnectionWindow, () => {
+      if (
+        consoleElements.lostConnectionWindow.getAttribute("style") ===
+        "display: block;"
+      ) {
+        // set status to disconnected
+        store.dispatch(
+          setStatus({
+            platformName: currentPlatform.name,
+            status: false,
+          }),
+        );
+        return;
+      }
+      store.dispatch(
+        setStatus({
+          platformName: currentPlatform.name,
+          status: true,
+        }),
+      );
     });
     // TODO: If this platform is primary. Handle the system to create a new lot if it doesn't exist?
 
