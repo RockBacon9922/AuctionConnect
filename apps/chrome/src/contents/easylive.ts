@@ -5,13 +5,13 @@ The purpose of this page is to link the redux state and the dashboard so that on
 
 // TODO: Purple bid detector
 
-import { createBid, type CreateBid } from "~slices/auction-slice";
+import { createBid, createLot, type CreateBid } from "~slices/auction-slice";
 import { getState, persister, store } from "~store";
 import type { PlasmoCSConfig } from "plasmo";
 
 import { observeElementContent } from "@acme/element-operations";
 
-import { createOrUpdateActiveLot, setAsk } from "./common/utils";
+import { setAsk } from "./common/utils";
 
 export const config: PlasmoCSConfig = {
   matches: ["https://www.easyliveauction.com/live_v2/*"],
@@ -37,16 +37,20 @@ document.addEventListener("DOMContentLoaded", () => {
         (lot) => lot.id === auctionState.currentLotId, // get lot from store using currentLotID from store. May not exist
       );
 
-      // if there is no lot create it and return
+      // if there is no lot create it and return if not primary return anyway
       if (!currentLot) {
         if (currentPlatform.primary) {
-          createOrUpdateActiveLot(
-            auctionState.currentLotId,
-            getAsk(consoleElements.askInput),
-            getDescription(consoleElements.description),
-            getHighEstimate(consoleElements.highEstimate),
-            getLowEstimate(consoleElements.lowEstimate),
-            getImage(consoleElements.image),
+          store.dispatch(
+            createLot({
+              id: getLot(consoleElements.currentLot),
+              image: consoleElements.image.src,
+              asking: getAsk(consoleElements.askInput),
+              lowEstimate: getLowEstimate(consoleElements.estimate),
+              highEstimate: getHighEstimate(consoleElements.estimate),
+              description: getDescription(consoleElements.description),
+              bids: [],
+              state: "unsold",
+            }),
           );
         }
         return;
