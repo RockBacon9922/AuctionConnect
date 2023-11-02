@@ -5,7 +5,7 @@ type status = "active" | "inactive";
 type Platform = {
   name: string;
   primary: boolean;
-  status: status;
+  connected: boolean;
 };
 
 export type Platforms = {
@@ -18,12 +18,12 @@ const initialState: Platforms = {
   easylive: {
     name: "easylive",
     primary: true,
-    status: "inactive",
+    connected: false,
   },
   theSaleroom: {
     name: "theSaleroom",
     primary: false,
-    status: "inactive",
+    connected: false,
   },
 };
 
