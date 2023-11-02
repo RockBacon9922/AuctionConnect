@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import {
   resetState,
+  setActiveLot,
   setAuctionDate,
   setAuctionName,
   setSetup,
@@ -74,6 +75,16 @@ const Setup = () => {
           name="auctionDate"
           defaultValue={auction.date}
           onChange={(e) => dispatch(setAuctionDate(e.target.value))}
+        />
+      </div>
+      {/* auction lot start number */}
+      <div className="flex flex-col">
+        <label htmlFor="auctionLotStart">Auction Lot Start</label>
+        <input
+          type="number"
+          name="auctionLotStart"
+          defaultValue={auction.currentLotId}
+          onChange={(e) => dispatch(setActiveLot(e.target.value))}
         />
       </div>
       <button
