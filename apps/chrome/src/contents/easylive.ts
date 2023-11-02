@@ -87,49 +87,11 @@ document.addEventListener("DOMContentLoaded", () => {
         setAsk(consoleElements.askInput, currentLot?.asking);
       }
     });
+    // TODO: If this platform is primary. Handle the system to create a new lot if it doesn't exist?
 
-    // Lot Number
-    // if the primary platform register event listener for lot number
-    if (currentPlatform?.primary) {
-      observeElementContent(consoleElements.currentLot, () => {
-        createOrUpdateActiveLot(
-          getLot(consoleElements.currentLot),
-          getAsk(consoleElements.askInput),
-          getDescription(consoleElements.description),
-          getHighEstimate(consoleElements.highEstimate),
-          getLowEstimate(consoleElements.lowEstimate),
-          getImage(consoleElements.image),
-        );
-      });
-    }
-    // Bid
-    observeElementContent(consoleElements.currentHammer, () => {
-      const lotId = getLot(consoleElements.currentLot);
-      const hammer = getHammer(consoleElements.currentHammer);
-      const bidder = consoleElements.currentBidder.innerText;
-      if (!lotId || !hammer || !bidder) return;
-      console.debug("hammer", hammer);
-      console.debug("type of hammer", typeof hammer);
-      if (lotId === "0" && isNaN(hammer)) return;
-      const lot = getState().auction.lots.find((lot) => lot.id === lotId);
-      if (!lot) return;
-      // check if lot is sold
-      if (lot.state === "sold") return;
+    // TODO: Handle when a bid comes in on this platform
 
-      // check if bidder is room
-      if (bidder === "Room") return;
-
-      // check if there is already a bid at this amount
-      if (lot.bids.some((bid) => bid.amount === hammer)) return;
-      // create bid object
-      const bid: CreateBid = {
-        amount: hammer,
-        bidder: bidder,
-        platform: currentPlatform.name,
-        lotId: lotId,
-      };
-      store.dispatch(createBid(bid));
-    });
+    //TODO: Handle when the system loses connection
   });
 });
 
@@ -141,11 +103,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 export const getLot = (currentLot: HTMLElement) => {
   return currentLot.innerText.replace("Lot ", "");
-};
-
-export const getImage = (lotImage: HTMLImageElement) => {
-  // get image url
-  return lotImage.src;
 };
 
 export const getAsk = (ask: HTMLInputElement) => {
