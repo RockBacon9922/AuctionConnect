@@ -154,7 +154,7 @@ const getConsoleElements = () => {
     ) as HTMLImageElement,
     startAuctionWindow: document.getElementById("auctioneer-start-overlay"),
     startAuctionWindowButton: document.getElementById("btn-start-auction"),
-    lostConnectionWindow: document.getElementById("bid-live-connection"), // No button just when it appears nothing works
+    lostConnectionWindow: document.getElementById("bid-live-connection"), // nothing works when style is set to display: block;
   };
   console.debug("consoleElements", consoleElements);
   type ConsoleElements = typeof consoleElements;
