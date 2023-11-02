@@ -35,8 +35,8 @@ const currentDate = new Date().toISOString().split("T")[0];
 
 const initialState: Auction = {
   setup: false,
-  paused: false,
   started: false,
+  paused: false,
   date: currentDate,
   name: "",
   currentLotId: "0",
@@ -88,8 +88,8 @@ const auctionSlice = createSlice({
       // get current name of auction
       return {
         setup: false,
-        paused: false,
         started: false,
+        paused: false,
         date: currentDate,
         name: state.name,
         currentLotId: "0",
