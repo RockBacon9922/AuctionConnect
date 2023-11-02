@@ -190,6 +190,8 @@ const getConsoleElements = () => {
     sellButton: document.querySelector("#btn-sold"),
     passButton: document.querySelector("#btn-pass"),
     image: document.querySelector("#auctioneer-lot-img") as HTMLImageElement,
+    startAuctionWindow: document.getElementById("auctioneer-start-overlay"),
+    startAuctionWindowButton: document.getElementById("btn-start-auction"),
   };
   console.debug("consoleElements", consoleElements);
   type ConsoleElements = typeof consoleElements;
