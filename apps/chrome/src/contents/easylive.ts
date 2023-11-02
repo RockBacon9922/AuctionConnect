@@ -88,7 +88,6 @@ document.addEventListener("DOMContentLoaded", () => {
         setAsk(consoleElements.askInput, currentLot?.asking);
       }
     });
-    // TODO: check if connection is lost
     observeElementContent(consoleElements.lostConnectionWindow, () => {
       if (
         consoleElements.lostConnectionWindow.getAttribute("style") ===
