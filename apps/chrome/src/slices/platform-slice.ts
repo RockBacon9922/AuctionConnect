@@ -13,6 +13,7 @@ export type Platforms = {
   theSaleroom: Platform;
 };
 
+//TODO: Make sure that one of the platforms is the primary when starting a new auction
 const initialState: Platforms = {
   easylive: {
     name: "easylive",
