@@ -142,17 +142,19 @@ const getConsoleElements = () => {
     currentHammer: document.querySelector("#text-current-bid112233"),
     currentBidder: document.querySelector("#client-bid"),
     description: document.querySelector("#auctioneer-lot-desc"),
-    lowEstimate: document.querySelector("#auctioneer-lot-est"),
-    highEstimate: document.querySelector("#auctioneer-lot-est"),
-    bidButton: document.querySelector("#btn-sold"),
+    estimate: document.querySelector("#auctioneer-lot-est"),
+    bidButton: document.querySelector("#btn-bid"),
     askInput: document.querySelector("#bid-amount") as HTMLInputElement,
     askButton: document.querySelector("#btn-ask445566"),
     roomButton: document.querySelector("#btn-room"),
     sellButton: document.querySelector("#btn-sold"),
     passButton: document.querySelector("#btn-pass"),
-    image: document.querySelector("#auctioneer-lot-img") as HTMLImageElement,
+    image: document.querySelector(
+      "#auctioneer-lot-img img",
+    ) as HTMLImageElement,
     startAuctionWindow: document.getElementById("auctioneer-start-overlay"),
     startAuctionWindowButton: document.getElementById("btn-start-auction"),
+    lostConnectionWindow: document.getElementById("bid-live-connection"), // No button just when it appears nothing works
   };
   console.debug("consoleElements", consoleElements);
   type ConsoleElements = typeof consoleElements;
