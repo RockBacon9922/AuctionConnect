@@ -84,6 +84,17 @@ const auctionSlice = createSlice({
         bidder: action.payload.bidder,
       });
     },
+    sortBids: (state, action: PayloadAction<string>) => {
+      const lot = state.lots.find((lot) => lot.id === action.payload);
+      if (!lot || lot.bids.length <= 1) return;
+      lot.bids.sort((a, b) => b.amount - a.amount);
+    },
+    startAuction: (state) => {
+      state.started = true;
+    },
+    setAuctionPausedState: (state, action: PayloadAction<boolean>) => {
+      state.paused = action.payload;
+    },
     resetState: (state) => {
       // get current name of auction
       return {
@@ -95,11 +106,6 @@ const auctionSlice = createSlice({
         currentLotId: "0",
         lots: [],
       };
-    },
-    sortBids: (state, action: PayloadAction<string>) => {
-      const lot = state.lots.find((lot) => lot.id === action.payload);
-      if (!lot || lot.bids.length <= 1) return;
-      lot.bids.sort((a, b) => b.amount - a.amount);
     },
   },
 });
@@ -114,6 +120,8 @@ export const {
   createBid,
   setAsk,
   sortBids,
+  startAuction,
+  setAuctionPausedState,
   resetState,
 } = auctionSlice.actions;
 
