@@ -16,7 +16,7 @@ export type Platforms = {
 const initialState: Platforms = {
   easylive: {
     name: "easylive",
-    primary: false,
+    primary: true,
     status: "inactive",
   },
   theSaleroom: {
@@ -48,6 +48,7 @@ const platformSlice = createSlice({
       // set status
       state[action.payload.platformName].status = action.payload.status;
     },
+
     /**
      *
      * @param @ignore state -- automatically passed by redux
