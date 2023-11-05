@@ -1,3 +1,5 @@
+// TODO: UI needs to stay in time with the state. e.g if i reset the auction one day and go to reset it on a different day the UI should like the state update with the new date
+
 import { useEffect, useState } from "react";
 import {
   resetState,
