@@ -24,10 +24,10 @@ const currentPlatform = getState().platform.easylive;
 // create event listener for when dom is loaded
 document.addEventListener("DOMContentLoaded", () => {
   // get the element bid-live-loading
-  const bidLiveLoading = document.querySelector("#bid-live-loading");
+  const bidLiveLoading = document.getElementById("bid-live-loading");
   if (!bidLiveLoading) throw new Error("bid loading element not found");
   observeElementContent(bidLiveLoading, () => {
-    if (bidLiveLoading.getAttribute("style") != "display: none;") return; // if the element is not hidden everything is not loaded yet stupid hydration
+    if (bidLiveLoading.style.display === "block") return; // if the element is not hidden everything is not loaded yet stupid hydration
 
     // getting all the console elements
     const consoleElements = getConsoleElements();
@@ -88,11 +88,9 @@ document.addEventListener("DOMContentLoaded", () => {
         setAsk(consoleElements.askInput, currentLot?.asking);
       }
     });
+    // check if the auction platform is connected
     observeElementContent(consoleElements.lostConnectionWindow, () => {
-      if (
-        consoleElements.lostConnectionWindow.getAttribute("style") ===
-        "display: block;"
-      ) {
+      if (consoleElements.lostConnectionWindow.style.display === "block") {
         // set status to disconnected
         store.dispatch(
           setStatus({
@@ -100,6 +98,7 @@ document.addEventListener("DOMContentLoaded", () => {
             status: false,
           }),
         );
+        alert("Lost connection to auction platform");
         return;
       }
       store.dispatch(
