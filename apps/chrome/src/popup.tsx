@@ -8,6 +8,7 @@ import {
   setAuctionName,
   setSetup,
 } from "~slices/auction-slice";
+import { resetPlatformData } from "~slices/platform-slice";
 import { useAppDispatch, useGetAuction } from "~store";
 import Wrapper from "~tabs/Assets/wrapper";
 
@@ -161,6 +162,7 @@ const Reset = () => {
     <button
       onClick={() => {
         dispatch(resetState());
+        dispatch(resetPlatformData());
       }}
     >
       Reset

@@ -68,9 +68,11 @@ const platformSlice = createSlice({
       // set status
       platform.primary = true;
     },
+    resetPlatformData: () => initialState,
   },
 });
 
-export const { setStatus, setPrimary } = platformSlice.actions;
+export const { setStatus, setPrimary, resetPlatformData } =
+  platformSlice.actions;
 
 export default platformSlice.reducer;
