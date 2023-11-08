@@ -59,8 +59,7 @@ new Storage({
   area: "local",
 }).watch({
   [`persist:${persistConfig.key}`]: () => {
-    // eslint-disable-next-line @typescript-eslint/no-floating-promises
-    persister.resync();
+    void persister.resync();
   },
 });
 
