@@ -3,8 +3,8 @@
 // i want to be able to see the lots from redux
 
 import { useState } from "react";
-import { createLot, setActiveLot, type Auction } from "~slices/auction-slice";
-import { useAppDispatch, useGetAuction } from "~store";
+import { useAppDispatch, useAppSelector } from "~hooks";
+import { createLot, setActiveLot } from "~slices/auction-slice";
 import Wrapper from "~tabs/Assets/wrapper";
 
 const Options = () => {
@@ -21,7 +21,7 @@ const Options = () => {
 export default Options;
 
 const LotsTable = () => {
-  const auction = useGetAuction();
+  const auction = useAppSelector((state) => state.auction);
   const lots = auction.lots;
   return (
     <table>
@@ -126,7 +126,7 @@ const CreateLot = () => {
 };
 
 const SetCurrentLot = () => {
-  const auction = useGetAuction();
+  const auction = useAppSelector((state) => state.auction);
   const [lotNumber, setLotNumberState] = useState(auction.currentLotId);
   const dispatch = useAppDispatch();
   return (
@@ -146,7 +146,7 @@ const SetCurrentLot = () => {
 };
 
 const BidsTable = () => {
-  const auction: Auction = useGetAuction();
+  const auction = useAppSelector((state) => state.auction);
   const lots = auction.lots;
 
   return (

@@ -1,6 +1,7 @@
 // TODO: UI needs to stay in time with the state. e.g if i reset the auction one day and go to reset it on a different day the UI should like the state update with the new date
 
 import { useEffect, useState } from "react";
+import { useAppDispatch, useAppSelector } from "~hooks";
 import {
   resetState,
   setActiveLot,
@@ -9,12 +10,11 @@ import {
   setSetup,
 } from "~slices/auction-slice";
 import { resetPlatformData } from "~slices/platform-slice";
-import { useAppDispatch, useGetAuction } from "~store";
 import Wrapper from "~tabs/Assets/wrapper";
 
 function IndexPopup() {
   // get if setup is complete
-  const setup = useGetAuction().setup;
+  const setup = useAppSelector((state) => state.auction.setup);
   return (
     <div
       style={{
@@ -59,7 +59,7 @@ export default Export;
 const Setup = () => {
   // create a rfc which is used to set the auction name and date
   const dispatch = useAppDispatch();
-  const auction = useGetAuction();
+  const auction = useAppSelector((state) => state.auction);
   return (
     <div className="grid grid-cols-2 gap-2">
       <div className="flex flex-col">
