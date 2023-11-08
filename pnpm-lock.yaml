@@ -41,6 +41,9 @@ importers:
       '@acme/tailwind-config':
         specifier: ^0.1.0
         version: link:../../packages/config/tailwind
+      clsx:
+        specifier: ^2.0.0
+        version: 2.0.0
       plasmo:
         specifier: 0.83.0
         version: 0.83.0(postcss@8.4.31)(react-dom@18.2.0)(react@18.2.0)
@@ -50,6 +53,9 @@ importers:
       react-dom:
         specifier: 18.2.0
         version: 18.2.0(react@18.2.0)
+      tailwind-merge:
+        specifier: ^2.0.0
+        version: 2.0.0
     devDependencies:
       '@ianvs/prettier-plugin-sort-imports':
         specifier: 4.1.0
@@ -8842,6 +8848,12 @@ packages:
       csso: 4.2.0
       picocolors: 1.0.0
       stable: 0.1.8
+    dev: false
+
+  /tailwind-merge@2.0.0:
+    resolution: {integrity: sha512-WO8qghn9yhsldLSg80au+3/gY9E4hFxIvQ3qOmlpXnqpDKoMruKfi/56BbbMg6fHTQJ9QD3cc79PoWqlaQE4rw==}
+    dependencies:
+      '@babel/runtime': 7.23.2
     dev: false
 
   /tailwindcss@3.3.3:
