@@ -31,6 +31,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // getting all the console elements
     const consoleElements = getConsoleElements();
+    // check if start auction window is open
+    if (consoleElements.startAuctionWindow.style.display === "none") return;
+    consoleElements.startAuctionWindowButton.click();
+
 
     persister.subscribe(() => {
       const auctionState = getState().auction;
@@ -153,7 +157,7 @@ export const getHighEstimate = (highEstimate: HTMLElement) => {
 };
 
 export const getDescription = (description: HTMLElement) => {
-  return description.innerText.replace("description: ", "");
+  return description.innerText.replace("description: ", "").trim();
 };
 
 const getConsoleElements = () => {
@@ -176,6 +180,8 @@ const getConsoleElements = () => {
     startAuctionWindow: document.getElementById("auctioneer-start-overlay"),
     startAuctionWindowButton: document.getElementById("btn-start-auction"),
     lostConnectionWindow: document.getElementById("bid-live-connection"), // nothing works when style is set to display: block;
+    auctionPausedWindow: document.getElementById("auctioneer-pause-overlay"),
+    resumeAuctionButton: document.getElementById("btn-resume"),
   };
   console.debug("consoleElements", consoleElements);
   type ConsoleElements = typeof consoleElements;
