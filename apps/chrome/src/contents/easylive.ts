@@ -131,7 +131,7 @@ export const getLot = (currentLot: HTMLElement) => {
 };
 
 export const getAsk = (ask: HTMLInputElement) => {
-  return parseInt(ask.innerText.replace("Asking: ", "").replace(",", ""));
+  return parseInt(ask.value.replace("Asking: ", "").replace(",", ""));
 };
 
 export const getHammer = (hammer: HTMLElement) => {
