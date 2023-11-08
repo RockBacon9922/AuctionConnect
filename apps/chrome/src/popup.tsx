@@ -67,7 +67,7 @@ const Setup = () => {
         <input
           type="text"
           name="auctionName"
-          defaultValue={auction.name}
+          value={auction.name}
           onChange={(e) => dispatch(setAuctionName(e.target.value))}
         />
       </div>
@@ -76,17 +76,17 @@ const Setup = () => {
         <input
           type="date"
           name="auctionDate"
-          defaultValue={auction.date}
+          value={auction.date}
           onChange={(e) => dispatch(setAuctionDate(e.target.value))}
         />
       </div>
       {/* auction lot start number */}
       <div className="flex flex-col">
-        <label htmlFor="auctionLotStart">Auction Lot Start</label>
+        <label htmlFor="auctionLotStart">current lot</label>
         <input
           type="number"
           name="auctionLotStart"
-          defaultValue={auction.currentLotId}
+          value={auction.currentLotId}
           onChange={(e) => dispatch(setActiveLot(e.target.value))}
         />
       </div>
@@ -162,7 +162,6 @@ const Reset = () => {
     <button
       onClick={() => {
         dispatch(resetState());
-        dispatch(resetPlatformData());
       }}
     >
       Reset

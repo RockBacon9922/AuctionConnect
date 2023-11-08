@@ -31,13 +31,12 @@ export const auction = z.object({
 export type Auction = z.infer<typeof auction>;
 export type Lot = z.infer<typeof lot>;
 export type Bid = z.infer<typeof bid>;
-const currentDate = new Date().toISOString().split("T")[0];
 
 const initialState: Auction = {
   setup: false,
   started: false,
   paused: false,
-  date: currentDate,
+  date: new Date().toISOString().split("T")[0],
   name: "",
   currentLotId: "0",
   lots: [],
@@ -101,7 +100,7 @@ const auctionSlice = createSlice({
         setup: false,
         started: false,
         paused: false,
-        date: currentDate,
+        date: new Date().toISOString().split("T")[0],
         name: state.name,
         currentLotId: "0",
         lots: [],
