@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  font-family: "Inter", sans-serif;
+  font-size: 2rem;
+  line-height: 1.5;
+  font-weight: 600;
+}
+
+/* Only needed if using old version of daisy ui which i probably will!!!! */
+
+/* .table th:first-child {
+  position: relative !important;
+}
+
+.table th {
+  background-color: #3b82f6;
+  color: white;
+} */
