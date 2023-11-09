@@ -35,7 +35,6 @@ document.addEventListener("DOMContentLoaded", () => {
     if (consoleElements.startAuctionWindow.style.display === "none") return;
     consoleElements.startAuctionWindowButton.click();
 
-
     persister.subscribe(() => {
       const auctionState = getState().auction;
       const currentLot = auctionState.lots.find(
