@@ -181,7 +181,8 @@ const getConsoleElements = () => {
     startAuctionWindowButton: document.getElementById("btn-start-auction"),
     lostConnectionWindow: document.getElementById("bid-live-connection"), // nothing works when style is set to display: block;
     auctionPausedWindow: document.getElementById("auctioneer-pause-overlay"),
-    resumeAuctionButton: document.getElementById("btn-resume"),
+    auctionPausedWindowButton: document.getElementById("btn-resume"),
+    pauseAndResumeAuctionButton: document.getElementById("btn-pause"),
   };
   console.debug("consoleElements", consoleElements);
   type ConsoleElements = typeof consoleElements;
