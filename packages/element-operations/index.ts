@@ -9,11 +9,11 @@
 
 export const observeElementByIdContent = (
   elementId: string,
+  callback: () => void,
   attributes = true,
   characterData = true,
   childList = true,
   subtree = true,
-  callback: () => void,
 ) => {
   const element = document.getElementById(elementId);
 
@@ -41,11 +41,11 @@ export const observeElementByIdContent = (
  */
 export const observeElementContent = (
   element: Element, // The element to be observed
+  callback: () => void,
   attributes = true,
   characterData = true,
   childList = true,
   subtree = true,
-  callback: () => void,
 ) => {
   if (!element) {
     throw new Error(`Passed element could not be found.`);
