@@ -9,6 +9,10 @@
 
 export const observeElementByIdContent = (
   elementId: string,
+  attributes = true,
+  characterData = true,
+  childList = true,
+  subtree = true,
   callback: () => void,
 ) => {
   const element = document.getElementById(elementId);
@@ -22,10 +26,10 @@ export const observeElementByIdContent = (
   });
 
   observer.observe(element, {
-    attributes: true,
-    characterData: true,
-    childList: true,
-    subtree: true,
+    attributes,
+    characterData,
+    childList,
+    subtree,
   });
 };
 
@@ -37,6 +41,10 @@ export const observeElementByIdContent = (
  */
 export const observeElementContent = (
   element: Element, // The element to be observed
+  attributes = true,
+  characterData = true,
+  childList = true,
+  subtree = true,
   callback: () => void,
 ) => {
   if (!element) {
@@ -48,10 +56,10 @@ export const observeElementContent = (
   });
 
   observer.observe(element, {
-    attributes: true,
-    characterData: true,
-    childList: true,
-    subtree: true,
+    attributes,
+    characterData,
+    childList,
+    subtree,
   });
 };
 
