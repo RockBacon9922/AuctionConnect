@@ -3,6 +3,10 @@
 /**
  * @param {string} elementId - the Id of the element to be observed
  * @callback callback - Function to run when the element changes
+ * @param {boolean} opts.attributes - Set to true if mutations to target's attributes are to be observed. Can be omitted if attributeOldValue or attributeFilter is specified.
+ * @param {boolean} opts.characterData - Set to true if mutations to target's data are to be observed. Can be omitted if characterDataOldValue is specified.
+ * @param {boolean} opts.childList - Set to true if mutations to target's children are to be observed.
+ * @param {boolean} opts.subtree - Set to true if mutations to not just target, but also target's descendants are to be observed.
  *
  * @description Function that runs a callback function everytime there is a change to the passed element in the DOM
  */
@@ -10,11 +14,19 @@
 export const observeElementByIdContent = (
   elementId: string,
   callback: () => void,
-  attributes = true,
-  characterData = true,
-  childList = true,
-  subtree = true,
+  opts: {
+    attributes?: boolean;
+    characterData?: boolean;
+    childList?: boolean;
+    subtree?: boolean;
+  } = {},
 ) => {
+  const {
+    attributes = true,
+    characterData = true,
+    childList = true,
+    subtree = true,
+  } = opts;
   const element = document.getElementById(elementId);
 
   if (!element) {
@@ -36,17 +48,29 @@ export const observeElementByIdContent = (
 /**
  * @param {Element} element - element to be observed
  * @callback callback - Function to run when the element changes
+ * @param {boolean} opts.attributes - Set to true if mutations to target's attributes are to be observed. Can be omitted if attributeOldValue or attributeFilter is specified.
+ * @param {boolean} opts.characterData - Set to true if mutations to target's data are to be observed. Can be omitted if characterDataOldValue is specified.
+ * @param {boolean} opts.childList - Set to true if mutations to target's children are to be observed.
+ * @param {boolean} opts.subtree - Set to true if mutations to not just target, but also target's descendants are to be observed.
  *
  * @description Function that runs a callback function everytime there is a change to the passed element in the DOM
  */
 export const observeElementContent = (
   element: Element, // The element to be observed
   callback: () => void,
-  attributes = true,
-  characterData = true,
-  childList = true,
-  subtree = true,
+  opts: {
+    attributes?: boolean;
+    characterData?: boolean;
+    childList?: boolean;
+    subtree?: boolean;
+  } = {},
 ) => {
+  const {
+    attributes = true,
+    characterData = true,
+    childList = true,
+    subtree = true,
+  } = opts;
   if (!element) {
     throw new Error(`Passed element could not be found.`);
   }
