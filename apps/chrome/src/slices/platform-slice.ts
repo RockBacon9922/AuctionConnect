@@ -54,7 +54,6 @@ const platformSlice = createSlice({
 
     /**
      *
-     * @param @ignore state -- automatically passed by redux
      * @param action String of platform name
      * @returns void
      * @description Sets the primary platform
@@ -70,11 +69,28 @@ const platformSlice = createSlice({
       // set status
       platform.primary = true;
     },
+    /**
+     *
+     * @param action
+     * @description Sets the lots for a specified platform
+     */
+    setLots: (
+      state,
+      action: PayloadAction<{ platformName: string; lots: string[] }>,
+    ) => {
+      // find the object with the id of the platform
+      const platform = Object.values(state).find(
+        (platform) => platform.name === action.payload.platformName,
+      );
+      if (!platform) throw new Error("Platform not found");
+      // set status
+      platform.lots = action.payload.lots;
+    },
     resetPlatformData: () => initialState,
   },
 });
 
-export const { setStatus, setPrimary, resetPlatformData } =
+export const { setStatus, setPrimary, setLots, resetPlatformData } =
   platformSlice.actions;
 
 export default platformSlice.reducer;
