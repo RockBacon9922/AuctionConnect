@@ -4,6 +4,7 @@ type Platform = {
   name: string;
   primary: boolean;
   status: boolean;
+  lots: string[];
 };
 
 export type Platforms = {
@@ -18,11 +19,13 @@ const initialState: Platforms = {
     name: "easylive",
     primary: true,
     status: false,
+    lots: [],
   },
   theSaleroom: {
     name: "theSaleroom",
     primary: false,
     status: false,
+    lots: [],
   },
 };
 
@@ -32,9 +35,8 @@ const platformSlice = createSlice({
   reducers: {
     /**
      *
-     * @param @ignore state -- automatically passed by redux
-     * @param action Object containing platform name and desired status
-     * @returns void
+     * @param action containing platform name and desired status
+     * @returns {void}
      * @description Sets the status of a platform
      */
     setStatus: (
