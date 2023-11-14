@@ -142,12 +142,6 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-/**
- * @description Function to get all the console dom elements and return a type safe object
- * @returns Object with all the console dom elements
- * @throws Error if any of the elements are not found
- **/
-
 export const getLot = (currentLot: HTMLElement) => {
   return currentLot.innerText.replace("Lot ", "").trim();
 };
@@ -182,6 +176,11 @@ export const getDescription = (description: HTMLElement) => {
   return description.innerText.replace("description: ", "").trim();
 };
 
+/**
+ * @description Function to get all the console dom elements and return a type safe object
+ * @returns Object with all the console dom elements
+ * @throws Error if any of the elements are not found
+ **/
 const getConsoleElements = () => {
   const consoleElements = {
     currentLot: document.querySelector("#auctioneer-lot-no strong"),
