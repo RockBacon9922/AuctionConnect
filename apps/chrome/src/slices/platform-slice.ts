@@ -1,6 +1,6 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 
-type Platform = {
+export type Platform = {
   name: string;
   primary: boolean;
   status: boolean;
