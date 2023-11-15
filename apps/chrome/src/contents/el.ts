@@ -1,5 +1,5 @@
 import { createBid, createLot } from "~slices/auction-slice";
-import { setStatus } from "~slices/platform-slice";
+import { setLots, setStatus } from "~slices/platform-slice";
 import { getState, persister, store } from "~store";
 import { type PlasmoCSConfig } from "plasmo";
 
@@ -115,6 +115,23 @@ document.addEventListener("EasyLiveContentLoaded", () => {
       );
     },
     { initialRun: true },
+  );
+});
+
+// get all the lot numbers and put them into the store so that we can compare them with other platforms
+document.addEventListener("EasyLiveContentLoaded", () => {
+  const consoleElements = getConsoleElements();
+  const lotNumbers = Array.from(consoleElements.lotTable.childNodes)
+    .map((node) => {
+      return node.childNodes[0].textContent?.trim();
+    })
+    .filter((lotNumber): lotNumber is string => !!lotNumber);
+  if (!lotNumbers) return;
+  store.dispatch(
+    setLots({
+      platformName: currentPlatform.name,
+      lots: lotNumbers,
+    }),
   );
 });
 
