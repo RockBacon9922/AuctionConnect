@@ -14,11 +14,11 @@ import { observeElementContent } from "@acme/element-operations";
 
 import { setAsk } from "./common/utils";
 
-export const config: PlasmoCSConfig = {
-  matches: ["https://www.easyliveauction.com/live_v2/*"],
-  all_frames: false, // FIXME: This could be a potential issue. I have set it to false as we really only want to be controlling one instance of the dashboard
-  run_at: "document_start",
-};
+// export const config: PlasmoCSConfig = {
+//   matches: ["https://www.easyliveauction.com/live_v2/*"],
+//   all_frames: false, // FIXME: This could be a potential issue. I have set it to false as we really only want to be controlling one instance of the dashboard
+//   run_at: "document_start",
+// };
 
 const currentPlatform = getState().platform.easylive;
 // create event listener for when dom is loaded
