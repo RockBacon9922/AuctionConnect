@@ -100,6 +100,9 @@ const auctionSlice = createSlice({
       if (!lot || lot.bids.length <= 1) return;
       lot.bids.sort((a, b) => b.amount - a.amount);
     },
+    setLots: (state, action: PayloadAction<Lot[]>) => {
+      state.lots = action.payload;
+    },
     startAuction: (state) => {
       state.started = true;
     },
