@@ -1,4 +1,4 @@
-import { createBid, createLot } from "~slices/auction-slice";
+import { createBid, createLot, updateLot } from "~slices/auction-slice";
 import { setLots, setStatus } from "~slices/platform-slice";
 import { getState, persister, store } from "~store";
 import { type PlasmoCSConfig } from "plasmo";
@@ -102,7 +102,7 @@ document.addEventListener("EasyLiveContentLoaded", () => {
       }
       // update content e.g description, estimate, image
       store.dispatch(
-        createLot({
+        updateLot({
           id: lotId,
           description: getDescription(consoleElements.description),
           lowEstimate: getLowEstimate(consoleElements.estimate),

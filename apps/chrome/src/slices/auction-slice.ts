@@ -128,6 +128,7 @@ export const {
   setAuctionHouse,
   setActiveLot,
   createLot,
+  updateLot,
   createBid,
   setAsk,
   sortBids,
