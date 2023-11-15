@@ -44,7 +44,6 @@ document.addEventListener("EasyLiveContentLoaded", () => {
           status: false,
         }),
       );
-      alert("Lost connection to auction platform");
       return;
     }
     store.dispatch(
@@ -84,7 +83,6 @@ document.addEventListener("EasyLiveContentLoaded", () => {
       const storeLotInstance = state.auction.lots.find(
         (state) => state.id === lotId,
       );
-      console.debug("Current Lot", storeLotInstance);
       if (!storeLotInstance) {
         store.dispatch(
           createLot({
@@ -162,7 +160,7 @@ document.addEventListener("EasyLiveContentLoaded", () => {
       console.debug("lot is sold");
     }
     // 2. If we have a bid, check if we are the highest bidder
-    if (getHammer(consoleElements.currentHammer) != currentLot.bids[0].amount) {
+    if (getHammer(consoleElements.currentHammer) < currentLot.bids[0].amount) {
       updateInput(
         consoleElements.askInput,
         currentLot.bids[0].amount.toString(),
