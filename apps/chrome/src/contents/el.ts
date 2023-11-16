@@ -119,18 +119,48 @@ document.addEventListener("EasyLiveContentLoaded", () => {
 // get all the lot numbers and put them into the store so that we can compare them with other platforms
 document.addEventListener("EasyLiveContentLoaded", () => {
   const consoleElements = getConsoleElements();
-  const lotNumbers = Array.from(consoleElements.lotTable.childNodes)
-    .map((node) => {
-      return node.childNodes[0].textContent?.trim();
-    })
-    .filter((lotNumber): lotNumber is string => !!lotNumber);
-  if (!lotNumbers) return;
-  store.dispatch(
-    setLots({
-      platformName: currentPlatform.name,
-      lots: lotNumbers,
-    }),
-  );
+  consoleElements.lotTable.querySelectorAll("tr").forEach((tr) => {
+    const lotNumber = tr.querySelector("td");
+    if (!lotNumber) return;
+    const lotId = lotNumber.innerText.trim();
+    // check if the lot is already in the store
+    !getState().platform.easylive.lots.includes(lotId) &&
+      store.dispatch(
+        setLots({
+          platformName: currentPlatform.name,
+          lots: [...getState().platform.easylive.lots, lotId],
+        }),
+      );
+
+    // If primary platform and lot does not exist in the store, create it
+    if (
+      currentPlatform.primary &&
+      !getState().auction.lots.find((lot) => lot.id === lotId)
+    ) {
+      store.dispatch(
+        createLot({
+          id: lotId,
+          description: tr.children[1].textContent?.trim() || "",
+          lowEstimate: parseInt(
+            tr.children[2].textContent
+              ?.trim()
+              .replaceAll("£", "")
+              .split(" to ")[0] || "0",
+          ),
+          highEstimate: parseInt(
+            tr.children[2].textContent
+              ?.trim()
+              .replaceAll("£", "")
+              .split(" to ")[1] || "0",
+          ),
+          image: "",
+          asking: 0,
+          bids: [],
+          state: "unsold",
+        }),
+      );
+    }
+  });
 });
 
 // Interacting with the EL console when the store changes
