@@ -76,10 +76,10 @@ document.addEventListener("EasyLiveContentLoaded", () => {
 document.addEventListener("EasyLiveContentLoaded", () => {
   const consoleElements = getConsoleElements();
   observeElementContent(
-    consoleElements.currentLot,
+    consoleElements.lotDetails,
     () => {
       const state = getState();
-      const lotId = getLot(consoleElements.currentLot);
+      const lotId = getLot(consoleElements.lotDetails);
       const storeLotInstance = state.auction.lots.find(
         (state) => state.id === lotId,
       );
@@ -87,10 +87,10 @@ document.addEventListener("EasyLiveContentLoaded", () => {
         store.dispatch(
           createLot({
             id: lotId,
-            description: getDescription(consoleElements.description),
-            lowEstimate: getLowEstimate(consoleElements.estimate),
-            highEstimate: getHighEstimate(consoleElements.estimate),
-            image: consoleElements.image.src,
+            description: getDescription(consoleElements.lotDetails),
+            lowEstimate: getLowEstimate(consoleElements.lotDetails),
+            highEstimate: getHighEstimate(consoleElements.lotDetails),
+            image: getImage(consoleElements.lotDetails),
             asking: getAsk(consoleElements.askInput),
             bids: [],
             state: "unsold",
@@ -98,14 +98,15 @@ document.addEventListener("EasyLiveContentLoaded", () => {
         );
         return;
       }
+      console.debug("Updating lot", storeLotInstance);
       // update content e.g description, estimate, image
       store.dispatch(
         updateLot({
           id: lotId,
-          description: getDescription(consoleElements.description),
-          lowEstimate: getLowEstimate(consoleElements.estimate),
-          highEstimate: getHighEstimate(consoleElements.estimate),
-          image: consoleElements.image.src,
+          description: getDescription(consoleElements.lotDetails),
+          lowEstimate: getLowEstimate(consoleElements.lotDetails),
+          highEstimate: getHighEstimate(consoleElements.lotDetails),
+          image: getImage(consoleElements.lotDetails),
           asking: getAsk(consoleElements.askInput),
           bids: storeLotInstance.bids,
           state: storeLotInstance.state,
@@ -204,7 +205,7 @@ document.addEventListener("EasyLiveContentLoaded", () => {
     }
     // 4. Compare the current lot with the currentlot in the store
     // * If they are different, we need to move to the correct lot
-    if (getLot(consoleElements.currentLot) != currentLot.id) {
+    if (getLot(consoleElements.lotDetails) != currentLot.id) {
       //TODO: code to move to the correct lot
     }
   });
@@ -223,7 +224,7 @@ document.addEventListener("EasyLiveContentLoaded", () => {
     // create a bid
     store.dispatch(
       createBid({
-        lotId: getLot(consoleElements.currentLot),
+        lotId: getLot(consoleElements.lotDetails),
         amount: getHammer(consoleElements.currentHammer),
         bidder,
         platform: currentPlatform.name,
@@ -232,56 +233,75 @@ document.addEventListener("EasyLiveContentLoaded", () => {
   });
 });
 
-export const getLot = (currentLot: HTMLElement) => {
-  return currentLot.innerText.replace("Lot ", "").trim();
-};
-
-export const getAsk = (ask: HTMLInputElement) => {
+const getAsk = (ask: HTMLInputElement) => {
   return parseInt(ask.value.replace("Asking: ", "").replace(",", ""));
 };
 
-export const getHammer = (hammer: HTMLElement) => {
+const getHammer = (hammer: HTMLElement) => {
   return parseInt(hammer.innerText.replace("Bid: ", "").replace(",", ""));
 };
 
-export const getLowEstimate = (lowEstimate: HTMLElement) => {
+const getLot = (lotDetails: HTMLElement) => {
+  const lotElement = lotDetails.querySelector(
+    "auctioneer-lot-no h4 strong",
+  ) as HTMLElement;
+  if (!lotElement) throw new Error("Lot element not found");
+  return lotElement.innerText.trim();
+};
+
+const getLowEstimate = (lotDetails: HTMLElement) => {
+  const lotEstimateElement = lotDetails.querySelector(
+    "#auctioneer-lot-est h4 strong",
+  ) as HTMLElement;
+  if (!lotEstimateElement) throw new Error("Lot estimate element not found");
   return parseInt(
-    lowEstimate.innerText
+    lotEstimateElement.innerText
       .replace("Est: ", "")
       .replaceAll("£", "")
       .split(" - ")[0],
   );
 };
 
-export const getHighEstimate = (highEstimate: HTMLElement) => {
+const getHighEstimate = (lotDetails: HTMLElement) => {
+  const lotEstimateElement = lotDetails.querySelector(
+    "#auctioneer-lot-est",
+  ) as HTMLElement;
+  if (!lotEstimateElement) throw new Error("Lot estimate element not found");
   return parseInt(
-    highEstimate.innerText
+    lotEstimateElement.innerText
       .replace("Est: ", "")
       .replaceAll("£", "")
       .split(" - ")[1],
   );
 };
 
-export const getDescription = (description: HTMLElement) => {
-  return description.innerText.replace("description: ", "").trim();
+const getImage = (lotDetails: HTMLElement) => {
+  const imageElement = lotDetails.querySelector(
+    "#auctioneer-lot-img img",
+  ) as HTMLImageElement;
+  if (!imageElement) throw new Error("Image element not found");
+  return imageElement.src;
+};
+
+const getDescription = (lotDetails: HTMLElement) => {
+  const descriptionElement = lotDetails.querySelector(
+    "#auctioneer-lot-desc",
+  ) as HTMLElement;
+  if (!descriptionElement) throw new Error("Description element not found");
+  return descriptionElement.innerText.trim();
 };
 
 const getConsoleElements = () => {
   return {
-    currentLot: getElementByQuerySelector("#auctioneer-lot-no strong"),
+    lotDetails: getElementByQuerySelector("#auctioneer-lot-details"),
     currentHammer: getElementByQuerySelector("#text-current-bid112233"),
     currentBidder: getElementByQuerySelector("#client-bid"),
-    description: getElementByQuerySelector("#auctioneer-lot-desc"),
-    estimate: getElementByQuerySelector("#auctioneer-lot-est"),
     bidButton: getElementByQuerySelector("#btn-bid"),
     askInput: getElementByQuerySelector("#bid-amount") as HTMLInputElement,
     askButton: getElementByQuerySelector("#btn-ask445566"),
     roomButton: getElementByQuerySelector("#btn-room"),
     sellButton: getElementByQuerySelector("#btn-sold"),
     passButton: getElementByQuerySelector("#btn-pass"),
-    image: getElementByQuerySelector(
-      "#auctioneer-lot-img img",
-    ) as HTMLImageElement,
     startAuctionWindow: getElementByQuerySelector("#auctioneer-start-overlay"),
     startAuctionWindowButton: getElementByQuerySelector("#btn-start-auction"),
     lostConnectionWindow: getElementByQuerySelector("#bid-live-connection"), // nothing works when style is set to display: block;
