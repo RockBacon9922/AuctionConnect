@@ -78,8 +78,9 @@ document.addEventListener("EasyLiveContentLoaded", () => {
   observeElementContent(
     consoleElements.lotDetails,
     () => {
+      console.debug("Lot details changed");
       const state = getState();
-      const lotId = getLot(consoleElements.lotDetails);
+      const lotId = getLot();
       const storeLotInstance = state.auction.lots.find(
         (state) => state.id === lotId,
       );
@@ -87,10 +88,10 @@ document.addEventListener("EasyLiveContentLoaded", () => {
         store.dispatch(
           createLot({
             id: lotId,
-            description: getDescription(consoleElements.lotDetails),
-            lowEstimate: getLowEstimate(consoleElements.lotDetails),
-            highEstimate: getHighEstimate(consoleElements.lotDetails),
-            image: getImage(consoleElements.lotDetails),
+            description: getDescription(),
+            lowEstimate: getLowEstimate(),
+            highEstimate: getHighEstimate(),
+            image: getImage(),
             asking: getAsk(consoleElements.askInput),
             bids: [],
             state: "unsold",
@@ -103,10 +104,10 @@ document.addEventListener("EasyLiveContentLoaded", () => {
       store.dispatch(
         updateLot({
           id: lotId,
-          description: getDescription(consoleElements.lotDetails),
-          lowEstimate: getLowEstimate(consoleElements.lotDetails),
-          highEstimate: getHighEstimate(consoleElements.lotDetails),
-          image: getImage(consoleElements.lotDetails),
+          description: getDescription(),
+          lowEstimate: getLowEstimate(),
+          highEstimate: getHighEstimate(),
+          image: getImage(),
           asking: getAsk(consoleElements.askInput),
           bids: storeLotInstance.bids,
           state: storeLotInstance.state,
@@ -205,7 +206,7 @@ document.addEventListener("EasyLiveContentLoaded", () => {
     }
     // 4. Compare the current lot with the currentlot in the store
     // * If they are different, we need to move to the correct lot
-    if (getLot(consoleElements.lotDetails) != currentLot.id) {
+    if (getLot() != currentLot.id) {
       //TODO: code to move to the correct lot
     }
   });
@@ -224,7 +225,7 @@ document.addEventListener("EasyLiveContentLoaded", () => {
     // create a bid
     store.dispatch(
       createBid({
-        lotId: getLot(consoleElements.lotDetails),
+        lotId: getLot(),
         amount: getHammer(consoleElements.currentHammer),
         bidder,
         platform: currentPlatform.name,
@@ -241,19 +242,13 @@ const getHammer = (hammer: HTMLElement) => {
   return parseInt(hammer.innerText.replace("Bid: ", "").replace(",", ""));
 };
 
-const getLot = (lotDetails: HTMLElement) => {
-  const lotElement = lotDetails.querySelector(
-    "auctioneer-lot-no h4 strong",
-  ) as HTMLElement;
-  if (!lotElement) throw new Error("Lot element not found");
-  return lotElement.innerText.trim();
+const getLot = () => {
+  const lotElement = getElementByQuerySelector("#auctioneer-lot-no strong");
+  return lotElement.innerText.trim().replace("Lot ", "");
 };
 
-const getLowEstimate = (lotDetails: HTMLElement) => {
-  const lotEstimateElement = lotDetails.querySelector(
-    "#auctioneer-lot-est h4 strong",
-  ) as HTMLElement;
-  if (!lotEstimateElement) throw new Error("Lot estimate element not found");
+const getLowEstimate = () => {
+  const lotEstimateElement = getElementByQuerySelector("#auctioneer-lot-est");
   return parseInt(
     lotEstimateElement.innerText
       .replace("Est: ", "")
@@ -262,11 +257,8 @@ const getLowEstimate = (lotDetails: HTMLElement) => {
   );
 };
 
-const getHighEstimate = (lotDetails: HTMLElement) => {
-  const lotEstimateElement = lotDetails.querySelector(
-    "#auctioneer-lot-est",
-  ) as HTMLElement;
-  if (!lotEstimateElement) throw new Error("Lot estimate element not found");
+const getHighEstimate = () => {
+  const lotEstimateElement = getElementByQuerySelector("#auctioneer-lot-est");
   return parseInt(
     lotEstimateElement.innerText
       .replace("Est: ", "")
@@ -275,19 +267,15 @@ const getHighEstimate = (lotDetails: HTMLElement) => {
   );
 };
 
-const getImage = (lotDetails: HTMLElement) => {
-  const imageElement = lotDetails.querySelector(
+const getImage = () => {
+  const imageElement = getElementByQuerySelector(
     "#auctioneer-lot-img img",
   ) as HTMLImageElement;
-  if (!imageElement) throw new Error("Image element not found");
   return imageElement.src;
 };
 
-const getDescription = (lotDetails: HTMLElement) => {
-  const descriptionElement = lotDetails.querySelector(
-    "#auctioneer-lot-desc",
-  ) as HTMLElement;
-  if (!descriptionElement) throw new Error("Description element not found");
+const getDescription = () => {
+  const descriptionElement = getElementByQuerySelector("#auctioneer-lot-desc");
   return descriptionElement.innerText.trim();
 };
 
