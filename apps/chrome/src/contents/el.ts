@@ -297,5 +297,6 @@ const getConsoleElements = () => {
     auctionPausedWindowButton: getElementByQuerySelector("#btn-resume"),
     pauseAndResumeAuctionButton: getElementByQuerySelector("#btn-pause"),
     lotTable: getElementByQuerySelector("#lot-listing tbody"),
+    maxAutoBid: getElementByQuerySelector("#client-max-autobid"),
   };
 };
