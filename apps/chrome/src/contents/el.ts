@@ -218,7 +218,7 @@ document.addEventListener("EasyLiveContentLoaded", () => {
   observeElementContent(consoleElements.currentBidder, () => {
     const statusLabel = consoleElements.currentBidder.innerText.trim();
     // if innerText looks something like this "Bid [x]" we have a bid
-    const regex = /Bid \[\d+\]/;
+    const regex = /Bid \[\S+\]/;
     if (!regex.test(statusLabel)) return;
     const bidder = statusLabel.replace("Bid [", "").replace("]", "").trim();
     console.debug("Incoming bid", bidder);
