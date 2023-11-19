@@ -191,8 +191,12 @@ document.addEventListener("EasyLiveContentLoaded", () => {
     if (currentLot.state === "sold") {
       console.debug("lot is sold");
     }
+
     // 2. If we have a bid, check if we are the highest bidder
-    if (getHammer(consoleElements.currentHammer) < currentLot.bids[0].amount) {
+    if (
+      currentLot.bids &&
+      getHammer(consoleElements.currentHammer) < currentLot.bids[0].amount
+    ) {
       updateInput(
         consoleElements.askInput,
         currentLot.bids[0].amount.toString(),
