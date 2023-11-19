@@ -21,7 +21,9 @@ persister.subscribe(() => {
   // sort lots by lot number. lot numbers may have letters in them e.g lot 100 101 102A 103
   const auctionState = getState().auction;
   if (!auctionState?.lots?.length) return;
-  auctionState.lots.sort((a, b) => {
+  // create auction state copy
+  const auctionStateCopy = { ...auctionState, lots: [...auctionState.lots] };
+  auctionStateCopy.lots.sort((a, b) => {
     // use regex to get the number from the lot number
     const aNum = Number(a.id.match(/\d+/g)?.join(""));
     const bNum = Number(b.id.match(/\d+/g)?.join(""));
