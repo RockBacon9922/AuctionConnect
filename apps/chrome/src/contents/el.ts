@@ -238,6 +238,21 @@ document.addEventListener("EasyLiveContentLoaded", () => {
   });
 });
 
+// Clicks the initial ask button if the current bidder or room is blank.
+document.addEventListener("EasyLiveContentLoaded", () => {
+  const consoleElements = getConsoleElements();
+  observeElementContent(
+    consoleElements.currentBidder,
+    () => {
+      const statusLabel = consoleElements.currentBidder.innerText.trim();
+      // if status label is blank we are ready to set the ask price
+      if (statusLabel !== "") return;
+      consoleElements.askButton.click();
+    },
+    { initialRun: true },
+  );
+});
+
 const getAsk = (ask: HTMLInputElement) => {
   return parseInt(ask.value.replace("Asking: ", "").replace(",", ""));
 };
