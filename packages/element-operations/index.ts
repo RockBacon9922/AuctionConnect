@@ -138,8 +138,8 @@ export const updateInput = (input: HTMLInputElement, value: string) => {
   nativeInputValueSetter?.call(input, value);
 
   // i know for a fact that "input" event works for react. "change" event works for blazor and react let's hope that works for everything.
-  const ev = new Event("change", { bubbles: true }); // Bubbles means event propogates across the whole DOM. I think writing this comment without internet.
-  input?.dispatchEvent(ev);
+  const ev = [new Event("keydown", {bubbles: true}), new Event("change", { bubbles: true })] // Bubbles means event propogates across the whole DOM. I think writing this comment without internet.
+  ev.forEach((e) => input?.dispatchEvent(e))
 };
 
 /**
