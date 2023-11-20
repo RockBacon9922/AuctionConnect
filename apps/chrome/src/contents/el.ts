@@ -194,7 +194,7 @@ document.addEventListener("EasyLiveContentLoaded", () => {
 
     // 2. If we have a bid, check if we are the highest bidder
     if (
-      currentLot.bids &&
+      currentLot.bids.length > 0 &&
       getHammer(consoleElements.currentHammer) < currentLot.bids[0].amount
     ) {
       updateInput(
