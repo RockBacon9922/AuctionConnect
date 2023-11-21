@@ -19,7 +19,7 @@ persister.subscribe(() => {
 persister.subscribe(() => {
   // sort lots by lot number. lot numbers may have letters in them e.g lot 100 101 102A 103
   const auctionState = getState().auction;
-  if (!auctionState?.lots?.length) return;
+  if (!auctionState.lots.length) return;
   // create auction state copy
   const auctionStateCopy = { ...auctionState, lots: [...auctionState.lots] };
   auctionStateCopy.lots.sort((a, b) => {
@@ -36,4 +36,5 @@ persister.subscribe(() => {
     }
     return aNum - bNum;
   });
+  store.dispatch({ type: "auction/setLots", payload: auctionStateCopy.lots });
 });
