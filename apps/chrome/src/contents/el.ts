@@ -247,6 +247,12 @@ document.addEventListener("EasyLiveContentLoaded", () => {
       const statusLabel = consoleElements.currentBidder.innerText.trim();
       // if status label is blank we are ready to set the ask price
       if (statusLabel !== "") return;
+      const state = getState();
+      const currentLot = state.auction.lots.find(
+        (lot) => lot.id === state.auction.currentLotId,
+      );
+      if (!currentLot) return;
+      updateInput(consoleElements.askInput, currentLot.asking.toString());
       consoleElements.askButton.click();
     },
     { initialRun: true },
