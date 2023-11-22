@@ -192,16 +192,21 @@ document.addEventListener("EasyLiveContentLoaded", () => {
       console.debug("lot is sold");
     }
 
-    // 2. If we have a bid, check if we are the highest bidder
+    // 2. If highest bidder > current bid. press bid
+    const hammer = getHammer(
+      consoleElements.currentHammer,
+      consoleElements.currentBidder,
+    );
     if (
       currentLot.bids.length > 0 &&
-      getHammer(consoleElements.currentHammer) < currentLot.bids[0].amount
+      hammer &&
+      hammer < currentLot.bids[0].amount
     ) {
       updateInput(
         consoleElements.askInput,
         currentLot.bids[0].amount.toString(),
       );
-      consoleElements.askButton.click();
+      consoleElements.bidButton.click();
     }
     // 3. Update the ask price
     if (getAsk(consoleElements.askInput) != currentLot.asking) {
@@ -221,16 +226,19 @@ document.addEventListener("EasyLiveContentLoaded", () => {
   const consoleElements = getConsoleElements();
   observeElementContent(consoleElements.currentBidder, () => {
     const statusLabel = consoleElements.currentBidder.innerText.trim();
+    const hammer = getHammer(
+      consoleElements.currentHammer,
+      consoleElements.currentBidder,
+    );
     // if innerText looks something like this "Bid [x]" we have a bid
-    const regex = /Bid \[\S+\]/;
-    if (!regex.test(statusLabel)) return;
+    if (!hammer) return;
     const bidder = statusLabel.replace("Bid [", "").replace("]", "").trim();
     console.debug("Incoming bid", bidder);
     // create a bid
     store.dispatch(
       createBid({
         lotId: getLot(),
-        amount: getHammer(consoleElements.currentHammer),
+        amount: hammer,
         bidder,
         platform: currentPlatform.name,
       }),
@@ -266,11 +274,8 @@ const getAsk = (ask: HTMLInputElement) => {
 const getHammer = (hammer: HTMLElement, currentBidder: HTMLElement) => {
   // check if bidder id shows a bidder id
   const regex = /Bid \[\S+\]/;
-  let returnVal = 0;
-  returnVal = parseInt(hammer.innerText.replace("£", ""));
-  if (!regex.test(currentBidder.innerText.trim())) returnVal = 0;
-  console.debug("Hammer", returnVal);
-  return returnVal;
+  if (!regex.test(currentBidder.innerText.trim())) return false;
+  return parseInt(hammer.innerText.replace("£", ""));
 };
 
 const getLot = () => {
