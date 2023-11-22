@@ -189,7 +189,8 @@ document.addEventListener("EasyLiveContentLoaded", () => {
 
     // 1. Check if the lot is sold
     if (currentLot.state === "sold") {
-      console.debug("lot is sold");
+      consoleElements.sellButton.click();
+      updateInput(consoleElements.paddleInput, currentLot.bids[0].bidder);
     }
 
     // 2. If highest bidder > current bid. press bid
@@ -334,5 +335,6 @@ const getConsoleElements = () => {
     pauseAndResumeAuctionButton: getElementByQuerySelector("#btn-pause"),
     lotTable: getElementByQuerySelector("#lot-listing tbody"),
     maxAutoBid: getElementByQuerySelector("#client-max-autobid"),
+    paddleInput: getElementByQuerySelector("#text-paddle") as HTMLInputElement,
   };
 };
