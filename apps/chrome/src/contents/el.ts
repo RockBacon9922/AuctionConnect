@@ -263,8 +263,14 @@ const getAsk = (ask: HTMLInputElement) => {
   return parseInt(ask.value.replace("Asking: ", "").replace(",", ""));
 };
 
-const getHammer = (hammer: HTMLElement) => {
-  return parseInt(hammer.innerText.replace("Bid: ", "").replace(",", ""));
+const getHammer = (hammer: HTMLElement, currentBidder: HTMLElement) => {
+  // check if bidder id shows a bidder id
+  const regex = /Bid \[\S+\]/;
+  let returnVal = 0;
+  returnVal = parseInt(hammer.innerText.replace("£", ""));
+  if (!regex.test(currentBidder.innerText.trim())) returnVal = 0;
+  console.debug("Hammer", returnVal);
+  return returnVal;
 };
 
 const getLot = () => {
