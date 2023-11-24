@@ -191,6 +191,7 @@ document.addEventListener("EasyLiveContentLoaded", () => {
     if (currentLot.state === "sold") {
       consoleElements.sellButton.click();
       updateInput(consoleElements.paddleInput, currentLot.bids[0].bidder);
+      return;
     }
 
     // 2. If highest bidder > current bid. press bid
@@ -208,11 +209,13 @@ document.addEventListener("EasyLiveContentLoaded", () => {
         currentLot.bids[0].amount.toString(),
       );
       consoleElements.bidButton.click();
+      return;
     }
     // 3. Update the ask price
     if (getAsk(consoleElements.askInput) != currentLot.asking) {
       updateInput(consoleElements.askInput, currentLot.asking.toString());
       consoleElements.askButton.click();
+      return;
     }
     // 4. Compare the current lot with the currentlot in the store
     // * If they are different, we need to move to the correct lot
