@@ -91,8 +91,8 @@ importers:
         specifier: ^0.1.0
         version: link:../../packages/config/tailwind
       '@types/chrome':
-        specifier: 0.0.210
-        version: 0.0.210
+        specifier: 0.0.253
+        version: 0.0.253
       '@types/node':
         specifier: 18.11.18
         version: 18.11.18
@@ -3264,8 +3264,8 @@ packages:
       '@babel/types': 7.23.3
     dev: true
 
-  /@types/chrome@0.0.210:
-    resolution: {integrity: sha512-VSjQu1k6a/rAfuqR1Gi/oxHZj4+t6+LG+GobNI3ZWI6DQ+fmphNSF6TrLHG6BYK2bXc9Gb4c1uXFKRRVLaGl5Q==}
+  /@types/chrome@0.0.253:
+    resolution: {integrity: sha512-ZnBlbeoje0XaBrJbFCXI8DsDfqvqdoWQO5NSGecMCHFC8W8z/rb/n7lI1FHob+TFKKLR4L2c3QJJSFLwtVc9TA==}
     dependencies:
       '@types/filesystem': 0.0.35
       '@types/har-format': 1.2.15
