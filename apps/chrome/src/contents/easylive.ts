@@ -5,7 +5,7 @@ The purpose of this page is to link the redux state and the dashboard so that on
 
 // TODO: Purple bid detector
 
-import { createBid, createLot, type CreateBid } from "~slices/auction-slice";
+import { createLot } from "~slices/auction-slice";
 import { setStatus } from "~slices/platform-slice";
 import { getState, persister, store } from "~store";
 import type { PlasmoCSConfig } from "plasmo";
@@ -14,11 +14,11 @@ import { observeElementContent } from "@acme/element-operations";
 
 import { setAsk } from "./common/utils";
 
-export const config: PlasmoCSConfig = {
-  matches: ["https://www.easyliveauction.com/live_v2/*"],
-  all_frames: false, // FIXME: This could be a potential issue. I have set it to false as we really only want to be controlling one instance of the dashboard
-  run_at: "document_start",
-};
+// export const config: PlasmoCSConfig = {
+//   matches: ["https://www.easyliveauction.com/live_v2/*"],
+//   all_frames: false, // FIXME: This could be a potential issue. I have set it to false as we really only want to be controlling one instance of the dashboard
+//   run_at: "document_start",
+// };
 
 const currentPlatform = getState().platform.easylive;
 // create event listener for when dom is loaded
@@ -31,9 +31,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // getting all the console elements
     const consoleElements = getConsoleElements();
+
     // check if start auction window is open
-    if (consoleElements.startAuctionWindow.style.display === "none") return;
-    consoleElements.startAuctionWindowButton.click();
+    if (consoleElements.startAuctionWindow.style.display != "none")
+      consoleElements.startAuctionWindowButton.click();
 
     persister.subscribe(() => {
       const auctionState = getState().auction;
@@ -44,9 +45,13 @@ document.addEventListener("DOMContentLoaded", () => {
       // if there is no lot create it and return if not primary return anyway
       if (!currentLot) {
         if (currentPlatform.primary) {
+          const currentLot = getLot(consoleElements.currentLot);
+          // check if lot already exists in store
+          if (auctionState.lots.find((lot) => lot.id === currentLot)) return;
+
           store.dispatch(
             createLot({
-              id: getLot(consoleElements.currentLot),
+              id: currentLot,
               image: consoleElements.image.src,
               asking: getAsk(consoleElements.askInput),
               lowEstimate: getLowEstimate(consoleElements.estimate),
@@ -111,6 +116,24 @@ document.addEventListener("DOMContentLoaded", () => {
         }),
       );
     });
+    // If window is open and auction is not paused close it
+    observeElementContent(consoleElements.auctionPausedWindow, () => {
+      if (
+        consoleElements.auctionPausedWindow.style.display === "block" &&
+        !getState().auction.paused
+      ) {
+        consoleElements.auctionPausedWindowButton.click();
+      }
+    });
+    persister.subscribe(() => {
+      if (getState().auction.paused) {
+        consoleElements.pauseAndResumeAuctionButton.click();
+      } else if (
+        consoleElements.auctionPausedWindow.style.display === "block"
+      ) {
+        consoleElements.auctionPausedWindowButton.click();
+      }
+    });
     // TODO: If this platform is primary. Handle the system to create a new lot if it doesn't exist?
 
     // TODO: Handle when a bid comes in on this platform
@@ -119,14 +142,8 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-/**
- * @description Function to get all the console dom elements and return a type safe object
- * @returns Object with all the console dom elements
- * @throws Error if any of the elements are not found
- **/
-
 export const getLot = (currentLot: HTMLElement) => {
-  return currentLot.innerText.replace("Lot ", "");
+  return currentLot.innerText.replace("Lot ", "").trim();
 };
 
 export const getAsk = (ask: HTMLInputElement) => {
@@ -159,6 +176,11 @@ export const getDescription = (description: HTMLElement) => {
   return description.innerText.replace("description: ", "").trim();
 };
 
+/**
+ * @description Function to get all the console dom elements and return a type safe object
+ * @returns Object with all the console dom elements
+ * @throws Error if any of the elements are not found
+ **/
 const getConsoleElements = () => {
   const consoleElements = {
     currentLot: document.querySelector("#auctioneer-lot-no strong"),

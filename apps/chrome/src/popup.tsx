@@ -162,6 +162,7 @@ const Reset = () => {
     <button
       onClick={() => {
         dispatch(resetState());
+        dispatch(resetPlatformData());
       }}
     >
       Reset

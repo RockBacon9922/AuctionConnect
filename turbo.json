@@ -20,6 +20,10 @@
     },
     "lint": {},
     "lint:fix": {},
+    "test": {
+      "dependsOn": ["^db:generate"],
+      "cache": false
+    },
     "clean": {
       "cache": false
     },
