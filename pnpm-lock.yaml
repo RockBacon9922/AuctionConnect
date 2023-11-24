@@ -18,8 +18,8 @@ importers:
         specifier: ^4.1.1
         version: 4.1.1(prettier@2.8.8)
       '@manypkg/cli':
-        specifier: ^0.20.0
-        version: 0.20.0
+        specifier: ^0.21.0
+        version: 0.21.0
       '@types/prettier':
         specifier: ^2.7.3
         version: 2.7.3
@@ -1132,8 +1132,8 @@ packages:
     dev: false
     optional: true
 
-  /@manypkg/cli@0.20.0:
-    resolution: {integrity: sha512-xOAyzHp4cF6+1VxCeVi14k4WJBbKAExuYVA+wXlCHPLoTUv64D2HQrLUOFO8bXtzW9KFhGhdP2xGFq9n9rSDiw==}
+  /@manypkg/cli@0.21.0:
+    resolution: {integrity: sha512-q/JF25il2EXtyPpc5U/Pp7TMgJot/WmFkyh7M9FiutQkliHp58UqUxIPeUObLu9EtoAp/uP21t+TMDsq1DMbeg==}
     engines: {node: '>=14.18.0'}
     hasBin: true
     dependencies:
