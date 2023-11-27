@@ -198,7 +198,13 @@ document.addEventListener("EasyLiveContentLoaded", () => {
 
     // 1. Check if the lot is sold
     if (currentLot.state === "sold") {
+      if (currentLot.bids.length === 0) return;
+      // TODO: try to prevent pressing the sell button twice
+      if (consoleElements.sellButton.innerText.trim().toUpperCase() != "SOLD")
+        return;
       consoleElements.sellButton.click();
+      // if we are not the highest bidder, input the highest bidder
+      if (currentLot.bids[0].platform === currentPlatform.name) return;
       updateInput(consoleElements.paddleInput, currentLot.bids[0].bidder);
       return;
     }
@@ -230,6 +236,15 @@ document.addEventListener("EasyLiveContentLoaded", () => {
     // * If they are different, we need to move to the correct lot
     if (getLot() != currentLot.id) {
       //TODO: code to move to the correct lot
+      // get the current lot
+      const currentLot = state.auction.lots.find(
+        (lot) => lot.id === state.auction.currentLotId,
+      );
+      consoleElements.lotTable.querySelectorAll("tr").forEach((tr) => {
+        if (tr.children[0].textContent?.trim() === currentLot?.id) {
+          tr.parentElement?.click();
+        }
+      });
     }
   });
 });
