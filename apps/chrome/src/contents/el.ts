@@ -25,6 +25,15 @@ observeElementContent(bidLiveLoading, () => {
   document.dispatchEvent(new Event("EasyLiveContentLoaded"));
 });
 
+// Inner text of all the lot numbers in the lot table are trimmed
+document.addEventListener("EasyLiveContentLoaded", () => {
+  document.querySelectorAll("#lot-listing tbody tr").forEach((tr) => {
+    const lotNumber = tr.querySelector("td") as HTMLElement;
+    if (!lotNumber) return;
+    lotNumber.innerText = lotNumber.innerText.trim();
+  });
+});
+
 // Pausing and resuming the auction
 document.addEventListener("EasyLiveContentLoaded", () => {
   const consoleElements = getConsoleElements();
