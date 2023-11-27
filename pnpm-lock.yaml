@@ -121,7 +121,7 @@ importers:
   apps/www:
     dependencies:
       '@fontsource-variable/inter':
-        specifier: ^5.0.13
+        specifier: ^5.0.15
         version: 5.0.15
       micromodal:
         specifier: ^0.4.10
