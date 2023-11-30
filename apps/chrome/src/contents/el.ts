@@ -180,13 +180,13 @@ document.addEventListener("EasyLiveContentLoaded", () => {
   /**
    * TODO: Should this be store.subscribe?
    * @description Interacting with the EL console when the store changes
-   * 1. Check if the lot is sold
-   * * If so we need to sell the lot. And input the user who bought it if necessary
-   * 2. If we have a bid, check if we are the highest bidder
-   * * If so we need to room bid
-   * 3. Update the ask price
-   * 4. Compare the current lot with the currentlot in the store
+   * 1. Compare the current lot with the currentlot in the store
    * * If they are different, we need to move to the correct lot
+   * 2. Check if the lot is sold
+   * * If so we need to sell the lot. And input the user who bought it if necessary
+   * 3. If we have a bid, check if we are the highest bidder
+   * * If so we need to room bid
+   * 4. Update the ask price
    */
   persister.subscribe(() => {
     const state = getState();
@@ -196,7 +196,23 @@ document.addEventListener("EasyLiveContentLoaded", () => {
     // if there is no lot create it and return if not primary return anyway
     if (!currentLot) return;
 
-    // 1. Check if the lot is sold
+    // 1. Compare the current lot with the currentlot in the store
+    // * If they are different, we need to move to the correct lot
+    if (getLot() != currentLot.id) {
+      //TODO: code to move to the correct lot
+      // get the current lot
+      const currentLot = state.auction.lots.find(
+        (lot) => lot.id === state.auction.currentLotId,
+      );
+      consoleElements.lotTable.querySelectorAll("tr").forEach((tr) => {
+        if (tr.children[0].textContent?.trim() === currentLot?.id) {
+          tr.parentElement?.click();
+        }
+      })
+      return;
+    }
+
+    // 2. Check if the lot is sold
     if (currentLot.state === "sold") {
       if (currentLot.bids.length === 0) return;
       // TODO: try to prevent pressing the sell button twice
@@ -209,7 +225,7 @@ document.addEventListener("EasyLiveContentLoaded", () => {
       return;
     }
 
-    // 2. If highest bidder > current bid. press bid
+    // 3. If highest bidder > current bid. press bid
     const hammer = getHammer(
       consoleElements.currentHammer,
       consoleElements.currentBidder,
@@ -226,26 +242,12 @@ document.addEventListener("EasyLiveContentLoaded", () => {
       consoleElements.bidButton.click();
       return;
     }
-    // 3. Update the ask price
+    // 4. Update the ask price
     if (getAsk(consoleElements.askInput) != currentLot.asking) {
       updateInput(consoleElements.askInput, currentLot.asking.toString());
       consoleElements.askButton.click();
       return;
-    }
-    // 4. Compare the current lot with the currentlot in the store
-    // * If they are different, we need to move to the correct lot
-    if (getLot() != currentLot.id) {
-      //TODO: code to move to the correct lot
-      // get the current lot
-      const currentLot = state.auction.lots.find(
-        (lot) => lot.id === state.auction.currentLotId,
-      );
-      consoleElements.lotTable.querySelectorAll("tr").forEach((tr) => {
-        if (tr.children[0].textContent?.trim() === currentLot?.id) {
-          tr.parentElement?.click();
-        }
-      });
-    }
+    };
   });
 });
 
@@ -297,7 +299,7 @@ document.addEventListener("EasyLiveContentLoaded", () => {
 
 const getAsk = (ask: HTMLInputElement) => {
   return parseInt(ask.value.replace("Asking: ", "").replace(",", ""));
-};
+}
 
 const getHammer = (hammer: HTMLElement, currentBidder: HTMLElement) => {
   // check if bidder id shows a bidder id
