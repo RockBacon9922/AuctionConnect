@@ -208,7 +208,7 @@ document.addEventListener("EasyLiveContentLoaded", () => {
         if (tr.children[0].textContent?.trim() === currentLot?.id) {
           tr.parentElement?.click();
         }
-      })
+      });
       return;
     }
 
@@ -247,7 +247,7 @@ document.addEventListener("EasyLiveContentLoaded", () => {
       updateInput(consoleElements.askInput, currentLot.asking.toString());
       consoleElements.askButton.click();
       return;
-    };
+    }
   });
 });
 
@@ -299,7 +299,7 @@ document.addEventListener("EasyLiveContentLoaded", () => {
 
 const getAsk = (ask: HTMLInputElement) => {
   return parseInt(ask.value.replace("Asking: ", "").replace(",", ""));
-}
+};
 
 const getHammer = (hammer: HTMLElement, currentBidder: HTMLElement) => {
   // check if bidder id shows a bidder id
