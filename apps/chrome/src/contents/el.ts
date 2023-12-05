@@ -172,7 +172,7 @@ document.addEventListener("EasyLiveContentLoaded", () => {
       );
     }
   });
-});
+})
 
 // Interacting with the EL console when the store changes
 document.addEventListener("EasyLiveContentLoaded", () => {
@@ -203,12 +203,15 @@ document.addEventListener("EasyLiveContentLoaded", () => {
       // get the current lot
       const currentLot = state.auction.lots.find(
         (lot) => lot.id === state.auction.currentLotId,
-      );
-      consoleElements.lotTable.querySelectorAll("tr").forEach((tr) => {
-        if (tr.children[0].textContent?.trim() === currentLot?.id) {
+        );
+        consoleElements.lotTable.querySelectorAll("tr")
+        for (const tr of consoleElements.lotTable.querySelectorAll("tr")) {
+          if (tr.children[0].textContent?.trim() === currentLot?.id) {
+          console.debug("Moving to correct lot", tr);
           tr.parentElement?.click();
+          break;
         }
-      })
+      }
       return;
     }
 
