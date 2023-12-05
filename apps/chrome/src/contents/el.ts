@@ -172,7 +172,7 @@ document.addEventListener("EasyLiveContentLoaded", () => {
       );
     }
   });
-})
+});
 
 // Interacting with the EL console when the store changes
 document.addEventListener("EasyLiveContentLoaded", () => {
@@ -203,10 +203,10 @@ document.addEventListener("EasyLiveContentLoaded", () => {
       // get the current lot
       const currentLot = state.auction.lots.find(
         (lot) => lot.id === state.auction.currentLotId,
-        );
-        consoleElements.lotTable.querySelectorAll("tr")
-        for (const tr of consoleElements.lotTable.querySelectorAll("tr")) {
-          if (tr.children[0].textContent?.trim() === currentLot?.id) {
+      );
+      consoleElements.lotTable.querySelectorAll("tr");
+      for (const tr of consoleElements.lotTable.querySelectorAll("tr")) {
+        if (tr.children[0].textContent?.trim() === currentLot?.id) {
           console.debug("Moving to correct lot", tr);
           tr.parentElement?.click();
           break;
@@ -250,7 +250,7 @@ document.addEventListener("EasyLiveContentLoaded", () => {
       updateInput(consoleElements.askInput, currentLot.asking.toString());
       consoleElements.askButton.click();
       return;
-    };
+    }
   });
 });
 
@@ -302,7 +302,7 @@ document.addEventListener("EasyLiveContentLoaded", () => {
 
 const getAsk = (ask: HTMLInputElement) => {
   return parseInt(ask.value.replace("Asking: ", "").replace(",", ""));
-}
+};
 
 const getHammer = (hammer: HTMLElement, currentBidder: HTMLElement) => {
   // check if bidder id shows a bidder id
