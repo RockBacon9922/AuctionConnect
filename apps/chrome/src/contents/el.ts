@@ -207,9 +207,8 @@ document.addEventListener("EasyLiveContentLoaded", () => {
       consoleElements.lotTable.querySelectorAll("tr");
       for (const tr of consoleElements.lotTable.querySelectorAll("tr")) {
         if (tr.children[0].textContent?.trim() === currentLot?.id) {
-          console.debug("Moving to correct lot", tr);
-          tr.parentElement?.click();
-          break;
+          tr.click();
+          consoleElements.goToLotButton.click();
         }
       }
       return;
@@ -368,5 +367,6 @@ const getConsoleElements = () => {
     lotTable: getElementByQuerySelector("#lot-listing tbody"),
     maxAutoBid: getElementByQuerySelector("#client-max-autobid"),
     paddleInput: getElementByQuerySelector("#text-paddle") as HTMLInputElement,
+    goToLotButton: getElementByQuerySelector("#btn-goto-lot"),
   };
 };
