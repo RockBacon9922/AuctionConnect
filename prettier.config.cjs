@@ -14,6 +14,7 @@ const config = {
   // pluginSearchDirs: false,
   plugins: [
     "prettier-plugin-tailwindcss",
+    "@ianvs/prettier-plugin-sort-imports",
   ],
   tailwindConfig: "./packages/config/tailwind",
   importOrder: [
