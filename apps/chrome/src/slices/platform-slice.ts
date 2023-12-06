@@ -8,7 +8,8 @@ export type Platform = {
 };
 
 export type Platforms = {
-  easylive: Platform;
+  // extend the platform type for easylive to add a boolean value for back office auctioneer software
+  easylive: Platform & { backOffice: boolean };
   theSaleroom: Platform;
 };
 
@@ -20,6 +21,7 @@ const initialState: Platforms = {
     primary: true,
     status: false,
     lots: [],
+    backOffice: true,
   },
   theSaleroom: {
     name: "theSaleroom",
