@@ -199,18 +199,7 @@ document.addEventListener("EasyLiveContentLoaded", () => {
     // 1. Compare the current lot with the currentlot in the store
     // * If they are different, we need to move to the correct lot
     if (getLot() != currentLot.id) {
-      //TODO: code to move to the correct lot
-      // get the current lot
-      const currentLot = state.auction.lots.find(
-        (lot) => lot.id === state.auction.currentLotId,
-      );
-      consoleElements.lotTable.querySelectorAll("tr");
-      for (const tr of consoleElements.lotTable.querySelectorAll("tr")) {
-        if (tr.children[0].textContent?.trim() === currentLot?.id) {
-          tr.click();
-          consoleElements.goToLotButton.click();
-        }
-      }
+      changeEasyliveLot(currentLot.id);
       return;
     }
 
@@ -281,6 +270,11 @@ document.addEventListener("EasyLiveContentLoaded", () => {
 // Clicks the initial ask button if the current bidder or room is blank.
 document.addEventListener("EasyLiveContentLoaded", () => {
   const consoleElements = getConsoleElements();
+  // check if the auction is on the correct lot
+  if (getLot() != getState().auction.currentLotId) {
+    changeEasyliveLot(getState().auction.currentLotId);
+    return;
+  }
   observeElementContent(
     consoleElements.currentBidder,
     () => {
@@ -345,6 +339,17 @@ const getImage = () => {
 const getDescription = () => {
   const descriptionElement = getElementByQuerySelector("#auctioneer-lot-desc");
   return descriptionElement.innerText.trim();
+};
+
+const changeEasyliveLot = (lotId: string) => {
+  const consoleElements = getConsoleElements();
+  // get the current lot
+  for (const tr of consoleElements.lotTable.querySelectorAll("tr")) {
+    if (tr.children[0].textContent?.trim() === lotId) {
+      tr.click();
+      consoleElements.goToLotButton.click();
+    }
+  }
 };
 
 const getConsoleElements = () => {
