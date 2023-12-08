@@ -184,8 +184,8 @@ document.addEventListener("EasyLiveContentLoaded", () => {
    * * If they are different, we need to move to the correct lot
    * 2. Check if the lot is sold
    * * If so we need to sell the lot. And input the user who bought it if necessary
-   * 3. If we have a bid, check if we are the highest bidder
-   * * If so we need to room bid
+   * 3. check if bid is higher than current bid
+   * * If so we need to bid on the lot to align the bids
    * 4. Update the ask price
    */
   persister.subscribe(() => {
@@ -215,22 +215,15 @@ document.addEventListener("EasyLiveContentLoaded", () => {
       updateInput(consoleElements.paddleInput, currentLot.bids[0].bidder);
       return;
     }
-
-    // 3. If highest bidder > current bid. press bid
-    const hammer = getHammer(
-      consoleElements.currentHammer,
-      consoleElements.currentBidder,
-    );
-    if (
-      currentLot.bids.length > 0 &&
-      hammer &&
-      hammer < currentLot.bids[0].amount
-    ) {
+    // 3. check if bid is higher than current bid
+    // * If so we need to bid on the lot to align the bids
+    if (getHammer() != currentLot.bids[0].amount) {
       updateInput(
         consoleElements.askInput,
         currentLot.bids[0].amount.toString(),
       );
       consoleElements.bidButton.click();
+      updateInput(consoleElements.askInput, currentLot.asking.toString());
       return;
     }
     // 4. Update the ask price
@@ -247,10 +240,7 @@ document.addEventListener("EasyLiveContentLoaded", () => {
   const consoleElements = getConsoleElements();
   observeElementContent(consoleElements.currentBidder, () => {
     const statusLabel = consoleElements.currentBidder.innerText.trim();
-    const hammer = getHammer(
-      consoleElements.currentHammer,
-      consoleElements.currentBidder,
-    );
+    const hammer = getHammer();
     // if innerText looks something like this "Bid [x]" we have a bid
     if (!hammer) return;
     const bidder = statusLabel.replace("Bid [", "").replace("]", "").trim();
@@ -297,8 +287,17 @@ const getAsk = (ask: HTMLInputElement) => {
   return parseInt(ask.value.replace("Asking: ", "").replace(",", ""));
 };
 
-const getHammer = (hammer: HTMLElement, currentBidder: HTMLElement) => {
+/**
+ * This is a bodge due to how easylive uses the same element for the hammer and ask price at different times during the lot lifecycle
+ * @param {HTMLInputElement} hammer
+ * @param {HTMLElement} currentBidder
+ * @returns {number | false}
+ */
+const getHammer = () => {
   // check if bidder id shows a bidder id
+  const consoleElements = getConsoleElements();
+  const hammer = consoleElements.currentHammer;
+  const currentBidder = consoleElements.currentBidder;
   const regex = /Bid \[\S+\]/;
   if (!regex.test(currentBidder.innerText.trim())) return false;
   return parseInt(hammer.innerText.replace("£", ""));
