@@ -1,0 +1,17 @@
+---
+import { Image } from "astro:assets";
+import logo from "../content/V5LightInnerShadow.svg";
+---
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href="/V5Light.svg" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		<title>Gavel Connect</title>
+	</head>
+		<body class="bg-gradient-to-br from-pink-300 to-green-300 w-full h-screen flex flex-row items-center justify-center">
+			<Image src={logo} alt="Gavel Connect" class="h-1/4 w-auto" />
+		</body>
+</html>
