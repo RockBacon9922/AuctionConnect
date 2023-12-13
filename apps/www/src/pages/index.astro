@@ -1,8 +1,7 @@
 ---
 import { Image } from "astro:assets";
 
-import dark from "../content/V5Dark.svg";
-import light from "../content/V5Light.svg";
+import light from "../assets/V5Light.svg";
 ---
 
 <html lang="en">
@@ -20,7 +19,8 @@ import light from "../content/V5Light.svg";
       src={light}
       alt="Gavel Connect Logo"
       id={"logo"}
-      class="h-1/4 w-auto"
+      densities={[1.5, 2]}
+      class={"w-1/4"}
       loading="eager"
     />
   </body>
