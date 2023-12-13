@@ -8,7 +8,7 @@ export default defineConfig({
   output: "server",
   adapter: vercel({
     webAnalytics: {
-      enabled: true,
+      enabled: false,
     },
   }),
   integrations: [tailwind(), preact()],
