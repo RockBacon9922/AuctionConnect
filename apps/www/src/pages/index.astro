@@ -9,13 +9,22 @@ import logo from "../content/V5Light.svg";
     <meta charset="utf-8" />
     <link rel="icon" type="image/svg+xml" href="/V5Light.svg" />
     <meta name="viewport" content="width=device-width" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; img-src https://*; child-src 'none';"
+    />
     <meta name="generator" content={Astro.generator} />
     <title>Gavel Connect</title>
   </head>
   <body
     class="bg-gradient-to-br from-pink-300 to-green-300 w-full h-screen flex flex-row items-center justify-center"
   >
-    <Image src={logo} alt="Gavel Connect" class="h-1/4 w-auto" loading="eager" />
+    <Image
+      src={logo}
+      alt="Gavel Connect"
+      class="h-1/4 w-auto"
+      loading="eager"
+    />
   </body>
 </html>
 <style>
@@ -27,18 +36,36 @@ import logo from "../content/V5Light.svg";
   }
 
   @-webkit-keyframes AnimationName {
-    0%{background-position:0% 50%}
-    50%{background-position:100% 50%}
-    100%{background-position:0% 50%}
-}
-@-moz-keyframes AnimationName {
-    0%{background-position:0% 50%}
-    50%{background-position:100% 50%}
-    100%{background-position:0% 50%}
-}
-@keyframes AnimationName {
-    0%{background-position:0% 50%}
-    50%{background-position:100% 50%}
-    100%{background-position:0% 50%}
-}
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+  @-moz-keyframes AnimationName {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+  @keyframes AnimationName {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
 </style>
