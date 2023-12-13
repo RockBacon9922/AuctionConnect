@@ -132,6 +132,9 @@ importers:
       astro:
         specifier: ^4.0.4
         version: 4.0.4(typescript@5.3.2)
+      astro-seo:
+        specifier: ^0.8.0
+        version: 0.8.0
       preact:
         specifier: ^10.19.3
         version: 10.19.3
@@ -4061,6 +4064,10 @@ packages:
 
   /ast-types-flow@0.0.8:
     resolution: {integrity: sha512-OH/2E5Fg20h2aPrbe+QL8JZQFko0YZaF+j4mnQ7BGhfavO7OpSLa8a0y9sBwomHdSbkhTS8TQNayBfnW5DwbvQ==}
+    dev: false
+
+  /astro-seo@0.8.0:
+    resolution: {integrity: sha512-7gq6lhibCM8FuzZIJlbLLWP5EJ9KL2/4XqeFrAg9O6ZK2xMFxJ5ubKf+a0VJwwTu8W8Xr421CmpiXu6Hq7n/7Q==}
     dev: false
 
   /astro@4.0.4(typescript@5.3.2):
