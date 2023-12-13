@@ -16,7 +16,7 @@ import light from "../assets/V5LightShadow.svg";
   </head>
 
   <body
-    class="bg-gradient-to-br from-pink-300 to-green-300 w-full h-screen flex flex-row items-center justify-center"
+    class="bg-gradient-to-br from-pink-300 to-green-300 w-full h-screen flex flex-row items-center justify-center backgroundgrad"
   >
     <Image
       src={light}
@@ -26,5 +26,47 @@ import light from "../assets/V5LightShadow.svg";
       class={"w-1/2 md:w-1/4"}
       loading="eager"
     />
+    <style>
+      .backgroundgrad {
+        background-size: 300%;
+        -webkit-animation: AnimationName 16s ease infinite;
+        -moz-animation: AnimationName 16s ease infinite;
+        animation: AnimationName 16s ease infinite;
+      }
+
+      @-webkit-keyframes AnimationName {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
+      }
+      @-moz-keyframes AnimationName {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
+      }
+      @keyframes AnimationName {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
+      }
+    </style>
   </body>
 </html>
