@@ -82,7 +82,7 @@ export const observeElementContent = (
     initialRun = false,
   } = opts;
   if (!element) {
-    throw new Error(`Passed element could not be found.`);
+    throw new Error("Passed element could not be found.");
   }
 
   if (initialRun) {
