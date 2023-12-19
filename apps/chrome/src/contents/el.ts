@@ -40,7 +40,7 @@ document.addEventListener("EasyLiveContentLoaded", () => {
   console.debug("Console Elements", consoleElements);
 
   // close the start auction window if it is open
-  if (consoleElements.startAuctionWindow.style.display != "none")
+  if (consoleElements.startAuctionWindow.style.display !== "none")
     consoleElements.startAuctionWindowButton.click();
 
   // check if the auction platform is connected
@@ -198,7 +198,7 @@ document.addEventListener("EasyLiveContentLoaded", () => {
 
     // 1. Compare the current lot with the currentlot in the store
     // * If they are different, we need to move to the correct lot
-    if (getLot() != currentLot.id) {
+    if (getLot() !== currentLot.id) {
       changeEasyliveLot(currentLot.id);
       return;
     }
@@ -207,7 +207,7 @@ document.addEventListener("EasyLiveContentLoaded", () => {
     if (currentLot.state === "sold") {
       if (currentLot.bids.length === 0) return;
       // TODO: try to prevent pressing the sell button twice
-      if (consoleElements.sellButton.innerText.trim().toUpperCase() != "SOLD")
+      if (consoleElements.sellButton.innerText.trim().toUpperCase() !== "SOLD")
         return;
       consoleElements.sellButton.click();
       // if we are not the highest bidder, input the highest bidder
@@ -217,7 +217,7 @@ document.addEventListener("EasyLiveContentLoaded", () => {
     }
     // 3. check if bid is higher than current bid
     // * If so we need to bid on the lot to align the bids
-    if (getHammer() != currentLot.bids[0].amount) {
+    if (getHammer() !== currentLot.bids[0].amount) {
       updateInput(
         consoleElements.askInput,
         currentLot.bids[0].amount.toString(),
@@ -227,7 +227,7 @@ document.addEventListener("EasyLiveContentLoaded", () => {
       return;
     }
     // 4. Update the ask price
-    if (getAsk(consoleElements.askInput) != currentLot.asking) {
+    if (getAsk(consoleElements.askInput) !== currentLot.asking) {
       updateInput(consoleElements.askInput, currentLot.asking.toString());
       consoleElements.askButton.click();
       return;
