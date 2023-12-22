@@ -1,4 +1,4 @@
-/* eslint-disable @next/next/no-img-element */
+ 
 // TODO: Asking box doesn't update when new lot is selected
 // TODO: System to help user fix errors
 // TODO: Show when a platform has disconnected
@@ -16,7 +16,9 @@ import Wrapper from "./Assets/wrapper";
 const Console = () => {
   // set Title of the page to console
   document.title = "Console: Gavel Connect";
-  return <div className="w-full h-full"></div>;
+  return <div className="w-full h-full bg-background">
+    test test
+  </div>;
 };
 
 const Export = () => {
