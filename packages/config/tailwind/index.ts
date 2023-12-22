@@ -21,7 +21,7 @@ export default {
           "900": "#0f172a",
           "950": "#020617",
         },
-        background: "#F9F8F6",
+        lightBackground: "#F9F8F6",
       },
     },
   },

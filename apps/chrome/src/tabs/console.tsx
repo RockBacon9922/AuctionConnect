@@ -15,7 +15,8 @@ import Wrapper from "./Assets/wrapper";
 const Console = () => {
   // set Title of the page to console
   document.title = "Console: Gavel Connect";
-  return <div className="w-full h-full bg-background">test test</div>;
+  return <div className="w-full h-full bg-stone-400">
+  </div>;
 };
 
 const Export = () => {
