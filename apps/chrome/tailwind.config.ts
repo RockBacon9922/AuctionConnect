@@ -13,4 +13,4 @@ module.exports = {
     themes: ["winter"],
   },
   plugins: [],
-};
+} satisfies Config;

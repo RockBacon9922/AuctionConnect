@@ -5,7 +5,10 @@ export default {
   theme: {
     extend: {
       colors: {
-        accent: "#fb923c",
+        primary: "#fb923c",
+        secondary: "#E8BB96",
+        accent: "#65D2A6",
+        text: "#090706",
         greys: {
           "50": "#f8fafc",
           "100": "#f1f5f9",
@@ -19,6 +22,7 @@ export default {
           "900": "#0f172a",
           "950": "#020617",
         },
+        background: "#F9F8F6",
       },
     },
   },
