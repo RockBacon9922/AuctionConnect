@@ -1,4 +1,4 @@
- 
+
 // TODO: Asking box doesn't update when new lot is selected
 // TODO: System to help user fix errors
 // TODO: Show when a platform has disconnected
