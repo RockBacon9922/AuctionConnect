@@ -15,7 +15,8 @@ import Wrapper from "./Assets/wrapper";
 const Console = () => {
   // set Title of the page to console
   document.title = "Console: Gavel Connect";
-  return <div className="w-full h-full bg-stone-400"></div>;
+  return <div className="w-full h-screen bg-abbey-700 flex flex-row">
+  </div>;
 };
 
 const Export = () => {
@@ -27,3 +28,10 @@ const Export = () => {
 };
 
 export default Export;
+
+
+const Sidebar = () => {
+  return (
+    <div className="flex flex-col h-screen border-2 border-white">some test</div>
+  )
+}
