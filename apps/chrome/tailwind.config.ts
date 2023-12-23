@@ -12,5 +12,5 @@ module.exports = {
   daisyui: {
     themes: ["winter"],
   },
-  plugins: [require("daisyui")],
-};
+  plugins: [],
+} satisfies Config;
