@@ -14,7 +14,7 @@ import Wrapper from "./Assets/wrapper";
 
 const Logo = () => (
   <img
-    src="https://www.gavelconnect.com/_astro/V5Light.l7c59huP_Z2eePU1.svg"
+    src="https://www.gavelconnect.com/_astro/V5LightInnerShadow.qVRUR3pd_Z22S8dR.svg"
     alt="logo"
     width={110}
   />
@@ -54,10 +54,8 @@ const Console = () => {
   // set Title of the page to console
   document.title = "Console: Gavel Connect";
   return (
-    <div className="w-full h-screen bg-abbey-700">
-      <div className="bg-[url('https://www.gavelconnect.com/_astro/Background%20Pattern.JR-1fO_V_1qoH8c.webp')] bg-cover bg-opacity-100 flex flex-row">
-        <Sidebar />
-      </div>
+    <div className="w-full h-screen bg-abbey-800">
+      <Sidebar />
     </div>
   );
 };
