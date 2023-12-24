@@ -9,8 +9,5 @@ module.exports = {
   theme: {
     extend: {},
   },
-  daisyui: {
-    themes: ["winter"],
-  },
   plugins: [],
 } satisfies Config;
