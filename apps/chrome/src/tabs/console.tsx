@@ -5,7 +5,6 @@ import { getState, store } from "~store";
 
 import "../style.css";
 
-import { stat } from "fs";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { useAppDispatch, useAppSelector } from "~hooks";
 import { createBid, setActiveLot, setAsk } from "~slices/auction-slice";
