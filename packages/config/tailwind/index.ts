@@ -24,6 +24,7 @@ export default {
         lightBackground: "#F9F8F6",
       },
       fontSize: {
+        xs: "13px",
         sm: "0.750rem",
         base: "1rem",
         xl: "1.333rem",

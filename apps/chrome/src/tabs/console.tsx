@@ -5,9 +5,10 @@ import { getState, store } from "~store";
 
 import "../style.css";
 
-import { useEffect, useState, type ReactNode } from "react";
+import { stat } from "fs";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import { useAppDispatch, useAppSelector } from "~hooks";
-import { createBid, setAsk } from "~slices/auction-slice";
+import { createBid, setActiveLot, setAsk } from "~slices/auction-slice";
 import { cn } from "~utils/cn";
 
 import Wrapper from "./Assets/wrapper";
@@ -24,28 +25,56 @@ const LotListItem: React.FC<{
   LotId: string;
   LotImage: string;
   LotDescription: string;
-}> = ({ LotId, LotImage, LotDescription }) => {
-  const selected = false;
+  selected: boolean;
+}> = ({ LotId, LotImage, LotDescription, selected }) => {
+  const dispatch = useAppDispatch();
+  const selfRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (selected) {
+      selfRef?.current?.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+        inline: "start",
+      });
+    }
+  }, [selected]);
   return (
     <div
       className={cn(
-        "flex flex-row items-center justify-between w-full px-2 py-2 border-b-2 border-white",
-        selected ? "bg-abbey-600" : "bg-abbey-700",
+        "flex flex-row items-center justify-start gap-3 w-full px-2 py-2 bg-white cursor-pointer",
+        selected ? "bg-opacity-20" : "bg-opacity-0",
       )}
+      onClick={() => dispatch(setActiveLot(LotId))}
+      ref={selfRef}
     >
-      <div className="flex flex-row items-center">
-        <img src={LotImage} alt="lot" width={50} />
-        <p className="text-white text-sm ml-2">{LotDescription}</p>
+      <img src={LotImage} alt="lot" width={50} />
+      <div className="flex flex-col w-full">
+        <p className="text-white font-bold">{LotId}</p>
+        <p className="text-white text-xs truncate h-2 w-full pr-10">
+          {LotDescription}
+        </p>
       </div>
-      <p className="text-white text-sm">{LotId}</p>
     </div>
   );
 };
 
 const Sidebar = () => {
+  // get state from redux
+  const { auction } = useAppSelector((state) => state);
   return (
-    <div className="flex flex-col h-screen border-2 w-40 border-white items-center py-2">
+    <div className="flex flex-col h-screen w-[25%] items-center py-2 bg-white bg-opacity-5">
       <Logo />
+      <div className="flex flex-col w-full mt-4 overflow-y-scroll">
+        {auction.lots.map((lot) => (
+          <LotListItem
+            key={lot.id}
+            LotId={lot.id}
+            LotImage={lot.image}
+            LotDescription={lot.description}
+            selected={lot.id === auction.currentLotId}
+          />
+        ))}
+      </div>
     </div>
   );
 };
