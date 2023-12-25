@@ -5,7 +5,6 @@ import { getState, store } from "~store";
 
 import "../style.css";
 
-import { stat } from "fs";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { useAppDispatch, useAppSelector } from "~hooks";
 import { createBid, setActiveLot, setAsk } from "~slices/auction-slice";
@@ -41,7 +40,7 @@ const LotListItem: React.FC<{
   return (
     <div
       className={cn(
-        "flex flex-row items-center justify-start gap-3 w-full px-2 py-2 bg-white cursor-pointer",
+        "flex flex-row items-center justify-start gap-3 w-max px-2 py-2 bg-white cursor-pointer",
         selected ? "bg-opacity-20" : "bg-opacity-0",
       )}
       onClick={() => dispatch(setActiveLot(LotId))}
@@ -50,7 +49,7 @@ const LotListItem: React.FC<{
       <img src={LotImage} alt="lot" width={50} />
       <div className="flex flex-col w-full">
         <p className="text-white font-bold">{LotId}</p>
-        <p className="text-white text-xs truncate h-2 w-full pr-10">
+        <p className="text-white text-xs truncate h-2 w-full pr-10 overflow-clip">
           {LotDescription}
         </p>
       </div>
