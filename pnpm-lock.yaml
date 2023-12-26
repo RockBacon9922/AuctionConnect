@@ -30,7 +30,7 @@ importers:
         specifier: ^3.1.1
         version: 3.1.1
       prettier-plugin-tailwindcss:
-        specifier: ^0.5.8
+        specifier: ^0.5.9
         version: 0.5.9(@ianvs/prettier-plugin-sort-imports@4.1.1)(prettier@3.1.1)
       turbo:
         specifier: ^1.10.16
