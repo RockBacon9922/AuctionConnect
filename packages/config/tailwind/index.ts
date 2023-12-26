@@ -33,10 +33,6 @@ export default {
         "4xl": "3.158rem",
         "5xl": "4.210rem",
       },
-      fontFamily: {
-        heading: "Ramabhadra",
-        body: "Ramabhadra",
-      },
       fontWeight: {
         normal: "400",
         bold: "700",

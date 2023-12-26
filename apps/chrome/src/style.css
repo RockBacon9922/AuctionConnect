@@ -1,19 +1,33 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-html {
-  font-family: "Inter", sans-serif;
-  font-size: 2rem;
-  line-height: 1.5;
-  font-weight: 600;
+.overflow-y-scroll::-webkit-scrollbar {
+  display: none;
 }
 
-.table th:first-child {
-  position: relative !important;
+.overflow-y-scroll {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
-.table th {
-  background-color: #3b82f6;
-  color: white;
+/* Show scrollbar on hover */
+.scrollbar-show:hover::-webkit-scrollbar {
+  display: block;
+}
+
+.scrollbar-show:hover {
+  scrollbar-width: thin; /* Firefox */
+}
+
+@layer base {
+  html {
+    font-family: "Inter Variable", system-ui, sans-serif;
+    --tw-bg-opacity: 1;
+    background-color: rgb(69 69 69 / var(--tw-bg-opacity));
+  }
+}
+
+.bg-abbey-800 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(69 69 69 / var(--tw-bg-opacity));
 }
