@@ -10,7 +10,7 @@ import { useAppDispatch, useAppSelector } from "~hooks";
 import { createBid, setActiveLot, setAsk } from "~slices/auction-slice";
 import { cn } from "~utils/cn";
 
-import Sidebar from "./Assets/sidebar";
+import Sidebar from "./Assets/Sidebar";
 import Wrapper from "./Assets/wrapper";
 
 const Console = () => {
