@@ -36,14 +36,16 @@ const imageFiles = await Astro.glob("../assets/*");
     document.addEventListener("DOMContentLoaded", function () {
       const images = document.querySelectorAll("img");
       images.forEach((image) => {
-        let regex = RegExp("[a-z]+.svg", "i");
+        let regex = RegExp("(?<=F)[a-z]+.svg", "i");
+        if (image.src.includes("astro/")) {
+          regex = RegExp(/(?<=astro\/)[a-z]+/gi, "gi");
+        }
         // set the sibling paragraph text to the result of the regex
         let match = regex.exec(image.src);
         if (match && match[0]) {
           console.log(match[0]);
           // remove the F from the front of the file name. Weird regex workaround
-          (image.nextElementSibling as HTMLElement).innerText =
-            match[0].replace("F", "");
+          (image.nextElementSibling as HTMLElement).innerText = match[0];
         }
       });
     });
