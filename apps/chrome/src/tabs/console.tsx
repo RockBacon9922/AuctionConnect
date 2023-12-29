@@ -6,10 +6,10 @@ import { getState, store } from "~store";
 import "../style.css";
 
 import { useEffect, useRef, useState, type ReactNode } from "react";
+
 import { useAppDispatch, useAppSelector } from "~hooks";
 import { createBid, setActiveLot, setAsk } from "~slices/auction-slice";
 import { cn } from "~utils/cn";
-
 import Sidebar from "./Assets/Sidebar";
 import Wrapper from "./Assets/wrapper";
 

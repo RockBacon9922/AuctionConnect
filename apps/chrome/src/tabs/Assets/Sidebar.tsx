@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+
 import { useAppDispatch, useAppSelector } from "~hooks";
 import { setActiveLot } from "~slices/auction-slice";
 import { cn } from "~utils/cn";
@@ -7,7 +8,6 @@ const Logo = () => (
   <img
     src="https://www.gavelconnect.com/_astro/V5LightInnerShadow.qVRUR3pd_Z22S8dR.svg"
     alt="logo"
-    className="h-[100%]"
   />
 );
 
@@ -46,11 +46,11 @@ const LotListItem: React.FC<{
       onClick={() => dispatch(setActiveLot(LotId))}
       ref={selfRef}
     >
-      <img src={LotImage} alt="lot" width={50} />
+      <img src={LotImage} alt="lot" width={selected ? 150 : 50} />
       <div className="flex flex-col w-full overflow-hidden hover:scrollbar-show">
         <div className="flex justify-between text-white font-bold items-start">
           <p className="text-xl">{LotId}</p>
-          <p className="h-max mt-3">
+          <p className="text-base">
             {"Est: " + highEstimate.toString() + "-" + lowEstimate.toString()}
           </p>
         </div>
@@ -66,9 +66,9 @@ export const Sidebar = () => {
   // get state from redux
   const auction = useAppSelector((state) => state.auction);
   return (
-    <div className="flex flex-col h-screen w-[25%] items-center py-4 gap-2 bg-white bg-opacity-5">
+    <div className="flex flex-col h-screen w-[25%] items-center py-4 gap-4 bg-white bg-opacity-5 px-3">
       <Logo />
-      <div className="flex flex-col mt-4 overflow-y-scroll hover:scrollbar-show">
+      <div className="flex flex-col mt-4 w-full gap-2 overflow-y-scroll hover:scrollbar-show">
         {auction.lots.map((lot) => (
           <LotListItem
             key={lot.id}
