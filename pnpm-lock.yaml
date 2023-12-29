@@ -49,7 +49,7 @@ importers:
         version: link:../../packages/config/increments
       '@plasmohq/redux-persist':
         specifier: ^6.1.0
-        version: 6.1.0(redux@4.2.1)
+        version: 6.1.0(redux@5.0.1)
       '@plasmohq/storage':
         specifier: ^1.9.0
         version: 1.9.0(react@18.2.0)
@@ -70,13 +70,13 @@ importers:
         version: 18.2.0(react@18.2.0)
       react-redux:
         specifier: ^9.0.4
-        version: 9.0.4(@types/react@18.2.46)(react@18.2.0)(redux@4.2.1)
+        version: 9.0.4(@types/react@18.2.46)(react@18.2.0)(redux@5.0.1)
       redux-persist-webextension-storage:
         specifier: ^1.0.2
         version: 1.0.2
       redux-thunk:
-        specifier: ^2.4.2
-        version: 2.4.2(redux@4.2.1)
+        specifier: ^3.1.0
+        version: 3.1.0(redux@5.0.1)
       tailwind-merge:
         specifier: ^1.14.0
         version: 1.14.0
@@ -3026,12 +3026,12 @@ packages:
       - whiskers
     dev: false
 
-  /@plasmohq/redux-persist@6.1.0(redux@4.2.1):
+  /@plasmohq/redux-persist@6.1.0(redux@5.0.1):
     resolution: {integrity: sha512-12mDmEotgMH/+4g9Hput5DDAIVAnmo8cZGPBsi106i8t/GuySX439XF8gEdEY2sEZaFkminq2smXnMTNysfD+A==}
     peerDependencies:
       redux: '>4.0.0'
     dependencies:
-      redux: 4.2.1
+      redux: 5.0.1
     dev: false
 
   /@plasmohq/storage@1.9.0(react@18.2.0):
@@ -3147,7 +3147,7 @@ packages:
     dependencies:
       immer: 10.0.3
       react: 18.2.0
-      react-redux: 9.0.4(@types/react@18.2.46)(react@18.2.0)(redux@4.2.1)
+      react-redux: 9.0.4(@types/react@18.2.46)(react@18.2.0)(redux@5.0.1)
       redux: 5.0.1
       redux-thunk: 3.1.0(redux@5.0.1)
       reselect: 5.0.1
@@ -8682,7 +8682,7 @@ packages:
     resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}
     dev: false
 
-  /react-redux@9.0.4(@types/react@18.2.46)(react@18.2.0)(redux@4.2.1):
+  /react-redux@9.0.4(@types/react@18.2.46)(react@18.2.0)(redux@5.0.1):
     resolution: {integrity: sha512-9J1xh8sWO0vYq2sCxK2My/QO7MzUMRi3rpiILP/+tDr8krBHixC6JMM17fMK88+Oh3e4Ae6/sHIhNBgkUivwFA==}
     peerDependencies:
       '@types/react': ^18.2.25
@@ -8700,7 +8700,7 @@ packages:
       '@types/react': 18.2.46
       '@types/use-sync-external-store': 0.0.3
       react: 18.2.0
-      redux: 4.2.1
+      redux: 5.0.1
       use-sync-external-store: 1.2.0(react@18.2.0)
     dev: false
 
@@ -8755,26 +8755,12 @@ packages:
     resolution: {integrity: sha512-WGiK6sNIMLtvZaWqDOZF7Yzz53LOx5YzE9I2bwjZeACtp6+VvfyP57J5czXtTSe9KVSTTPlLmX96jS4agYfwsQ==}
     dev: false
 
-  /redux-thunk@2.4.2(redux@4.2.1):
-    resolution: {integrity: sha512-+P3TjtnP0k/FEjcBL5FZpoovtvrTNT/UXd4/sluaSyrURlSlhLSzEdfsTBW7WsKB6yPvgd7q/iZPICFjW4o57Q==}
-    peerDependencies:
-      redux: ^4
-    dependencies:
-      redux: 4.2.1
-    dev: false
-
   /redux-thunk@3.1.0(redux@5.0.1):
     resolution: {integrity: sha512-NW2r5T6ksUKXCabzhL9z+h206HQw/NJkcLm1GPImRQ8IzfXwRGqjVhKJGauHirT0DAuyy6hjdnMZaRoAcy0Klw==}
     peerDependencies:
       redux: ^5.0.0
     dependencies:
       redux: 5.0.1
-    dev: false
-
-  /redux@4.2.1:
-    resolution: {integrity: sha512-LAUYz4lc+Do8/g7aeRa8JkyDErK6ekstQaqWQrNRW//MY1TvCEpMtpTWvlQ+FPbWCx+Xixu/6SHt5N0HR+SB4w==}
-    dependencies:
-      '@babel/runtime': 7.23.5
     dev: false
 
   /redux@5.0.1:
