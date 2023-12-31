@@ -17,8 +17,9 @@ const Console = () => {
   // set Title of the page to console
   document.title = "Console: Gavel Connect";
   return (
-    <div className="h-screen bg-abbey-800">
+    <div className="h-screen bg-abbey-800 flex">
       <Sidebar />
+      <main className="w-full flex items-center justify-center"></main>
     </div>
   );
 };

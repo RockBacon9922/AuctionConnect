@@ -70,9 +70,9 @@ export const Sidebar = () => {
   // get state from redux
   const auction = useAppSelector((state) => state.auction);
   return (
-    <div className="flex flex-col h-screen w-[25%] items-center py-4 gap-4 bg-abbey-700 px-3">
+    <div className="flex flex-col h-screen w-[25%] items-center py-4 gap-8 bg-abbey-700 px-3">
       <Logo />
-      <div className="flex flex-col mt-4 w-full gap-2 overflow-y-scroll hover:scrollbar-show">
+      <div className="flex flex-col w-full gap-2 overflow-y-scroll hover:scrollbar-show">
         {auction.lots.map((lot) => (
           <LotListItem
             key={lot.id}
