@@ -6,6 +6,7 @@ settings:
 
 overrides:
   got@<11.8.5: '>=11.8.5'
+  msgpackr@<1.10.1: '>=1.10.1'
 
 importers:
 
@@ -7324,7 +7325,7 @@ packages:
     hasBin: true
     requiresBuild: true
     dependencies:
-      msgpackr: 1.8.5
+      msgpackr: 1.10.1
       node-addon-api: 4.3.0
       node-gyp-build-optional-packages: 5.0.6
       ordered-binary: 1.5.1
@@ -8001,12 +8002,6 @@ packages:
 
   /msgpackr@1.10.1:
     resolution: {integrity: sha512-r5VRLv9qouXuLiIBrLpl2d5ZvPt8svdQTl5/vMvE4nzDMyEX4sgW5yWhuBBj5UmgwOTWj8CIdSXn5sAfsHAWIQ==}
-    optionalDependencies:
-      msgpackr-extract: 3.0.2
-    dev: false
-
-  /msgpackr@1.8.5:
-    resolution: {integrity: sha512-mpPs3qqTug6ahbblkThoUY2DQdNXcm4IapwOS3Vm/87vmpzLVelvp9h3It1y9l1VPpiFLV11vfOXnmeEwiIXwg==}
     optionalDependencies:
       msgpackr-extract: 3.0.2
     dev: false
