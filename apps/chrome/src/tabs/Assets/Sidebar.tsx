@@ -5,10 +5,7 @@ import { setActiveLot } from "~slices/auction-slice";
 import { cn } from "~utils/cn";
 
 const Logo = () => (
-  <img
-    src="https://www.gavelconnect.com/_astro/V5LightInnerShadow.qVRUR3pd_Z22S8dR.svg"
-    alt="logo"
-  />
+  <img src="https://www.gavelconnect.com/LightInnerShadow.svg" alt="logo" />
 );
 
 const LotListItem: React.FC<{
