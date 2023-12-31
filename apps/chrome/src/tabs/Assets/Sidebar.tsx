@@ -46,7 +46,7 @@ const LotListItem: React.FC<{
       <div className="aspect-square flex items-center h-full max-w-[30%]">
         <img src={LotImage} alt="lot" width={150} />
       </div>
-      <div className="flex flex-col w-full h-full gap-2 overflow-hidden hover:scrollbar-show">
+      <div className="flex flex-col w-full h-full gap-1 overflow-hidden hover:scrollbar-show">
         <div className="flex justify-between text-white font-bold items-center">
           <p className="text-2xl">{LotId}</p>
           <p className="text-lg">
