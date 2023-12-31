@@ -3,9 +3,10 @@
 // i want to be able to see the lots from redux
 
 import { useState } from "react";
+import Wrapper from "~tabs/Assets/wrapper";
+
 import { useAppDispatch, useAppSelector } from "~hooks";
 import { createLot, setActiveLot } from "~slices/auction-slice";
-import Wrapper from "~tabs/Assets/wrapper";
 
 const Options = () => {
   return (
@@ -32,7 +33,7 @@ const LotsTable = () => {
           <th>Lot Low Estimate</th>
           <th>Lot High Estimate</th>
           <th>Lot Asking</th>
-          <th>Lot State</th>
+          <th>Lot Image</th>
         </tr>
       </thead>
       <tbody>
@@ -43,7 +44,9 @@ const LotsTable = () => {
             <td>{lot.lowEstimate}</td>
             <td>{lot.highEstimate}</td>
             <td>{lot.asking}</td>
-            <td>{lot.state}</td>
+            <td>
+              <img src={lot.image} alt={lot.description} width={50} />
+            </td>
           </tr>
         ))}
       </tbody>
