@@ -1,6 +1,7 @@
 packages:
   - apps/*
   - packages/api
+  - packages/react
   - packages/auth
   - packages/db
   - packages/element-operations
