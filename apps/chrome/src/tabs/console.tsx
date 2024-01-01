@@ -11,6 +11,7 @@ import { useAppDispatch, useAppSelector } from "~hooks";
 import { createBid, setActiveLot, setAsk } from "~slices/auction-slice";
 import { cn } from "~utils/cn";
 import Sidebar from "./Assets/Sidebar";
+import { StatusBar } from "./Assets/StatusBar";
 import Wrapper from "./Assets/wrapper";
 
 const Console = () => {
@@ -19,7 +20,9 @@ const Console = () => {
   return (
     <div className="h-screen bg-abbey-800 flex">
       <Sidebar />
-      <main className="w-full flex items-center justify-center"></main>
+      <main className="w-full flex relative">
+        <StatusBar />
+      </main>
     </div>
   );
 };
