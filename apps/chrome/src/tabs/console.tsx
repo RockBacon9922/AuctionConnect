@@ -36,3 +36,14 @@ const Export = () => {
 };
 
 export default Export;
+
+const AskComponent = () => {
+  const dispatch = useAppDispatch();
+  const currentLotNumber = useAppSelector(
+    (state) => state.auction.currentLotId,
+  );
+  const currentLot = useAppSelector(
+    (state) => state.auction.lots[currentLotNumber],
+  );
+  return <></>;
+};
