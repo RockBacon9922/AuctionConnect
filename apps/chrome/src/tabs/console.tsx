@@ -5,9 +5,15 @@ import { getState, store } from "~store";
 
 import "../style.css";
 
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 
-import { useAppDispatch, useAppSelector } from "~hooks";
+import { getAskFromPrice, getIncrementFromPrice } from "@acme/increments";
+
+import {
+  useAppDispatch,
+  useAppSelector,
+  useGetCurrentLotSelector,
+} from "~hooks";
 import { createBid, setActiveLot, setAsk } from "~slices/auction-slice";
 import { cn } from "~utils/cn";
 import Sidebar from "./Assets/Sidebar";
@@ -20,7 +26,10 @@ const Console = () => {
   return (
     <div className="h-screen bg-abbey-800 flex">
       <Sidebar />
-      <main className="w-full flex relative">
+      <main className="w-full flex flex-col justify-end">
+        <div className="w-full h-full flex justify-center items-center">
+          <AskComponent />
+        </div>
         <StatusBar />
       </main>
     </div>
@@ -39,11 +48,60 @@ export default Export;
 
 const AskComponent = () => {
   const dispatch = useAppDispatch();
-  const currentLotNumber = useAppSelector(
-    (state) => state.auction.currentLotId,
+  const currentLotId = useAppSelector((state) => state.auction).currentLotId;
+  const currentLot = useGetCurrentLotSelector();
+  const currentIncrement = useMemo(
+    () =>
+      getIncrementFromPrice(
+        currentLot?.bids[0]?.amount || currentLot?.asking || 0,
+      ),
+    [currentLot],
   );
-  const currentLot = useAppSelector(
-    (state) => state.auction.lots[currentLotNumber],
+  console.log(currentLot);
+  if (!currentLot) {
+    return (
+      <div className="text-white text-2xl font-bold">
+        Lot {currentLotId} not found
+      </div>
+    );
+  }
+  return (
+    <div className="text-white font-semibold flex flex-col gap-4">
+      <AskButton price={10} />
+      <AskButton price={10} />
+      <PriceComponent price={currentLot.asking} background border />
+    </div>
   );
-  return <></>;
+};
+
+const AskButton = ({ price }: { price: number }) => {
+  const currentLot = useGetCurrentLotSelector();
+  const dispatch = useAppDispatch();
+  return (
+    <div onClick={() => dispatch(setAsk(price))}>
+      <PriceComponent price={price} background />
+    </div>
+  );
+};
+
+const PriceComponent = ({
+  price,
+  border = false,
+  background = false,
+}: {
+  price: number;
+  border?: boolean;
+  background?: boolean;
+}) => {
+  return (
+    <div
+      className={cn(
+        "py-4 w-64 text-center text-2xl font-bold cursor-pointer",
+        border && "border-abbey-50 border-2",
+        background && "bg-abbey-900",
+      )}
+    >
+      £ {price}
+    </div>
+  );
 };
