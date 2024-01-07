@@ -1,5 +1,3 @@
-import { createBid, createLot, updateLot } from "~slices/auction-slice";
-import { setLots, setStatus } from "~slices/platform-slice";
 import { getState, persister, store } from "~store";
 import { type PlasmoCSConfig } from "plasmo";
 
@@ -8,6 +6,9 @@ import {
   observeElementContent,
   updateInput,
 } from "@acme/element-operations";
+
+import { createBid, createLot, updateLot } from "~slices/auction-slice";
+import { setLots, setStatus } from "~slices/platform-slice";
 
 export const config: PlasmoCSConfig = {
   matches: ["https://www.easyliveauction.com/live_v2/*"],
@@ -217,7 +218,10 @@ document.addEventListener("EasyLiveContentLoaded", () => {
     }
     // 3. check if bid is higher than current bid
     // * If so we need to bid on the lot to align the bids
-    if (getHammer() !== currentLot.bids[0].amount) {
+    if (
+      currentLot.bids.length > 0 &&
+      getHammer() !== currentLot.bids[0].amount
+    ) {
       updateInput(
         consoleElements.askInput,
         currentLot.bids[0].amount.toString(),
