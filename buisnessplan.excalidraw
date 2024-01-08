@@ -5,8 +5,8 @@
   "elements": [
     {
       "type": "text",
-      "version": 286,
-      "versionNonce": 1285463139,
+      "version": 291,
+      "versionNonce": 1084205617,
       "isDeleted": false,
       "id": "xXqjUPCoMkS0i0TOWvvWj",
       "fillStyle": "hachure",
@@ -31,7 +31,7 @@
           "type": "arrow"
         }
       ],
-      "updated": 1701385547177,
+      "updated": 1704673462562,
       "link": null,
       "locked": false,
       "fontSize": 20,
@@ -46,8 +46,8 @@
     },
     {
       "type": "arrow",
-      "version": 716,
-      "versionNonce": 1298721500,
+      "version": 860,
+      "versionNonce": 1512836447,
       "isDeleted": false,
       "id": "7zEUwyEXSzgsniNNp3K57",
       "fillStyle": "hachure",
@@ -56,12 +56,12 @@
       "roughness": 1,
       "opacity": 100,
       "angle": 0,
-      "x": 342.68076514126585,
-      "y": 285.47354157302766,
+      "x": 342.68076514126574,
+      "y": 285.74490339612305,
       "strokeColor": "#000000",
       "backgroundColor": "transparent",
-      "width": 953.5101353769115,
-      "height": 9.060401061587868,
+      "width": 2068.0553013925373,
+      "height": 16.293740729769524,
       "seed": 1797416395,
       "groupIds": [],
       "frameId": null,
@@ -69,7 +69,7 @@
         "type": 2
       },
       "boundElements": [],
-      "updated": 1696422421358,
+      "updated": 1704673462562,
       "link": null,
       "locked": false,
       "startBinding": {
@@ -91,15 +91,15 @@
           0
         ],
         [
-          953.5101353769115,
-          -9.060401061587868
+          2068.0553013925373,
+          -16.293740729769524
         ]
       ]
     },
     {
       "type": "freedraw",
-      "version": 44,
-      "versionNonce": 1242874084,
+      "version": 48,
+      "versionNonce": 946682897,
       "isDeleted": false,
       "id": "6698Kl21ZHg_zf8ObA3M4",
       "fillStyle": "hachure",
@@ -119,7 +119,7 @@
       "frameId": null,
       "roundness": null,
       "boundElements": [],
-      "updated": 1696422421358,
+      "updated": 1704673462562,
       "link": null,
       "locked": false,
       "points": [
@@ -238,8 +238,8 @@
     },
     {
       "type": "arrow",
-      "version": 143,
-      "versionNonce": 524234588,
+      "version": 147,
+      "versionNonce": 1025575295,
       "isDeleted": false,
       "id": "DUkC_xGsNk0t2qJ5mIqr3",
       "fillStyle": "hachure",
@@ -261,7 +261,7 @@
         "type": 2
       },
       "boundElements": [],
-      "updated": 1696422421358,
+      "updated": 1704673462562,
       "link": null,
       "locked": false,
       "startBinding": {
@@ -286,8 +286,8 @@
     },
     {
       "type": "text",
-      "version": 98,
-      "versionNonce": 1198657357,
+      "version": 103,
+      "versionNonce": 1752011249,
       "isDeleted": false,
       "id": "XJMfsbZD8HHWMHKxhH2Lb",
       "fillStyle": "hachure",
@@ -312,7 +312,7 @@
           "type": "arrow"
         }
       ],
-      "updated": 1701385547178,
+      "updated": 1704673462562,
       "link": null,
       "locked": false,
       "fontSize": 20,
@@ -327,8 +327,8 @@
     },
     {
       "type": "arrow",
-      "version": 119,
-      "versionNonce": 1457054684,
+      "version": 123,
+      "versionNonce": 1281458591,
       "isDeleted": false,
       "id": "jZknJxP2UcxhJay_E35JG",
       "fillStyle": "hachure",
@@ -350,7 +350,7 @@
         "type": 2
       },
       "boundElements": [],
-      "updated": 1696422421358,
+      "updated": 1704673462562,
       "link": null,
       "locked": false,
       "startBinding": {
@@ -375,8 +375,8 @@
     },
     {
       "type": "text",
-      "version": 148,
-      "versionNonce": 737351683,
+      "version": 153,
+      "versionNonce": 1168649169,
       "isDeleted": false,
       "id": "lzeA37yjoIbT1iE79Wt6g",
       "fillStyle": "hachure",
@@ -401,7 +401,7 @@
           "type": "arrow"
         }
       ],
-      "updated": 1701385547178,
+      "updated": 1704673462562,
       "link": null,
       "locked": false,
       "fontSize": 20,
@@ -416,8 +416,8 @@
     },
     {
       "type": "arrow",
-      "version": 198,
-      "versionNonce": 1246234716,
+      "version": 202,
+      "versionNonce": 1763571135,
       "isDeleted": false,
       "id": "7ceWzp3tbcakhbhSRlJdp",
       "fillStyle": "hachure",
@@ -439,7 +439,7 @@
         "type": 2
       },
       "boundElements": [],
-      "updated": 1696422421358,
+      "updated": 1704673462562,
       "link": null,
       "locked": false,
       "startBinding": {
@@ -464,8 +464,8 @@
     },
     {
       "type": "text",
-      "version": 115,
-      "versionNonce": 309108141,
+      "version": 120,
+      "versionNonce": 942967217,
       "isDeleted": false,
       "id": "9yUuwTfhKg1S-G9bnLLko",
       "fillStyle": "hachure",
@@ -490,7 +490,7 @@
           "type": "arrow"
         }
       ],
-      "updated": 1701385547178,
+      "updated": 1704673462562,
       "link": null,
       "locked": false,
       "fontSize": 20,
@@ -505,8 +505,8 @@
     },
     {
       "type": "arrow",
-      "version": 197,
-      "versionNonce": 1029610716,
+      "version": 201,
+      "versionNonce": 2054612447,
       "isDeleted": false,
       "id": "gyH4Al0aKTPCX8b0iTD96",
       "fillStyle": "hachure",
@@ -528,7 +528,7 @@
         "type": 2
       },
       "boundElements": [],
-      "updated": 1696422421359,
+      "updated": 1704673462562,
       "link": null,
       "locked": false,
       "startBinding": {
@@ -553,8 +553,8 @@
     },
     {
       "type": "text",
-      "version": 109,
-      "versionNonce": 242687907,
+      "version": 114,
+      "versionNonce": 960113553,
       "isDeleted": false,
       "id": "gtfxRjM0igIWyqKKD5otd",
       "fillStyle": "hachure",
@@ -579,7 +579,7 @@
           "type": "arrow"
         }
       ],
-      "updated": 1701385547179,
+      "updated": 1704673462562,
       "link": null,
       "locked": false,
       "fontSize": 20,
@@ -594,8 +594,8 @@
     },
     {
       "type": "text",
-      "version": 284,
-      "versionNonce": 264658957,
+      "version": 359,
+      "versionNonce": 796709375,
       "isDeleted": false,
       "id": "GGb9XQw3GHdbHPG_VXxGE",
       "fillStyle": "hachure",
@@ -604,8 +604,8 @@
       "roughness": 1,
       "opacity": 100,
       "angle": 0,
-      "x": 1309.906762175121,
-      "y": 262.7184552493967,
+      "x": 2424.451928190746,
+      "y": 255.9540509525217,
       "strokeColor": "#000000",
       "backgroundColor": "transparent",
       "width": 215.31980895996094,
@@ -620,7 +620,7 @@
           "type": "arrow"
         }
       ],
-      "updated": 1701385547179,
+      "updated": 1704673462562,
       "link": null,
       "locked": false,
       "fontSize": 20,
@@ -635,8 +635,8 @@
     },
     {
       "type": "text",
-      "version": 597,
-      "versionNonce": 2119775043,
+      "version": 672,
+      "versionNonce": 821072241,
       "isDeleted": false,
       "id": "FOtIEz1ds_jdxGYxqlojK",
       "fillStyle": "hachure",
@@ -645,8 +645,8 @@
       "roughness": 1,
       "opacity": 100,
       "angle": 0,
-      "x": 1109.9686977697374,
-      "y": 108.27747963208321,
+      "x": 2224.5138637853624,
+      "y": 101.51307533520821,
       "strokeColor": "#000000",
       "backgroundColor": "transparent",
       "width": 221.0198516845703,
@@ -661,7 +661,7 @@
           "type": "arrow"
         }
       ],
-      "updated": 1701385547179,
+      "updated": 1704673462562,
       "link": null,
       "locked": false,
       "fontSize": 20,
@@ -676,8 +676,8 @@
     },
     {
       "type": "arrow",
-      "version": 641,
-      "versionNonce": 109712860,
+      "version": 786,
+      "versionNonce": 19937823,
       "isDeleted": false,
       "id": "bnbzs_NPWynCS70efRyBS",
       "fillStyle": "hachure",
@@ -686,8 +686,8 @@
       "roughness": 1,
       "opacity": 100,
       "angle": 0,
-      "x": 1214.2989959908668,
-      "y": 192.68597391727587,
+      "x": 2328.844162006492,
+      "y": 185.92156962040087,
       "strokeColor": "#000000",
       "backgroundColor": "transparent",
       "width": 1.335871089396619,
@@ -699,7 +699,7 @@
         "type": 2
       },
       "boundElements": [],
-      "updated": 1696422421359,
+      "updated": 1704673462562,
       "link": null,
       "locked": false,
       "startBinding": {
@@ -724,8 +724,8 @@
     },
     {
       "type": "freedraw",
-      "version": 121,
-      "versionNonce": 254789092,
+      "version": 347,
+      "versionNonce": 345979729,
       "isDeleted": false,
       "id": "II-30i6UR6B1ouRnM4KBn",
       "fillStyle": "solid",
@@ -734,175 +734,175 @@
       "roughness": 1,
       "opacity": 100,
       "angle": 0,
-      "x": 341.2268832527368,
-      "y": 287.9792247078282,
+      "x": 342.00892670976805,
+      "y": 285.1301646492345,
       "strokeColor": "#5c940d",
       "backgroundColor": "transparent",
-      "width": 518.2519395750624,
-      "height": 5.989536595122615,
+      "width": 1404.063585082875,
+      "height": 0.38809616543511516,
       "seed": 2069514021,
       "groupIds": [],
       "frameId": null,
       "roundness": null,
       "boundElements": [],
-      "updated": 1696422421359,
+      "updated": 1704673462562,
       "link": null,
       "locked": false,
       "points": [
         [
           0,
-          -1.2711826604940795
+          -6.868675633923903
         ],
         [
-          0.16959245808338733,
-          -1.2669617044721808
+          0.4594649368699362,
+          -6.86840213415968
         ],
         [
-          1.6846184169616139,
-          -1.2669617044721808
+          4.564018372907942,
+          -6.86840213415968
         ],
         [
-          7.959539366046568,
-          -1.2669617044721808
+          21.56422103709456,
+          -6.86840213415968
         ],
         [
-          24.56829409434551,
-          -1.2669617044721808
+          66.56115385455485,
+          -6.86840213415968
         ],
         [
-          57.16396453797102,
-          -1.2669617044721808
+          154.87031472095242,
+          -6.86840213415968
         ],
         [
-          100.03128485951322,
-          -1.2669617044721808
+          271.0077352637712,
+          -6.86840213415968
         ],
         [
-          136.77631744424534,
-          -1.2669617044721808
+          370.55847158558583,
+          -6.86840213415968
         ],
         [
-          167.7834718638232,
-          -1.2669617044721808
+          454.56397754330186,
+          -6.86840213415968
         ],
         [
-          202.00157682311303,
-          -1.2669617044721808
+          547.268686305755,
+          -6.86840213415968
         ],
         [
-          235.64872050685537,
-          -1.2669617044721808
+          638.4265297807457,
+          -6.86840213415968
         ],
         [
-          270.9239517881983,
-          -1.2669617044721808
+          733.995236649688,
+          -6.86840213415968
         ],
         [
-          311.4000184507647,
-          -1.2669617044721808
+          843.6542015826407,
+          -6.86840213415968
         ],
         [
-          348.6368691639387,
-          -2.9384602891575353
+          944.5373862213781,
+          -6.976708040792734
         ],
         [
-          377.20189218711585,
-          -4.609958873842937
+          1021.9265970881673,
+          -7.085013947425791
         ],
         [
-          400.1760171754777,
-          -4.609958873842937
+          1084.1687805361453,
+          -7.085013947425791
         ],
         [
-          417.1691814754322,
-          -4.609958873842937
+          1130.2071672105103,
+          -7.085013947425791
         ],
         [
-          427.2486265675211,
-          -4.609958873842937
+          1157.5146999584792,
+          -7.085013947425791
         ],
         [
-          437.57680726479884,
-          -4.609958873842937
+          1185.496114613857,
+          -7.085013947425791
         ],
         [
-          451.031142272747,
-          -4.609958873842937
+          1221.9469996055368,
+          -7.085013947425791
         ],
         [
-          464.2141293477616,
-          -4.669052258149987
+          1257.6627406982248,
+          -7.088842944124939
         ],
         [
-          476.0742952497259,
-          -5.188229848847737
+          1289.7946552833273,
+          -7.122483415124601
         ],
         [
-          485.661922213373,
-          -5.648314055238389
+          1315.7697397143731,
+          -7.152294889425113
         ],
         [
-          493.4122975477834,
-          -6.087293481519408
+          1336.7672873293282,
+          -7.180738864904502
         ],
         [
-          501.1909382918743,
-          -6.526272907800428
+          1357.8414124337614,
+          -7.209182840383891
         ],
         [
-          508.1159636636123,
-          -6.6824482806119425
+          1376.6028973559496,
+          -7.219302331660211
         ],
         [
-          512.8419401622025,
-          -7.045450498498178
+          1389.4066535967247,
+          -7.242823311383552
         ],
         [
-          515.1483975921365,
+          1395.6553767381554,
           -7.256498299594796
         ],
         [
-          516.2903201432313,
+          1398.7491073130798,
           -7.256498299594796
         ],
         [
-          517.1495885975204,
+          1401.0770629932206,
           -7.256498299594796
         ],
         [
-          517.4774673498149,
+          1401.965361871169,
           -7.256498299594796
         ],
         [
-          517.6922844633872,
+          1402.5473507912043,
           -7.256498299594796
         ],
         [
-          517.8901423311511,
+          1403.0833932175524,
           -7.256498299594796
         ],
         [
-          518.0710409531067,
+          1403.5734891502136,
           -7.256498299594796
         ],
         [
-          518.2519395750624,
+          1404.063585082875,
           -7.256498299594796
         ],
         [
-          518.0993063627873,
+          1403.650066639692,
           -7.256498299594796
         ],
         [
-          517.7262029550038,
+          1402.6392437785782,
           -7.256498299594796
         ],
         [
-          515.5667256554088,
+          1396.7887235824346,
           -7.256498299594796
         ],
         [
-          515.5667256554088,
+          1396.7887235824346,
           -7.256498299594796
         ]
       ],
@@ -912,8 +912,8 @@
     },
     {
       "type": "text",
-      "version": 1358,
-      "versionNonce": 360240749,
+      "version": 1901,
+      "versionNonce": 1954651711,
       "isDeleted": false,
       "id": "915vAB8hQAluozhwuksYA",
       "fillStyle": "hachure",
@@ -922,34 +922,34 @@
       "roughness": 1,
       "opacity": 100,
       "angle": 0,
-      "x": 323.7529637425649,
-      "y": 554.5921589078926,
+      "x": 323.7135350316274,
+      "y": 554.5946003141426,
       "strokeColor": "#1e1e1e",
       "backgroundColor": "transparent",
-      "width": 1368.85888671875,
-      "height": 475,
+      "width": 1540.2987060546875,
+      "height": 675,
       "seed": 1738434652,
       "groupIds": [],
       "frameId": null,
       "roundness": null,
       "boundElements": [],
-      "updated": 1701385547180,
+      "updated": 1704673462562,
       "link": null,
       "locked": false,
       "fontSize": 20,
       "fontFamily": 1,
-      "text": "Every problem I have faced:\n\nAn easy way to make a chrome extension\n-  Found a job offer which required experience in plasmo.\n   Plasmo is similar of what next.js did for react apps but for chrome extensions.\n\n- A way for the content scripts to talk with the tab page.\nUtilised the redux packages and tutorial on the plasmo page.\n\n- A way for the program to press buttons on the ui. More difficult because of virtual dom.\nHad to trigger events.\n\n- Dealing with \"important people\"\n\n- A way to sync autobids between competing platforms. Look at their purchase history, work out who is more likely to\nmake the auction more money.\n\n- Sending an email to easylive auction. Speaking with head auctioneer at eastbourne. He offered a job asked what I would be looking for,\nI explained my skills, He said that was too much.",
+      "text": "Every problem I have faced:\n\nAn easy way to make a chrome extension\n-  Found a job offer which required experience in plasmo.\n   Plasmo is similar of what next.js did for react apps but for chrome extensions.\n\n- A way for the content scripts to talk with the tab page.\nUtilised the redux packages and tutorial on the plasmo page.\n\n- A way for the program to press buttons on the ui. More difficult because of virtual dom.\nHad to trigger events.\n\n- Dealing with \"important people\"\n\n- A way to sync autobids between competing platforms. Look at their purchase history, work out who is more likely to\nmake the auction more money.\n\n- Sending an email to easylive auction. Speaking with head auctioneer at eastbourne. He offered a job asked what I would be looking for,\nI explained my skills, He said that was too much.\n\n- Designing a UI to make auctioning a breeze\n\n- Designing the logo\n\n- Dealing with energy. Work takes up alot of my energy especially on show days. So trying to deal with that, friends and this production has been difficult.\n\n- Dealing with Sue. trying to do trivial tasks without being ripped to parts with paying rediculus fees for literally nothing.",
       "textAlign": "left",
       "verticalAlign": "top",
       "containerId": null,
-      "originalText": "Every problem I have faced:\n\nAn easy way to make a chrome extension\n-  Found a job offer which required experience in plasmo.\n   Plasmo is similar of what next.js did for react apps but for chrome extensions.\n\n- A way for the content scripts to talk with the tab page.\nUtilised the redux packages and tutorial on the plasmo page.\n\n- A way for the program to press buttons on the ui. More difficult because of virtual dom.\nHad to trigger events.\n\n- Dealing with \"important people\"\n\n- A way to sync autobids between competing platforms. Look at their purchase history, work out who is more likely to\nmake the auction more money.\n\n- Sending an email to easylive auction. Speaking with head auctioneer at eastbourne. He offered a job asked what I would be looking for,\nI explained my skills, He said that was too much.",
+      "originalText": "Every problem I have faced:\n\nAn easy way to make a chrome extension\n-  Found a job offer which required experience in plasmo.\n   Plasmo is similar of what next.js did for react apps but for chrome extensions.\n\n- A way for the content scripts to talk with the tab page.\nUtilised the redux packages and tutorial on the plasmo page.\n\n- A way for the program to press buttons on the ui. More difficult because of virtual dom.\nHad to trigger events.\n\n- Dealing with \"important people\"\n\n- A way to sync autobids between competing platforms. Look at their purchase history, work out who is more likely to\nmake the auction more money.\n\n- Sending an email to easylive auction. Speaking with head auctioneer at eastbourne. He offered a job asked what I would be looking for,\nI explained my skills, He said that was too much.\n\n- Designing a UI to make auctioning a breeze\n\n- Designing the logo\n\n- Dealing with energy. Work takes up alot of my energy especially on show days. So trying to deal with that, friends and this production has been difficult.\n\n- Dealing with Sue. trying to do trivial tasks without being ripped to parts with paying rediculus fees for literally nothing.",
       "lineHeight": 1.25,
-      "baseline": 468
+      "baseline": 668
     },
     {
       "type": "text",
-      "version": 277,
-      "versionNonce": 1006097123,
+      "version": 282,
+      "versionNonce": 1151183153,
       "isDeleted": false,
       "id": "Cl4Ude4fuxS2s4jFb6b71",
       "fillStyle": "hachure",
@@ -974,7 +974,7 @@
           "type": "arrow"
         }
       ],
-      "updated": 1701385547181,
+      "updated": 1704673462562,
       "link": null,
       "locked": false,
       "fontSize": 20,
@@ -989,8 +989,8 @@
     },
     {
       "type": "arrow",
-      "version": 79,
-      "versionNonce": 334188252,
+      "version": 83,
+      "versionNonce": 475102815,
       "isDeleted": false,
       "id": "Hh_g5eZ3Pz0L9k1mBD3Ph",
       "fillStyle": "hachure",
@@ -1012,7 +1012,7 @@
         "type": 2
       },
       "boundElements": [],
-      "updated": 1696422421359,
+      "updated": 1704673462562,
       "link": null,
       "locked": false,
       "startBinding": {
@@ -1037,8 +1037,8 @@
     },
     {
       "type": "text",
-      "version": 173,
-      "versionNonce": 2119008461,
+      "version": 178,
+      "versionNonce": 710105873,
       "isDeleted": false,
       "id": "4O-0F-VIJFAiHFMJiO5O-",
       "fillStyle": "hachure",
@@ -1063,7 +1063,7 @@
           "type": "arrow"
         }
       ],
-      "updated": 1701385547181,
+      "updated": 1704673462562,
       "link": null,
       "locked": false,
       "fontSize": 20,
@@ -1078,8 +1078,8 @@
     },
     {
       "type": "arrow",
-      "version": 166,
-      "versionNonce": 802493276,
+      "version": 170,
+      "versionNonce": 1534089855,
       "isDeleted": false,
       "id": "TLNLPaJPEATE51uZ-JM9A",
       "fillStyle": "hachure",
@@ -1101,7 +1101,7 @@
         "type": 2
       },
       "boundElements": [],
-      "updated": 1696422421359,
+      "updated": 1704673462562,
       "link": null,
       "locked": false,
       "startBinding": {
@@ -1126,8 +1126,8 @@
     },
     {
       "type": "freedraw",
-      "version": 66,
-      "versionNonce": 891066844,
+      "version": 144,
+      "versionNonce": 372756721,
       "isDeleted": false,
       "id": "XCxDIw3Vzp9ySQ91L45ES",
       "fillStyle": "hachure",
@@ -1136,8 +1136,8 @@
       "roughness": 1,
       "opacity": 100,
       "angle": 0,
-      "x": 860.8398759303797,
-      "y": 280.3007944926913,
+      "x": 2190.942170852255,
+      "y": 271.6381968364413,
       "strokeColor": "#e03131",
       "backgroundColor": "transparent",
       "width": 183.95235833726736,
@@ -1147,7 +1147,7 @@
       "frameId": null,
       "roundness": null,
       "boundElements": [],
-      "updated": 1696422427275,
+      "updated": 1704673462562,
       "link": null,
       "locked": false,
       "points": [
@@ -1415,6 +1415,268 @@
       "lastCommittedPoint": null,
       "simulatePressure": true,
       "pressures": []
+    },
+    {
+      "id": "KabiqSv3dC7NbE_W6fyaS",
+      "type": "text",
+      "x": 1095.0357532394103,
+      "y": 94.2027587890625,
+      "width": 313.0997314453125,
+      "height": 50,
+      "angle": 0,
+      "strokeColor": "#1e1e1e",
+      "backgroundColor": "transparent",
+      "fillStyle": "solid",
+      "strokeWidth": 2,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "groupIds": [],
+      "frameId": null,
+      "roundness": null,
+      "seed": 1897898719,
+      "version": 102,
+      "versionNonce": 1721676447,
+      "isDeleted": false,
+      "boundElements": [
+        {
+          "id": "gsGe-US8pasw3qSY70kQM",
+          "type": "arrow"
+        }
+      ],
+      "updated": 1704673462562,
+      "link": null,
+      "locked": false,
+      "text": "Ignored what mum said\nand started working on easylive",
+      "fontSize": 20,
+      "fontFamily": 1,
+      "textAlign": "left",
+      "verticalAlign": "top",
+      "baseline": 43,
+      "containerId": null,
+      "originalText": "Ignored what mum said\nand started working on easylive",
+      "lineHeight": 1.25
+    },
+    {
+      "id": "gsGe-US8pasw3qSY70kQM",
+      "type": "arrow",
+      "x": 1284.5217674029748,
+      "y": 158.2180835054487,
+      "width": 99.63033655478671,
+      "height": 100.83817159840623,
+      "angle": 0,
+      "strokeColor": "#1e1e1e",
+      "backgroundColor": "transparent",
+      "fillStyle": "solid",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "groupIds": [],
+      "frameId": null,
+      "roundness": {
+        "type": 2
+      },
+      "seed": 1487705073,
+      "version": 122,
+      "versionNonce": 1574079185,
+      "isDeleted": false,
+      "boundElements": null,
+      "updated": 1704673462562,
+      "link": null,
+      "locked": false,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          -99.63033655478671,
+          100.83817159840623
+        ]
+      ],
+      "lastCommittedPoint": null,
+      "startBinding": {
+        "elementId": "KabiqSv3dC7NbE_W6fyaS",
+        "focus": -0.3943943997912099,
+        "gap": 14.015324716386203
+      },
+      "endBinding": null,
+      "startArrowhead": null,
+      "endArrowhead": "arrow"
+    },
+    {
+      "id": "n7CxFAi1qyDLjosEEeAhC",
+      "type": "text",
+      "x": 1024.338297563056,
+      "y": 231.363157557327,
+      "width": 143.19741291216465,
+      "height": 24.18549938009616,
+      "angle": 0,
+      "strokeColor": "#1e1e1e",
+      "backgroundColor": "transparent",
+      "fillStyle": "solid",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 2,
+      "opacity": 100,
+      "groupIds": [],
+      "frameId": null,
+      "roundness": null,
+      "seed": 1629358129,
+      "version": 354,
+      "versionNonce": 109905599,
+      "isDeleted": false,
+      "boundElements": null,
+      "updated": 1704673462562,
+      "link": null,
+      "locked": false,
+      "text": "Painters in\nstarted work on outside sofa",
+      "fontSize": 9.674199752038463,
+      "fontFamily": 1,
+      "textAlign": "left",
+      "verticalAlign": "top",
+      "baseline": 21.000000000000004,
+      "containerId": null,
+      "originalText": "Painters in\nstarted work on outside sofa",
+      "lineHeight": 1.25
+    },
+    {
+      "id": "SVAly6tZDLsbbbF8iP4SW",
+      "type": "text",
+      "x": 1469.3709002696605,
+      "y": -680.5877268492964,
+      "width": 80.38796997070312,
+      "height": 35,
+      "angle": 0,
+      "strokeColor": "#1e1e1e",
+      "backgroundColor": "transparent",
+      "fillStyle": "solid",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 2,
+      "opacity": 100,
+      "groupIds": [],
+      "frameId": null,
+      "roundness": null,
+      "seed": 1145002239,
+      "version": 136,
+      "versionNonce": 968558769,
+      "isDeleted": false,
+      "boundElements": null,
+      "updated": 1704673462562,
+      "link": null,
+      "locked": false,
+      "text": "Ideas",
+      "fontSize": 28,
+      "fontFamily": 1,
+      "textAlign": "left",
+      "verticalAlign": "top",
+      "baseline": 25,
+      "containerId": null,
+      "originalText": "Ideas",
+      "lineHeight": 1.25
+    },
+    {
+      "id": "kU_yiV-ytFsAPE9rTZgee",
+      "type": "text",
+      "x": 572.9955145548139,
+      "y": -559.8559063074806,
+      "width": 1088.1590576171875,
+      "height": 550,
+      "angle": 0,
+      "strokeColor": "#1e1e1e",
+      "backgroundColor": "transparent",
+      "fillStyle": "solid",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 2,
+      "opacity": 100,
+      "groupIds": [],
+      "frameId": null,
+      "roundness": null,
+      "seed": 518433087,
+      "version": 1372,
+      "versionNonce": 1126465279,
+      "isDeleted": false,
+      "boundElements": null,
+      "updated": 1704713764564,
+      "link": null,
+      "locked": false,
+      "text": "A subscription service where\n\n- users will be able to bid for free without any fees for any auction house\n\n- Users will get magazines/newsletters on hot lots comming up in auction houses in there area/national/global\n    * auction hotpicks for each auction house for each sale\n\n- Certain amout of free Valuation service/reports a year\n\n- Features during the sale\n    * on hand information about similar lots and what they went for\n    * Ability to offer a price lower then the current ask\n\nNormies\n- Will get the ability to split to ask to request to split the bid during bidding\n- Compare delivery and insurance\n- Compare refirbishers and get quotes\n- 10 free sales a year\n- pay for valuation service\n- money back guarentee\n- cloer interaction with the auctioneer/ live chat\n- apple vision pro bidding",
+      "fontSize": 20,
+      "fontFamily": 1,
+      "textAlign": "left",
+      "verticalAlign": "top",
+      "baseline": 543,
+      "containerId": null,
+      "originalText": "A subscription service where\n\n- users will be able to bid for free without any fees for any auction house\n\n- Users will get magazines/newsletters on hot lots comming up in auction houses in there area/national/global\n    * auction hotpicks for each auction house for each sale\n\n- Certain amout of free Valuation service/reports a year\n\n- Features during the sale\n    * on hand information about similar lots and what they went for\n    * Ability to offer a price lower then the current ask\n\nNormies\n- Will get the ability to split to ask to request to split the bid during bidding\n- Compare delivery and insurance\n- Compare refirbishers and get quotes\n- 10 free sales a year\n- pay for valuation service\n- money back guarentee\n- cloer interaction with the auctioneer/ live chat\n- apple vision pro bidding",
+      "lineHeight": 1.25
+    },
+    {
+      "id": "-y4ot3KteBsHkX7DKw3re",
+      "type": "text",
+      "x": 1698.5660729286196,
+      "y": -557.5104453567388,
+      "width": 633.41943359375,
+      "height": 500,
+      "angle": 0,
+      "strokeColor": "#1e1e1e",
+      "backgroundColor": "transparent",
+      "fillStyle": "solid",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "groupIds": [],
+      "frameId": null,
+      "roundness": null,
+      "seed": 1538854705,
+      "version": 501,
+      "versionNonce": 1741108863,
+      "isDeleted": false,
+      "boundElements": null,
+      "updated": 1704713757047,
+      "link": null,
+      "locked": false,
+      "text": "Analytics for auctioneers\n\n- Viewership over an auction.\n- bids per item.\n- Bid variety per item.\n- Number of items bid on per user\n- Length of bidder \n\nModel to organise lot numbers to maximise bidder retention\nReserach copilot for lot listing writing\n\nAuctioneer vital tracking.\n\nFiver for locum auctioneers\n\nkeypad bidding. 0 bid enter is pass/sell -- more ergonimci like vim\nClick auction clerk improvements\n\nHelp with creating content for auction houses. Like reels and\nfacebook adverts",
+      "fontSize": 20,
+      "fontFamily": 1,
+      "textAlign": "left",
+      "verticalAlign": "top",
+      "baseline": 493,
+      "containerId": null,
+      "originalText": "Analytics for auctioneers\n\n- Viewership over an auction.\n- bids per item.\n- Bid variety per item.\n- Number of items bid on per user\n- Length of bidder \n\nModel to organise lot numbers to maximise bidder retention\nReserach copilot for lot listing writing\n\nAuctioneer vital tracking.\n\nFiver for locum auctioneers\n\nkeypad bidding. 0 bid enter is pass/sell -- more ergonimci like vim\nClick auction clerk improvements\n\nHelp with creating content for auction houses. Like reels and\nfacebook adverts",
+      "lineHeight": 1.25
+    },
+    {
+      "id": "PfUiPuAkm8m38EdNIIE1p",
+      "type": "rectangle",
+      "x": 491.4244807196303,
+      "y": -717.27818627482,
+      "width": 1868.1998352673438,
+      "height": 743.164015541817,
+      "angle": 0,
+      "strokeColor": "#1e1e1e",
+      "backgroundColor": "transparent",
+      "fillStyle": "solid",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "groupIds": [],
+      "frameId": null,
+      "roundness": {
+        "type": 3
+      },
+      "seed": 1547557407,
+      "version": 81,
+      "versionNonce": 1948471409,
+      "isDeleted": false,
+      "boundElements": null,
+      "updated": 1704673462562,
+      "link": null,
+      "locked": false
     }
   ],
   "appState": {
