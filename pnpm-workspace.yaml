@@ -1,7 +1,0 @@
-packages:
-  - apps/*
-  - packages/api
-  - packages/auth
-  - packages/db
-  - packages/element-operations
-  - packages/config/*
