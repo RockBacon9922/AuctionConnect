@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 import "../style.css";
 
-import { incrementPairs, increments } from "./Assets/increments";
+import { increments } from "@acme/increments";
 
 const Console = () => {
   const [platform, setPlatform] = useState("SaleRoom");
