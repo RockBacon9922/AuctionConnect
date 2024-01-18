@@ -126,13 +126,13 @@ importers:
         version: 3.1.0(@babel/core@7.23.5)(preact@10.19.3)(vite@5.0.10)
       '@astrojs/tailwind':
         specifier: ^5.1.0
-        version: 5.1.0(astro@4.2.0)(tailwindcss@3.4.1)
+        version: 5.1.0(astro@4.2.1)(tailwindcss@3.4.1)
       '@astrojs/vercel':
         specifier: ^7.0.0
-        version: 7.0.0(astro@4.2.0)
+        version: 7.0.0(astro@4.2.1)
       astro:
-        specifier: ^4.2.0
-        version: 4.2.0(typescript@5.3.3)
+        specifier: ^4.2.1
+        version: 4.2.1(typescript@5.3.3)
       astro-seo:
         specifier: ^0.8.0
         version: 0.8.0
@@ -323,13 +323,13 @@ packages:
       prismjs: 1.29.0
     dev: false
 
-  /@astrojs/tailwind@5.1.0(astro@4.2.0)(tailwindcss@3.4.1):
+  /@astrojs/tailwind@5.1.0(astro@4.2.1)(tailwindcss@3.4.1):
     resolution: {integrity: sha512-BJoCDKuWhU9FT2qYg+fr6Nfb3qP4ShtyjXGHKA/4mHN94z7BGcmauQK23iy+YH5qWvTnhqkd6mQPQ1yTZTe9Ig==}
     peerDependencies:
       astro: ^3.0.0 || ^4.0.0
       tailwindcss: ^3.0.24
     dependencies:
-      astro: 4.2.0(typescript@5.3.3)
+      astro: 4.2.1(typescript@5.3.3)
       autoprefixer: 10.4.17(postcss@8.4.33)
       postcss: 8.4.33
       postcss-load-config: 4.0.2(postcss@8.4.33)
@@ -353,7 +353,7 @@ packages:
       - supports-color
     dev: false
 
-  /@astrojs/vercel@7.0.0(astro@4.2.0):
+  /@astrojs/vercel@7.0.0(astro@4.2.1):
     resolution: {integrity: sha512-wMES6lCmSAsHKLgGMlOAmnPEP2az3cPAQ3Ztu+Yu727SbddVDG7RzDb3NSVkwI06X5lvG0D1hlQdJvvVZQHW0w==}
     peerDependencies:
       astro: ^4.2.0
@@ -361,7 +361,7 @@ packages:
       '@astrojs/internal-helpers': 0.2.1
       '@vercel/analytics': 1.1.1
       '@vercel/nft': 0.24.4
-      astro: 4.2.0(typescript@5.3.3)
+      astro: 4.2.1(typescript@5.3.3)
       esbuild: 0.19.9
       fast-glob: 3.3.2
       set-cookie-parser: 2.6.0
@@ -4211,8 +4211,8 @@ packages:
     resolution: {integrity: sha512-7gq6lhibCM8FuzZIJlbLLWP5EJ9KL2/4XqeFrAg9O6ZK2xMFxJ5ubKf+a0VJwwTu8W8Xr421CmpiXu6Hq7n/7Q==}
     dev: false
 
-  /astro@4.2.0(typescript@5.3.3):
-    resolution: {integrity: sha512-zx6Po3h5+VEkG1vwowaXC2T42317Gbs4d5lflkEYzUUseEQn8HMtqTwlbIoFCfyYTc4Kvo+4zEgbGsPjsybiaw==}
+  /astro@4.2.1(typescript@5.3.3):
+    resolution: {integrity: sha512-TcrveW2/lohmljrbTUgcDxajEdF1yK+zBvb7SXroloGix/d4jkegO6GANFgvyy0zprMyajW7qgJEFyhWUX86Vw==}
     engines: {node: '>=18.14.1', npm: '>=6.14.0'}
     hasBin: true
     dependencies:
