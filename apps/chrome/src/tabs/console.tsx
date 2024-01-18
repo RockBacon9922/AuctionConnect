@@ -67,9 +67,13 @@ const AskComponent = () => {
   }
   return (
     <div className="text-white font-semibold flex flex-col gap-4">
-      <AskButton price={10} />
-      <AskButton price={10} />
+      <AskButton price={currentIncrement * 2 + currentLot.asking} />
+      <AskButton price={currentIncrement + currentLot.asking} />
+      <AskButton price={currentIncrement / 2 + currentLot.asking} />
       <PriceComponent price={currentLot.asking} background border />
+      <AskButton price={currentLot.asking - currentIncrement / 2} />
+      <AskButton price={currentLot.asking - currentIncrement} />
+      <AskButton price={currentLot.asking - currentIncrement * 2} />
     </div>
   );
 };
