@@ -1,6 +1,5 @@
 packages:
-  - apps/www
-  - apps/chrome
+  - apps/*
   - packages/api
   - packages/auth
   - packages/db

@@ -1,6 +1,6 @@
 {
   "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": true
+    "source.fixAll.eslint": "explicit"
   },
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.formatOnSave": true,
@@ -15,5 +15,10 @@
   "[prisma]": {
     "editor.defaultFormatter": "Prisma.prisma"
   },
+  "[astro]": {
+    "editor.defaultFormatter": "astro-build.astro-vscode",
+    "editor.formatOnSave": true
+  },
+  "typescript.tsserver.experimental.enableProjectDiagnostics": true,
   "cSpell.words": ["easylive", "extrabold"]
 }

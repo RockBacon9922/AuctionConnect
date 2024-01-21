@@ -1,16 +1,20 @@
+// TODO: UI needs to stay in time with the state. e.g if i reset the auction one day and go to reset it on a different day the UI should like the state update with the new date
+
 import { useEffect, useState } from "react";
+import { useAppDispatch, useAppSelector } from "~hooks";
 import {
   resetState,
+  setActiveLot,
   setAuctionDate,
   setAuctionName,
   setSetup,
 } from "~slices/auction-slice";
-import { useAppDispatch, useGetAuction } from "~store";
+import { resetPlatformData } from "~slices/platform-slice";
 import Wrapper from "~tabs/Assets/wrapper";
 
 function IndexPopup() {
   // get if setup is complete
-  const setup = useGetAuction().setup;
+  const setup = useAppSelector((state) => state.auction.setup);
   return (
     <div
       style={{
@@ -55,7 +59,7 @@ export default Export;
 const Setup = () => {
   // create a rfc which is used to set the auction name and date
   const dispatch = useAppDispatch();
-  const auction = useGetAuction();
+  const auction = useAppSelector((state) => state.auction);
   return (
     <div className="grid grid-cols-2 gap-2">
       <div className="flex flex-col">
@@ -63,7 +67,7 @@ const Setup = () => {
         <input
           type="text"
           name="auctionName"
-          defaultValue={auction.name}
+          value={auction.name}
           onChange={(e) => dispatch(setAuctionName(e.target.value))}
         />
       </div>
@@ -72,8 +76,18 @@ const Setup = () => {
         <input
           type="date"
           name="auctionDate"
-          defaultValue={auction.date}
+          value={auction.date}
           onChange={(e) => dispatch(setAuctionDate(e.target.value))}
+        />
+      </div>
+      {/* auction lot start number */}
+      <div className="flex flex-col">
+        <label htmlFor="auctionLotStart">current lot</label>
+        <input
+          type="number"
+          name="auctionLotStart"
+          value={auction.currentLotId}
+          onChange={(e) => dispatch(setActiveLot(e.target.value))}
         />
       </div>
       <button
@@ -148,6 +162,7 @@ const Reset = () => {
     <button
       onClick={() => {
         dispatch(resetState());
+        dispatch(resetPlatformData());
       }}
     >
       Reset

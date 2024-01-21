@@ -31,13 +31,12 @@ export const auction = z.object({
 export type Auction = z.infer<typeof auction>;
 export type Lot = z.infer<typeof lot>;
 export type Bid = z.infer<typeof bid>;
-const currentDate = new Date().toISOString().split("T")[0];
 
 const initialState: Auction = {
   setup: false,
-  paused: false,
   started: false,
-  date: currentDate,
+  paused: false,
+  date: new Date().toISOString().split("T")[0],
   name: "",
   currentLotId: "0",
   lots: [],
@@ -70,6 +69,18 @@ const auctionSlice = createSlice({
       const payload = lot.parse(action.payload);
       state.lots.push(payload);
     },
+    updateLot: (state, action: PayloadAction<Lot>) => {
+      const payload = action.payload;
+      const lotInstance = state.lots.find((lot) => lot.id === payload.id);
+      if (!lotInstance) throw new Error("Lot cannot be updated. Lot not found");
+      lotInstance.description = payload.description;
+      lotInstance.image = payload.image;
+      lotInstance.lowEstimate = payload.lowEstimate;
+      lotInstance.highEstimate = payload.highEstimate;
+      lotInstance.asking = payload.asking;
+      lotInstance.bids = payload.bids;
+      lotInstance.state = payload.state;
+    },
     setAsk: (state, action: PayloadAction<number>) => {
       const lot = state.lots.find((lot) => lot.id === state.currentLotId);
       if (!lot) throw new Error("Lot not found");
@@ -84,22 +95,31 @@ const auctionSlice = createSlice({
         bidder: action.payload.bidder,
       });
     },
-    resetState: (state) => {
-      // get current name of auction
-      return {
-        setup: false,
-        paused: false,
-        started: false,
-        date: currentDate,
-        name: state.name,
-        currentLotId: "0",
-        lots: [],
-      };
-    },
     sortBids: (state, action: PayloadAction<string>) => {
       const lot = state.lots.find((lot) => lot.id === action.payload);
       if (!lot || lot.bids.length <= 1) return;
       lot.bids.sort((a, b) => b.amount - a.amount);
+    },
+    setLots: (state, action: PayloadAction<Lot[]>) => {
+      state.lots = action.payload;
+    },
+    startAuction: (state) => {
+      state.started = true;
+    },
+    setAuctionPausedState: (state, action: PayloadAction<boolean>) => {
+      state.paused = action.payload;
+    },
+    resetState: (state) => {
+      // get current name of auction
+      return {
+        setup: false,
+        started: false,
+        paused: false,
+        date: new Date().toISOString().split("T")[0],
+        name: state.name,
+        currentLotId: "0",
+        lots: [],
+      };
     },
   },
 });
@@ -111,9 +131,12 @@ export const {
   setAuctionHouse,
   setActiveLot,
   createLot,
+  updateLot,
   createBid,
   setAsk,
   sortBids,
+  startAuction,
+  setAuctionPausedState,
   resetState,
 } = auctionSlice.actions;
 

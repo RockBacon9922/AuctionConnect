@@ -1,17 +1,13 @@
 /* eslint-disable @next/next/no-img-element */
 // TODO: Asking box doesn't update when new lot is selected
 // TODO: System to help user fix errors
-import {
-  getState,
-  store,
-  useAppDispatch,
-  useGetAuction,
-  useGetCurrentLot,
-} from "~store";
+// TODO: Show when a platform has disconnected
+import { getState, store } from "~store";
 
 import "../style.css";
 
 import { useEffect, useState, type ReactNode } from "react";
+import { useAppDispatch, useAppSelector } from "~hooks";
 import { createBid, setAsk } from "~slices/auction-slice";
 import { cn } from "~utils/cn";
 
@@ -62,7 +58,7 @@ const Export = () => {
 export default Export;
 
 const LotImage = () => {
-  const auction = useGetAuction();
+  const auction = useAppSelector((state) => state.auction);
   const currentLotId = auction.currentLotId;
   const currentLot = auction.lots.find((lot) => lot.id === currentLotId);
   return currentLot?.image ? (
@@ -101,7 +97,9 @@ const Button: React.FC<{
 
 const BidLabel = () => {
   const bgColour = "#1E40AF";
-  const currentLot = useGetCurrentLot();
+  const currentLot = useAppSelector((state) => state.auction.lots).find(
+    (lot) => lot.id === getState().auction.currentLotId,
+  );
   // get the highest bid
   const highestBid = currentLot?.bids[0];
 
@@ -166,7 +164,9 @@ const Box: React.FC<{ children: ReactNode; className: string }> = ({
 };
 
 const Asking = () => {
-  const currentLot = useGetCurrentLot();
+  const currentLot = useAppSelector((state) => state.auction.lots).find(
+    (lot) => lot.id === getState().auction.currentLotId,
+  );
   const [asking, setReactAsking] = useState(currentLot?.asking.toString());
   const dispatch = useAppDispatch();
   useEffect(() => {
@@ -201,14 +201,14 @@ const Asking = () => {
 
 const LotNumber = () => {
   // get current lot number
-  const currentLotId = useGetCurrentLot()?.id;
+  const currentLotId = useAppSelector((state) => state.auction.currentLotId);
   return (
     <h1 className="row-span-2 text-xl font-extrabold">Lot {currentLotId}</h1>
   );
 };
 
 const LotTable = () => {
-  const auction = useGetAuction();
+  const auction = useAppSelector((state) => state.auction);
   return (
     <div className="col-span-3 row-span-5 overflow-x-auto ">
       <table className="table w-full">

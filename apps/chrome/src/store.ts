@@ -12,12 +12,7 @@ import {
 import { Storage } from "@plasmohq/storage";
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import auctionSlice, { type Auction } from "~slices/auction-slice";
-import platformSlice, { type Platform } from "~slices/platform-slice";
-import {
-  useDispatch,
-  useSelector,
-  type TypedUseSelectorHook,
-} from "react-redux";
+import platformSlice, { type Platforms } from "~slices/platform-slice";
 import { localStorage } from "redux-persist-webextension-storage";
 
 const rootReducer = combineReducers({
@@ -59,40 +54,22 @@ new Storage({
   area: "local",
 }).watch({
   [`persist:${persistConfig.key}`]: () => {
-    // eslint-disable-next-line @typescript-eslint/no-floating-promises
-    persister.resync();
+    void persister.resync();
   },
 });
 
 export interface AppState {
   auction: Auction;
-  platform: Platform[];
+  platform: Platforms;
 }
-
-// Get the types from the mock store
+// Infer the `RootState` and `AppDispatch` types from the store itself
 export type RootState = ReturnType<typeof store.getState>;
+// Inferred type: {posts: PostsState, comments: CommentsState, users: UsersState}
 export type AppDispatch = typeof store.dispatch;
-
-// Use throughout your app instead of plain `useDispatch` and `useSelector`
-type DispatchFunc = () => AppDispatch;
 /**
- * Function that allows you to dispatch a Redux reducer action to the store
+ *
+ * @RockBacon9922
+ * @description Function for non React components to get the current state of the store.
+ * @returns {AppState} The current state of the store
  */
-export const useAppDispatch: DispatchFunc = useDispatch;
-/**
- * Function that allows you to get the current state of the Redux store
- */
-export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
-
-export const useGetAuction = () =>
-  useAppSelector((state: AppState) => state.auction);
-
-export const useGetCurrentLot = () => {
-  const auction: Auction = useAppSelector((state: AppState) => state.auction);
-  return auction.lots.find((lot) => lot.id === auction.currentLotId);
-};
-
-export const useGetPlatforms = () =>
-  useAppSelector((state: AppState) => state.platform);
-
 export const getState = () => store.getState() as AppState;
