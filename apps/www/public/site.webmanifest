@@ -1,6 +1,6 @@
 {
-    "name": "GavelConnect",
-    "short_name": "GavelConnect",
+    "name": "Gavel Connect",
+    "short_name": "Gavel Connect",
     "icons": [
         {
             "src": "/android-chrome-192x192.png",
@@ -13,7 +13,7 @@
             "type": "image/png"
         }
     ],
-    "theme_color": "#1E293B",
-    "background_color": "#1E293B",
+    "theme_color": "#fb923c",
+    "background_color": "#fb923c",
     "display": "standalone"
 }
