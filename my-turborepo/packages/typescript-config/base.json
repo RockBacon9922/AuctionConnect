@@ -2,9 +2,6 @@
   "$schema": "https://json.schemastore.org/tsconfig",
   "display": "Default",
   "compilerOptions": {
-    "paths" : {
-      "@/*": ["../../packages/ui/*"]
-    },
     "declaration": true,
     "declarationMap": true,
     "esModuleInterop": true,

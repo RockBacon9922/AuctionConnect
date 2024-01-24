@@ -1,7 +1,6 @@
 {
   "name": "my-turborepo",
   "private": true,
-  "type": "module",
   "scripts": {
     "build": "turbo build",
     "dev": "turbo dev",
@@ -9,18 +8,13 @@
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
   "devDependencies": {
-    "@repo/eslint-config": "*",
-    "@repo/typescript-config": "*",
-    "prettier": "^3.2.4",
-    "turbo": "latest",
-    "prettier-plugin-tailwindcss": "^0.5.11"
+    "@repo/eslint-config": "workspace:*",
+    "@repo/typescript-config": "workspace:*",
+    "prettier": "^3.1.1",
+    "turbo": "latest"
   },
+  "packageManager": "pnpm@8.9.0",
   "engines": {
     "node": ">=18"
-  },
-  "packageManager": "bun@1.0.20",
-  "workspaces": [
-    "apps/*",
-    "packages/*"
-  ]
+  }
 }
