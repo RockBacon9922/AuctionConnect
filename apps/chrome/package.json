@@ -13,7 +13,7 @@
     "@acme/increments": "^0.1.0",
     "@plasmohq/redux-persist": "^6.1.0",
     "@plasmohq/storage": "^1.9.0",
-    "@reduxjs/toolkit": "^2.0.1",
+    "@reduxjs/toolkit": "^2.1.0",
     "clsx": "^2.1.0",
     "plasmo": "0.84.1",
     "react": "18.2.0",
@@ -27,7 +27,7 @@
   "devDependencies": {
     "@acme/tailwind-config": "^0.1.0",
     "@types/chrome": "0.0.258",
-    "@types/node": "20.11.5",
+    "@types/node": "20.11.6",
     "@types/react": "18.2.48",
     "@types/react-dom": "18.2.18",
     "autoprefixer": "^10.4.17",
