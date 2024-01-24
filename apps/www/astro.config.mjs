@@ -19,6 +19,7 @@ export default defineConfig({
         project: "gavelconnect",
         authToken: process.env.SENTRY_AUTH_TOKEN,
       },
+      replaysSessionSampleRate: 1,
     }),
   ],
 });
