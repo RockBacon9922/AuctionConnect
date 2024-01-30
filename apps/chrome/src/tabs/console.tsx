@@ -47,7 +47,6 @@ const Export = () => {
 export default Export;
 
 const AskComponent = () => {
-  const dispatch = useAppDispatch();
   const currentLotId = useAppSelector((state) => state.auction).currentLotId;
   const currentLot = useGetCurrentLotSelector();
   const currentIncrement = useMemo(
@@ -79,7 +78,6 @@ const AskComponent = () => {
 };
 
 const AskButton = ({ price }: { price: number }) => {
-  const currentLot = useGetCurrentLotSelector();
   const dispatch = useAppDispatch();
   return (
     <div onClick={() => dispatch(setAsk(price))}>
@@ -100,7 +98,7 @@ const PriceComponent = ({
   return (
     <div
       className={cn(
-        "py-4 w-64 text-center text-2xl font-bold cursor-pointer",
+        "py-4 w-64 text-center text-2xl font-bold cursor-pointer text-white",
         border && "border-abbey-50 border-2",
         background && "bg-abbey-900",
       )}
