@@ -53,8 +53,8 @@ importers:
         specifier: ^6.1.0
         version: 6.1.0(redux@5.0.1)
       '@plasmohq/storage':
-        specifier: ^1.9.0
-        version: 1.9.0(react@18.2.0)
+        specifier: ^1.9.1
+        version: 1.9.1(react@18.2.0)
       '@reduxjs/toolkit':
         specifier: ^2.1.0
         version: 2.1.0(react-redux@9.1.0)(react@18.2.0)
@@ -2956,8 +2956,8 @@ packages:
       redux: 5.0.1
     dev: false
 
-  /@plasmohq/storage@1.9.0(react@18.2.0):
-    resolution: {integrity: sha512-mntoJ0EVh7JfYyMKWKnt6yqVlJnwavEkwdXssSOxS1CEeyNX2GPkXQfChvlGhuEJplqcRhLaym6rEc690Ao0fg==}
+  /@plasmohq/storage@1.9.1(react@18.2.0):
+    resolution: {integrity: sha512-65UXCZEWUA0aHhho2Mu5igrP/zdxkvPsT5N3rIypOYh0prn6Xk5HD0dt7q0mo8hb16QUUWDUL7OUPH4IDeDsIg==}
     peerDependencies:
       react: ^16.8.6 || ^17 || ^18
     peerDependenciesMeta:
