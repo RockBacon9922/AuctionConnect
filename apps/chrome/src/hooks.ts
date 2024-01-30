@@ -14,7 +14,7 @@ export const useAppDispatch: DispatchFunc = useDispatch;
 export const useAppSelector: TypedUseSelectorHook<AppState> = useSelector;
 
 export const useGetCurrentLotSelector = () => {
-  const auction = useAppSelector((state) => state.auction);
-  const lotNumber = auction.currentLotId;
-  return auction.lots.find((lot) => lot.id === lotNumber);
+  return useAppSelector((state) =>
+    state.auction.lots.find((lot) => lot.id === state.auction.currentLotId),
+  );
 };
