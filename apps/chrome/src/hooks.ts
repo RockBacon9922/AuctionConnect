@@ -13,8 +13,14 @@ export const useAppDispatch: DispatchFunc = useDispatch;
 // I need to create my own TypedUseSelectorHook that pushes through AppState
 export const useAppSelector: TypedUseSelectorHook<AppState> = useSelector;
 
-export const useGetCurrentLotSelector = () => {
+export const useCurrentLot = () => {
   return useAppSelector((state) =>
     state.auction.lots.find((lot) => lot.id === state.auction.currentLotId),
+  );
+};
+
+export const useLot = (lotId: string) => {
+  return useAppSelector((state) =>
+    state.auction.lots.find((lot) => lot.id === lotId),
   );
 };
