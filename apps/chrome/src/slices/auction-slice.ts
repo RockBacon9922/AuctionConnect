@@ -1,3 +1,4 @@
+import { stat } from "fs";
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import { z } from "zod";
 
@@ -5,6 +6,7 @@ const bid = z.object({
   amount: z.number(),
   platform: z.string(),
   bidder: z.string(),
+  createdAt: z.date(),
 });
 
 const lot = z.object({
@@ -43,7 +45,11 @@ const initialState: Auction = {
 };
 
 export interface CreateBid extends Bid {
-  lotId: string;
+  id: string;
+}
+export interface UpdateLot {
+  id: string;
+  changes: Partial<Lot>;
 }
 
 const auctionSlice = createSlice({
@@ -69,31 +75,29 @@ const auctionSlice = createSlice({
       const payload = lot.parse(action.payload);
       state.lots.push(payload);
     },
+    createBid: (state, action: PayloadAction<CreateBid>) => {
+      const payload = action.payload;
+      const lot = state.lots.find((lot) => lot.id === payload.id);
+      if (!lot) throw new Error("Lot not found");
+      lot.bids.push({
+        amount: payload.amount,
+        bidder: payload.bidder,
+        platform: payload.platform,
+        createdAt: new Date(),
+      });
+    },
     updateLot: (state, action: PayloadAction<Lot>) => {
       const payload = action.payload;
       const lotInstance = state.lots.find((lot) => lot.id === payload.id);
       if (!lotInstance) throw new Error("Lot cannot be updated. Lot not found");
-      lotInstance.description = payload.description;
-      lotInstance.image = payload.image;
-      lotInstance.lowEstimate = payload.lowEstimate;
-      lotInstance.highEstimate = payload.highEstimate;
-      lotInstance.asking = payload.asking;
-      lotInstance.bids = payload.bids;
-      lotInstance.state = payload.state;
-    },
-    setAsk: (state, action: PayloadAction<number>) => {
-      const lot = state.lots.find((lot) => lot.id === state.currentLotId);
-      if (!lot) throw new Error("Lot not found");
-      lot.asking = action.payload;
-    },
-    createBid: (state, action: PayloadAction<CreateBid>) => {
-      const lot = state.lots.find((lot) => lot.id === action.payload.lotId);
-      if (!lot) throw new Error("Lot not found");
-      lot.bids.push({
-        amount: action.payload.amount,
-        platform: action.payload.platform,
-        bidder: action.payload.bidder,
-      });
+      lotInstance.description = payload.description || lotInstance.description;
+      lotInstance.image = payload.image || lotInstance.image;
+      lotInstance.lowEstimate = payload.lowEstimate || lotInstance.lowEstimate;
+      lotInstance.highEstimate =
+        payload.highEstimate || lotInstance.highEstimate;
+      lotInstance.asking = payload.asking || lotInstance.asking;
+      lotInstance.bids = payload.bids || lotInstance.bids;
+      lotInstance.state = payload.state || lotInstance.state;
     },
     sortBids: (state, action: PayloadAction<string>) => {
       const lot = state.lots.find((lot) => lot.id === action.payload);
@@ -131,9 +135,8 @@ export const {
   setAuctionHouse,
   setActiveLot,
   createLot,
-  updateLot,
   createBid,
-  setAsk,
+  updateLot,
   sortBids,
   startAuction,
   setAuctionPausedState,
