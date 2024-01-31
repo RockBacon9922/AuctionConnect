@@ -1,0 +1,48 @@
+{
+  "type": "excalidraw",
+  "version": 2,
+  "source": "https://marketplace.visualstudio.com/items?itemName=pomdtr.excalidraw-editor",
+  "elements": [
+    {
+      "id": "ElhO2j5OapV1ZZifwqs6m",
+      "type": "text",
+      "x": 366.2421875,
+      "y": 154.0234375,
+      "width": 727.8793334960938,
+      "height": 275,
+      "angle": 0,
+      "strokeColor": "#1e1e1e",
+      "backgroundColor": "transparent",
+      "fillStyle": "solid",
+      "strokeWidth": 2,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "groupIds": [],
+      "frameId": null,
+      "roundness": null,
+      "seed": 1073454014,
+      "version": 306,
+      "versionNonce": 1046538622,
+      "isDeleted": false,
+      "boundElements": null,
+      "updated": 1706693605965,
+      "link": null,
+      "locked": false,
+      "text": "Are you still using it?\n\nHow Easy is it to setup\n\nAny issues with it\n\nHow have your staff been introduced to it. Did they find it easy to use.\n\nHow many items are your pushing through your auction house.\n\nHow does it handle auto bids",
+      "fontSize": 20,
+      "fontFamily": 1,
+      "textAlign": "left",
+      "verticalAlign": "top",
+      "baseline": 268,
+      "containerId": null,
+      "originalText": "Are you still using it?\n\nHow Easy is it to setup\n\nAny issues with it\n\nHow have your staff been introduced to it. Did they find it easy to use.\n\nHow many items are your pushing through your auction house.\n\nHow does it handle auto bids",
+      "lineHeight": 1.25
+    }
+  ],
+  "appState": {
+    "gridSize": null,
+    "viewBackgroundColor": "#ffffff"
+  },
+  "files": {}
+}
