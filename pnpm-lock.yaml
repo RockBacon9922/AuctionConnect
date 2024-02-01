@@ -129,8 +129,8 @@ importers:
         specifier: ^5.1.0
         version: 5.1.0(astro@4.2.8)(tailwindcss@3.4.1)
       '@astrojs/vercel':
-        specifier: ^7.0.2
-        version: 7.0.2(astro@4.2.8)
+        specifier: ^7.1.0
+        version: 7.1.0(astro@4.2.8)
       '@sentry/astro':
         specifier: ^7.99.0
         version: 7.99.0(astro@4.2.8)
@@ -361,8 +361,8 @@ packages:
       - supports-color
     dev: false
 
-  /@astrojs/vercel@7.0.2(astro@4.2.8):
-    resolution: {integrity: sha512-XlUNqstoGVDDk5txGF2JadSt+jK79peMeFHlH6D5u9d9yeql1Kyw2o9nPvu9nr1PMdnDrBkF82DQE06iIzXZ1Q==}
+  /@astrojs/vercel@7.1.0(astro@4.2.8):
+    resolution: {integrity: sha512-J5iskScOm90X+XSwY9f87vPhFS0fPyTq2IXn1SZrU2gAqxvdEegiAwlpf1AhMnIwP87XsAQVIoJxzLeKzNo6DQ==}
     peerDependencies:
       astro: ^4.2.0
     dependencies:
@@ -372,6 +372,7 @@ packages:
       astro: 4.2.8(typescript@5.3.3)
       esbuild: 0.19.11
       fast-glob: 3.3.2
+      minimatch: 9.0.3
       set-cookie-parser: 2.6.0
       web-vitals: 3.5.0
     transitivePeerDependencies:
