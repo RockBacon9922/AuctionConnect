@@ -127,16 +127,16 @@ importers:
         version: 3.1.0(@babel/core@7.23.7)(preact@10.19.3)(vite@5.0.12)
       '@astrojs/tailwind':
         specifier: ^5.1.0
-        version: 5.1.0(astro@4.2.8)(tailwindcss@3.4.1)
+        version: 5.1.0(astro@4.3.1)(tailwindcss@3.4.1)
       '@astrojs/vercel':
         specifier: ^7.1.0
-        version: 7.1.0(astro@4.2.8)
+        version: 7.1.0(astro@4.3.1)
       '@sentry/astro':
         specifier: ^7.99.0
-        version: 7.99.0(astro@4.2.8)
+        version: 7.99.0(astro@4.3.1)
       astro:
-        specifier: ^4.2.8
-        version: 4.2.8(typescript@5.3.3)
+        specifier: ^4.3.1
+        version: 4.3.1(typescript@5.3.3)
       astro-seo:
         specifier: ^0.8.0
         version: 0.8.0
@@ -331,13 +331,13 @@ packages:
       prismjs: 1.29.0
     dev: false
 
-  /@astrojs/tailwind@5.1.0(astro@4.2.8)(tailwindcss@3.4.1):
+  /@astrojs/tailwind@5.1.0(astro@4.3.1)(tailwindcss@3.4.1):
     resolution: {integrity: sha512-BJoCDKuWhU9FT2qYg+fr6Nfb3qP4ShtyjXGHKA/4mHN94z7BGcmauQK23iy+YH5qWvTnhqkd6mQPQ1yTZTe9Ig==}
     peerDependencies:
       astro: ^3.0.0 || ^4.0.0
       tailwindcss: ^3.0.24
     dependencies:
-      astro: 4.2.8(typescript@5.3.3)
+      astro: 4.3.1(typescript@5.3.3)
       autoprefixer: 10.4.17(postcss@8.4.33)
       postcss: 8.4.33
       postcss-load-config: 4.0.2(postcss@8.4.33)
@@ -361,7 +361,7 @@ packages:
       - supports-color
     dev: false
 
-  /@astrojs/vercel@7.1.0(astro@4.2.8):
+  /@astrojs/vercel@7.1.0(astro@4.3.1):
     resolution: {integrity: sha512-J5iskScOm90X+XSwY9f87vPhFS0fPyTq2IXn1SZrU2gAqxvdEegiAwlpf1AhMnIwP87XsAQVIoJxzLeKzNo6DQ==}
     peerDependencies:
       astro: ^4.2.0
@@ -369,7 +369,7 @@ packages:
       '@astrojs/internal-helpers': 0.2.1
       '@vercel/analytics': 1.1.1
       '@vercel/nft': 0.24.4
-      astro: 4.2.8(typescript@5.3.3)
+      astro: 4.3.1(typescript@5.3.3)
       esbuild: 0.19.11
       fast-glob: 3.3.2
       minimatch: 9.0.3
@@ -3220,7 +3220,7 @@ packages:
       '@sentry/utils': 7.99.0
     dev: false
 
-  /@sentry/astro@7.99.0(astro@4.2.8):
+  /@sentry/astro@7.99.0(astro@4.3.1):
     resolution: {integrity: sha512-b+ZY5AZnlUnvS3nDeCdP/DHCGlvcxBe+NK43T4qdbtONHPcVpv1PytW6qGGOpMoDYdt7Iv+uYjrIZfNo3tTyiA==}
     engines: {node: '>=18.14.1'}
     peerDependencies:
@@ -3232,7 +3232,7 @@ packages:
       '@sentry/types': 7.99.0
       '@sentry/utils': 7.99.0
       '@sentry/vite-plugin': 2.10.3
-      astro: 4.2.8(typescript@5.3.3)
+      astro: 4.3.1(typescript@5.3.3)
     transitivePeerDependencies:
       - encoding
       - supports-color
@@ -4467,8 +4467,8 @@ packages:
     resolution: {integrity: sha512-7gq6lhibCM8FuzZIJlbLLWP5EJ9KL2/4XqeFrAg9O6ZK2xMFxJ5ubKf+a0VJwwTu8W8Xr421CmpiXu6Hq7n/7Q==}
     dev: false
 
-  /astro@4.2.8(typescript@5.3.3):
-    resolution: {integrity: sha512-h78IAdSEPMo1bvR40HECQYpnMPfDnk9WxRNJ1+Hw5szk4k5IMUw3nG153nErJABRnaxb6WLv7dtS4tukzJz0mw==}
+  /astro@4.3.1(typescript@5.3.3):
+    resolution: {integrity: sha512-LAY2zQHOuOXEhpguyw5X0AIz6Xq+TAkBNEqrgIxwj72R87mmRQqQWmjChMPPkK95nFHkYR/71M2BrKunpbsfyw==}
     engines: {node: '>=18.14.1', npm: '>=6.14.0'}
     hasBin: true
     dependencies:
